@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PostN.DataAccess.Entities;
 
 namespace PostN.DataAccess
 {
@@ -15,11 +16,21 @@ namespace PostN.DataAccess
         {
             _context = context;
         }
-        public List<PostN.Domain.User> GetUsers()
+
+        public List<Users> GetUsers()
         {
             return _context.Users.Select(
-                user => new PostN.Domain.User(user.Id, user.FirstName, user.LastName, user.AboutMe)
+                users => new PostN.Domain.Users(users.Id,users.FirstName, users.LastName, users.Password, users.Country, users.Email, users.PhoneNumber, users.DoB)
             ).ToList();
+        }
+
+        public List<Followers> GetFollowers()
+        {
+            return _context.Followers.Select(
+                followers => new PostN.Domain.Followers(followers.Id, followers.UserId, followers.UserId2, followers.FriendRequest)
+            ).ToList();
+            //comment
+            // comment
         }
     }
 }

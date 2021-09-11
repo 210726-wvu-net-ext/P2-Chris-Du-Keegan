@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PostN.Domain;
 
 namespace PostN.WebApi.Controllers
 {
@@ -17,10 +18,14 @@ namespace PostN.WebApi.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private IUserRepo _userrepo;
+        private IPostRepo _postrepo;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(IUserRepo userrepo, IPostRepo postrepo, ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
+            _userrepo = userrepo;
+            _postrepo = postrepo;
         }
 
         [HttpGet]
