@@ -27,6 +27,10 @@ namespace PostN.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
 
+            //REPOS GO HERE
+            //services.AddScoped<IUserRepo, UserRepo>();
+            //services.AddScoped<IPostRepo, PostRepo>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
