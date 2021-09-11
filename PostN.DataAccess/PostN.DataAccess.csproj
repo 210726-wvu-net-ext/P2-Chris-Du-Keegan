@@ -8,6 +8,7 @@
 		<ProjectReference Include="..\PostN.Domain\PostN.Domain.csproj" />
 	</ItemGroup>
   
+  
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.9">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
