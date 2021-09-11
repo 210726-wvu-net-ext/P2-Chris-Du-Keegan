@@ -29,6 +29,7 @@ namespace PostN.DataAccess
             return _context.Followers.Select(
                 followers => new PostN.Domain.Followers(followers.Id, followers.UserId, followers.UserId2, followers.FriendRequest)
             ).ToList();
+            //comment
         }
     }
 }
