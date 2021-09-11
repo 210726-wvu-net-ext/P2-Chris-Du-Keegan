@@ -6,6 +6,22 @@ namespace PostN.Domain
 {
     public class Users
     {
+        private object iD;
+        private object firstName;
+        private object p;
+
+        public Users(int iD, string firstName, string lastname, string password, string country, string email, int phonenumber, DateTime dob)
+        {
+            this.ID = ID;
+            this.FirstName = firstName;
+            this.LastName = lastname;
+            this.Password = password;
+            this.Country = country;
+            this.Email = email;
+            this.PhoneNumber = phonenumber;
+            this.DoB = dob;
+        }
+
         public int ID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
