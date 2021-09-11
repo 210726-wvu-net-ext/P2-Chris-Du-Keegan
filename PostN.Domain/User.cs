@@ -6,7 +6,7 @@ namespace PostN.Domain
     public class User
     {
         public User() { }
-       
+
         public User(int id, string firstName, string lastName, string aboutMe)
         {
             this.Id = id;
@@ -15,9 +15,26 @@ namespace PostN.Domain
             this.AboutMe = aboutMe;
         }
 
+        public User(int id, string firstName, string lastname, string email, string username, string aboutMe, string state, string country, int admin, string phonenumber, DateTime dob)
+        {
+            this.Id = id;
+            this.FirstName = firstName;
+            this.LastName = lastname;
+            this.Email = email;
+            this.Username = username;
+            this.AboutMe = aboutMe;
+            this.State = state;
+            this.Country = country;
+            this.Admin = admin;
+            this.PhoneNumber = phonenumber;
+            this.DoB = dob;
+        }
+
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Username { get; set; }
         public string Password { get; set; }
         public string AboutMe { get; set; }
         public string State { get; set; }
