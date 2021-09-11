@@ -20,9 +20,7 @@ namespace PostN.Domain
         public byte[] ProfilePic { get; set; }
 
         public List<Comment> Comments { get; set; }
-
-        public List<Follower> { get; set; }
-        public List<Follower> FollowerUsers { get; set; }
+        public List<Follower> Friends { get; set; }
         public List<Post> Posts { get; set; }
     }
 }
