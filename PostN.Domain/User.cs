@@ -15,15 +15,17 @@ namespace PostN.Domain
             this.AboutMe = aboutMe;
         }
 
-        public User(int id, string firstName, string lastname, string email, string username, string password, string country, string phonenumber, DateTime dob)
+        public User(int id, string firstName, string lastname, string email, string username, string aboutMe, string state, string country, int admin, string phonenumber, DateTime dob)
         {
             this.Id = id;
             this.FirstName = firstName;
             this.LastName = lastname;
             this.Email = email;
             this.Username = username;
-            this.Password = password;
+            this.AboutMe = aboutMe;
+            this.State = state;
             this.Country = country;
+            this.Admin = admin;
             this.PhoneNumber = phonenumber;
             this.DoB = dob;
         }
