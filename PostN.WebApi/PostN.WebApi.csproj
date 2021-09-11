@@ -20,6 +20,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\PostN.DataAccess\PostN.DataAccess.csproj" />
+		<ProjectReference Include="..\PostN.Domain\PostN.Domain.csproj" />
 	</ItemGroup>
 
 </Project>

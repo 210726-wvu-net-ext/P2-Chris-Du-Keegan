@@ -8,5 +8,6 @@ namespace PostN.Domain
 {
     public interface IUserRepo
     {
+        List<User> GetUsers();
     }
 }
