@@ -38,13 +38,13 @@ namespace PostN.DataAccess.Entities
                 entity.HasOne(d => d.Post)
                     .WithMany(p => p.Comments)
                     .HasForeignKey(d => d.PostId)
-                    .HasConstraintName("FK__Comments__PostId__7C4F7684");
+                    .HasConstraintName("FK__Comments__PostId__6CD828CA");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Comments)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Comments__UserId__7B5B524B");
+                    .HasConstraintName("FK__Comments__UserId__6BE40491");
             });
 
             modelBuilder.Entity<Follower>(entity =>
@@ -52,13 +52,13 @@ namespace PostN.DataAccess.Entities
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.FollowerUsers)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Followers__UserI__74AE54BC");
+                    .HasConstraintName("FK__Followers__UserI__65370702");
 
                 entity.HasOne(d => d.UserId2Navigation)
                     .WithMany(p => p.FollowerUserId2Navigations)
                     .HasForeignKey(d => d.UserId2)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Followers__UserI__75A278F5");
+                    .HasConstraintName("FK__Followers__UserI__662B2B3B");
             });
 
             modelBuilder.Entity<Post>(entity =>
@@ -77,12 +77,15 @@ namespace PostN.DataAccess.Entities
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Posts)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Posts__UserId__787EE5A0");
+                    .HasConstraintName("FK__Posts__UserId__690797E6");
             });
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.HasIndex(e => e.Email, "UQ__Users__A9D105345D94DE94")
+                entity.HasIndex(e => e.Username, "UQ__Users__536C85E443567589")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Email, "UQ__Users__A9D105340A0EB9FC")
                     .IsUnique();
 
                 entity.Property(e => e.AboutMe)
@@ -95,7 +98,7 @@ namespace PostN.DataAccess.Entities
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
-                entity.Property(e => e.DoB).HasColumnType("datetime");
+                entity.Property(e => e.DoB).HasColumnType("date");
 
                 entity.Property(e => e.Email)
                     .IsRequired()
@@ -117,9 +120,19 @@ namespace PostN.DataAccess.Entities
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
+                entity.Property(e => e.PhoneNumber)
+                    .IsRequired()
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.State)
                     .IsRequired()
                     .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Username)
+                    .IsRequired()
+                    .HasMaxLength(100)
                     .IsUnicode(false);
             });
 
