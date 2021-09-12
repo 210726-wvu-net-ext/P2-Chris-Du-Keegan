@@ -89,6 +89,8 @@ namespace PostN.DataAccess
             _context.SaveChanges();
         }
 
+        //For the explore controller
+
         public Domain.User SearchUsersByName(string username)
         {
             try
