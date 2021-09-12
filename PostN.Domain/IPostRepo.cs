@@ -20,7 +20,7 @@ namespace PostN.Domain
 
         Task<Comment> CreateCommentByPostId(int postId, Comment comment);
 
-        Task<Post> UpdateCommentById(int commentId, Comment comment);
+        Task<Comment> UpdateCommentById(int commentId, Comment comment);
 
         Post DeleteCommentById(int commentId, Comment comment);
     }

@@ -24,6 +24,7 @@ namespace PostN.DataAccess
             {
                 UserId = comment.UserId,
                 PostId = comment.PostId,
+                Created = comment.Created,
                 CommentBody = comment.CommentBody
             };
             await _context.Comments.AddAsync(newEntity);
@@ -129,15 +130,46 @@ namespace PostN.DataAccess
 
         }
 
-        public Task<Domain.Post> UpdateCommentById(int commentId, Domain.Comment comment)
+        public async Task<Domain.Comment> UpdateCommentById(int commentId, Domain.Comment comment)
         {
-            throw new NotImplementedException();
+            Entities.Comment foundComment = await _context.Comments.FindAsync(commentId);
+            if (foundComment != null)
+            {
+                foundComment.CommentBody = comment.CommentBody;
+                _context.Comments.Update(foundComment);
+                await _context.SaveChangesAsync();
+                return comment;
+
+            }
+
+            return new Domain.Comment();
+            /*var updatePost = new Entities.Post
+            {
+                Id = id,
+                Image = post.Image,
+                Title = post.Title,
+                Body = post.Body
+            };
+            
+            return Task.FromResult(post);*/
         }
 
-        public Task<Domain.Post> UpdatePostById(int id, Domain.Post post)
+        public async Task<Domain.Post> UpdatePostById(int id, Domain.Post post)
         {
-           
-            throw new NotImplementedException();
+
+            Entities.Post foundPost = await _context.Posts.FindAsync(id);
+            if (foundPost != null)
+            {
+                foundPost.Title = post.Title;
+                foundPost.Body = post.Body;
+                foundPost.Image = post.Image;
+                _context.Posts.Update(foundPost);
+                await _context.SaveChangesAsync();
+
+                return post;
+            }
+
+            return new Domain.Post();
         }
     }
 }

@@ -125,7 +125,7 @@ namespace PostN.WebApi.Controllers
         /// <param name="postId"></param>
         /// <param name="comment"></param>
         /// <returns></returns>
-        [HttpGet("{postId}/comment")]
+        [HttpPost("{postId}/comment")]
         public async Task<ActionResult<Post>> Post(int postId, [FromBody] CreatedComment comment)
         {
             if(await _postRepo.GetPostById(postId) is Post post)
@@ -152,13 +152,13 @@ namespace PostN.WebApi.Controllers
         /// <param name="comment"></param>
         /// <returns></returns>
         [HttpPut("{postId}/comment/{commentId}")]
-        public async Task<ActionResult<Post>> Put(int postId, int commentId, [FromBody] Comment comment)
+        public async Task<ActionResult<Comment>> Put(int postId, int commentId, [FromBody] Comment comment)
         {
             // find post ID, then comment ID, then update comment
             if (await _postRepo.GetPostById(postId) is Post post)
             {
-                Post postUpdatedComment = await _postRepo.UpdateCommentById(commentId, comment);
-                return Ok(postUpdatedComment);
+                Comment updatedComment = await _postRepo.UpdateCommentById(commentId, comment);
+                return Ok(updatedComment);
             }
             return NotFound();
         }
@@ -170,8 +170,8 @@ namespace PostN.WebApi.Controllers
         /// <param name="commentId"></param>
         /// <param name="comment"></param>
         /// <returns></returns>
-        [HttpDelete("{postId}/comment/{commendId}")]
-        public async Task<ActionResult<Post>> Delete(int postId, int commentId, [FromBody] Comment comment)
+        [HttpDelete("{postId}/comment/{commentId}")]
+        public async Task<IActionResult> Delete(int postId, int commentId, [FromBody] Comment comment)
         {
             if (await _postRepo.GetPostById(postId) is Post post)
             {
