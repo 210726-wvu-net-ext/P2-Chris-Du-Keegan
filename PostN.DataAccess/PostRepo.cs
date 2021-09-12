@@ -1,4 +1,5 @@
-﻿using PostN.Domain;
+﻿using PostN.DataAccess.Entities;
+using PostN.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,42 +10,48 @@ namespace PostN.DataAccess
 {
     public class PostRepo : IPostRepo
     {
-        public Post CreateCommentByPostId(int postId, Comment comment)
+        private readonly CMKWDTP2Context _context;
+
+        public PostRepo (CMKWDTP2Context context)
+        {
+            _context = context;
+        }
+        public Domain.Post CreateCommentByPostId(int postId, Domain.Comment comment)
         {
             throw new NotImplementedException();
         }
 
-        public Post CreatePost(Post post)
+        public Domain.Post CreatePost(Domain.Post post)
         {
             throw new NotImplementedException();
         }
 
-        public Post DeleteCommentById(int commentId, Comment comment)
+        public Domain.Post DeleteCommentById(int commentId, Domain.Comment comment)
         {
             throw new NotImplementedException();
         }
 
-        public Post DeletePostById(int id, Post post)
+        public Domain.Post DeletePostById(int id, Domain.Post post)
         {
             throw new NotImplementedException();
         }
 
-        public List<Post> GetAllPosts()
+        public List<Domain.Post> GetAllPosts()
         {
             throw new NotImplementedException();
         }
 
-        public Post GetPostById(int id)
+        public Domain.Post GetPostById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Post UpdateCommentById(int commentId, Comment comment)
+        public Domain.Post UpdateCommentById(int commentId, Domain.Comment comment)
         {
             throw new NotImplementedException();
         }
 
-        public Post UpdatePostById(int id, Post post)
+        public Domain.Post UpdatePostById(int id, Domain.Post post)
         {
             throw new NotImplementedException();
         }
