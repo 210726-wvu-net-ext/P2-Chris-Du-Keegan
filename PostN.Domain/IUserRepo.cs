@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace PostN.Domain
 {
     public interface IUserRepo
@@ -14,7 +15,7 @@ namespace PostN.Domain
         User AddAUser(User user);
         void DeleteUser(int id);
         List<Follower> GetFollowers();
-        User SearchUsersBYName(string username);
+        User SearchUsersByName(string username);
         
     }
 }

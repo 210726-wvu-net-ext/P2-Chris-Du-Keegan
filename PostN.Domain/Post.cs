@@ -8,8 +8,7 @@ namespace PostN.Domain
 {
     public class Post
     {
-<<<<<<< HEAD
-        public Post(int id, int userId, byte[] image, DateTime created, string title, string body)
+       /* public Post(int id, int userId, byte[] image, DateTime created, string title, string body)
         {
             this.Id = id;
             this.UserId = userId;
@@ -17,11 +16,11 @@ namespace PostN.Domain
             this.Created = created;
             this.Title = title;
             this.Body = body;
-        }
+        }*/
 
-=======
+
         public Post() { }
->>>>>>> Develop
+
         public int Id { get; set; }
         public int UserId { get; set; }
         public byte[] Image { get; set; }

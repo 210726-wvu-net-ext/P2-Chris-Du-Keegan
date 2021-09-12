@@ -89,12 +89,13 @@ namespace PostN.DataAccess
             _context.SaveChanges();
         }
 
-        public DataAccess.Entities.User SearchUsersByName(string username)
+        public Domain.User SearchUsersByName(string username)
         {
             try
             {
-                 var user = _context.Users.Single(u => u.Username.Equals(username));
-                return user;
+                Entities.User foundUser = _context.Users
+               .FirstOrDefault(user => user.Username == username);
+                return new Domain.User(foundUser.Id, foundUser.FirstName, foundUser.LastName, foundUser.Email, foundUser.Username, foundUser.AboutMe, foundUser.State, foundUser.Country, foundUser.Admin, foundUser.PhoneNumber, foundUser.DoB);
             }
             catch (System.InvalidOperationException e)
             {

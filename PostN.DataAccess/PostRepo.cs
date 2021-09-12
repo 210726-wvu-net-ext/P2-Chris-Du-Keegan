@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-﻿using PostN.DataAccess.Entities;
-=======
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using PostN.DataAccess.Entities;
->>>>>>> Develop
 using PostN.Domain;
 using System;
 using System.Collections.Generic;
@@ -16,23 +12,18 @@ namespace PostN.DataAccess
     public class PostRepo : IPostRepo
     {
         private readonly CMKWDTP2Context _context;
-<<<<<<< HEAD
         public PostRepo(CMKWDTP2Context context)
         {
             _context = context;
         }
 
-        public List<Domain.Post> GetPost()
+        /*public List<Domain.Post> GetPost()
         {
             return _context.Posts.Select(
                 users => new Domain.Post(users.Id, users.UserId, users.Image, users.Created, users.Title, users.Body)
             ).ToList();
-=======
+        }*/
 
-        public PostRepo (CMKWDTP2Context context)
-        {
-            _context = context;
-        }
         public Domain.Post CreateCommentByPostId(int postId, Domain.Comment comment)
         {
             
@@ -85,7 +76,6 @@ namespace PostN.DataAccess
         public Domain.Post UpdatePostById(int id, Domain.Post post)
         {
             throw new NotImplementedException();
->>>>>>> Develop
         }
     }
 }

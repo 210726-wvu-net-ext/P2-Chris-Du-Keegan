@@ -9,9 +9,6 @@ namespace PostN.Domain
 {
     public interface IPostRepo
     {
-<<<<<<< HEAD
-        List<Post> GetPost();
-=======
         List<Post> GetAllPosts();
         Post GetPostById(int id);
 
@@ -26,6 +23,5 @@ namespace PostN.Domain
         Post UpdateCommentById(int commentId, Comment comment);
 
         Post DeleteCommentById(int commentId, Comment comment);
->>>>>>> Develop
     }
 }
