@@ -1,10 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <UserSecretsId>b5f030ca-bf60-4c4d-8ac2-528660934fb4</UserSecretsId>
   </PropertyGroup>
 
+	<ItemGroup>
+		<ProjectReference Include="..\PostN.Domain\PostN.Domain.csproj" />
+	</ItemGroup>
+  
+  
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.9">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -15,12 +19,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\PostN.DataAccess\PostN.DataAccess.csproj" />
-		<ProjectReference Include="..\PostN.Domain\PostN.Domain.csproj" />
-	</ItemGroup>
 
 </Project>
