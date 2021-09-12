@@ -1,4 +1,5 @@
-﻿using PostN.DataAccess.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using PostN.DataAccess.Entities;
 using PostN.Domain;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace PostN.DataAccess
         }
         public Domain.Post CreateCommentByPostId(int postId, Domain.Comment comment)
         {
+            
             throw new NotImplementedException();
         }
 
@@ -38,7 +40,20 @@ namespace PostN.DataAccess
 
         public List<Domain.Post> GetAllPosts()
         {
-            throw new NotImplementedException();
+
+            return _context.Posts
+                .Include(u => u.User)
+                .ThenInclude(c => c.Comments)
+                .Select(p => new Domain.Post
+                {
+                    Id = p.Id,
+                    Username = p.User.Username,
+                    Image = p.Image,
+                    Title = p.Title,
+                    Body = p.Body,
+                    Comments = p.Comments.Select(k => new Domain.Comment(k.Id, k.UserId, k.PostId, k.User.Username, k.Created, k.CommentBody)).ToList()
+                }).ToList();
+            //throw new NotImplementedException();
         }
 
         public Domain.Post GetPostById(int id)

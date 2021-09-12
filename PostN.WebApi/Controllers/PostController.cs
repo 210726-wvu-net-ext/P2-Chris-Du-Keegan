@@ -106,7 +106,8 @@ namespace PostN.WebApi.Controllers
                     UserId = comment.UserId,
                     Username = comment.Username,
                     PostId = postId,
-                    Created = comment.Created
+                    Created = comment.Created,
+                    CommentBody = comment.CommentBody
                 };
                 post = _postRepo.CreateCommentByPostId(postId, newComment);
                 return Ok(post);

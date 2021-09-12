@@ -8,6 +8,7 @@ namespace PostN.Domain
 {
     public class Post
     {
+        public Post() { }
         public int Id { get; set; }
         public int UserId { get; set; }
         public byte[] Image { get; set; }
