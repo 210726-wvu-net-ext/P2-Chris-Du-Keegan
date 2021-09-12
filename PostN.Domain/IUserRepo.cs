@@ -10,5 +10,7 @@ namespace PostN.Domain
     {
         List<User> GetUsers();
         List<Follower> GetFollowers();
+        User SearchUsers(string username);
+        
     }
 }

@@ -30,5 +30,18 @@ namespace PostN.DataAccess
             ).ToList();
 
         }
+
+        public DataAccess.Entities.User SearchUsers(string username)
+        {
+            try
+            {
+                 var user = _context.Users.Single(u => u.Username.Equals(username));
+                return user;
+            }
+            catch (System.InvalidOperationException e)
+            {
+                return null;
+            }
+        }
     }
 }

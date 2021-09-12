@@ -8,6 +8,6 @@ namespace PostN.Domain
 {
     public interface IPostRepo
     {
-
+        List<Post> GetPost();
     }
 }
