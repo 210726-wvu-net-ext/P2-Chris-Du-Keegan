@@ -6,7 +6,7 @@ namespace PostN.Domain
     public class User
     {
         public User() { }
-       
+
         public User(int id, string firstName, string lastName, string aboutMe)
         {
             this.Id = id;
