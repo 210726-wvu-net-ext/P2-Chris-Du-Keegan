@@ -8,6 +8,7 @@ namespace PostN.Domain
 {
     public class Post
     {
+
         public Post() { }
 
         public Post(int id, int userId, byte[] image, DateTime created, string title, string body, string username)
@@ -20,7 +21,6 @@ namespace PostN.Domain
             Body = body;
             Username = username;
         }
-
         public int Id { get; set; }
         public int UserId { get; set; }
         public byte[] Image { get; set; }
