@@ -44,8 +44,7 @@ namespace PostN.DataAccess
             olduser.AboutMe = otherAboutMe;
                 
             _context.SaveChanges();
-            //return olduser;
-            //return new Domain.User(olduser.Id, olduser.FirstName, olduser.LastName, olduser.Email, olduser.Username, olduser.AboutMe, olduser.State, olduser.Country, olduser.Admin, olduser.PhoneNumber, olduser.DoB);
+            
         }
         public Domain.User AddAUser(Domain.User user)
         {
