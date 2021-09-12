@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using PostN.DataAccess.Entities;
 using PostN.Domain;
 using System;
@@ -12,11 +12,19 @@ namespace PostN.DataAccess
     public class PostRepo : IPostRepo
     {
         private readonly CMKWDTP2Context _context;
-
-        public PostRepo (CMKWDTP2Context context)
+        public PostRepo(CMKWDTP2Context context)
         {
             _context = context;
         }
+
+
+        /*public List<Domain.Post> GetPost()
+        {
+            return _context.Posts.Select(
+                users => new Domain.Post(users.Id, users.UserId, users.Image, users.Created, users.Title, users.Body)
+            ).ToList();
+        }*/
+
         public async Task<Domain.Comment> CreateCommentByPostId(int postId, Domain.Comment comment)
         {
 

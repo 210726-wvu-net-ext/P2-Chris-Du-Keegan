@@ -8,7 +8,19 @@ namespace PostN.Domain
 {
     public class Post
     {
+       /* public Post(int id, int userId, byte[] image, DateTime created, string title, string body)
+        {
+            this.Id = id;
+            this.UserId = userId;
+            this.Image = image;
+            this.Created = created;
+            this.Title = title;
+            this.Body = body;
+        }*/
+
+
         public Post() { }
+
         public int Id { get; set; }
         public int UserId { get; set; }
         public byte[] Image { get; set; }

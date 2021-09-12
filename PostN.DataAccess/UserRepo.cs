@@ -88,5 +88,19 @@ namespace PostN.DataAccess
             _context.Users.Remove(foundUser);
             _context.SaveChanges();
         }
+
+        public Domain.User SearchUsersByName(string username)
+        {
+            try
+            {
+                Entities.User foundUser = _context.Users
+               .FirstOrDefault(user => user.Username == username);
+                return new Domain.User(foundUser.Id, foundUser.FirstName, foundUser.LastName, foundUser.Email, foundUser.Username, foundUser.AboutMe, foundUser.State, foundUser.Country, foundUser.Admin, foundUser.PhoneNumber, foundUser.DoB);
+            }
+            catch (System.InvalidOperationException e)
+            {
+                return null;
+            }
+        }
     }
 }
