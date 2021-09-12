@@ -20,17 +20,17 @@ namespace PostN.WebApi.Controllers
         }
         // GET: api/post - we are getting all posts
         [HttpGet]
-        public IActionResult Get()
+        public async Task<ActionResult<Post>> Get()
         {
-            List<Post> Post = _postRepo.GetAllPosts();
+            List<Post> Post = await _postRepo.GetAllPosts();
             return Ok(Post);
         }
 
         // GET api/post/5 -- gets a specific post to display
         [HttpGet("{id}")]
-        public ActionResult<Post> Get(int id)
+        public async Task<ActionResult<Post>> Get(int id)
         {
-            if (_postRepo.GetPostById(id) is Post singlePost)
+            if (await _postRepo.GetPostById(id) is Post singlePost)
             {
                 return Ok(singlePost);
             }
@@ -40,7 +40,7 @@ namespace PostN.WebApi.Controllers
 
         // POST api/post - creates new post
         [HttpPost]
-        public IActionResult Post([FromBody] CreatedPost viewPost)
+        public async Task<ActionResult<Post>> Post([FromBody] CreatedPost viewPost)
         {
             //need to check if user is logged in. need user's ID
             //return the new post information - route them to that specific post
@@ -50,14 +50,14 @@ namespace PostN.WebApi.Controllers
                 {
                     UserId = viewPost.UserId,
                     Image = viewPost.Image,
-                    Created = viewPost.Created,
+                    Created = DateTime.Now,
                     Title = viewPost.Title,
                     Body = viewPost.Body,
                     Username = viewPost.Username
                 };
                 try
                 {
-                    var newPost = _postRepo.CreatePost(post);
+                    Post newPost = await _postRepo.CreatePost(post);
                     return Ok(newPost);
                 }
                 catch (Exception e)
@@ -70,15 +70,15 @@ namespace PostN.WebApi.Controllers
 
         // PUT api/post/5 // update post body
         [HttpPut("{id}")]
-        public ActionResult<Post> Put(int id, [FromBody] Post post)
+        public async Task<ActionResult<Post>> Put(int id, [FromBody] Post post)
         {
-            if (_postRepo.GetPostById(id) is Post oldPost)
+            if (await _postRepo.GetPostById(id) is Post oldPost)
             {
                 oldPost.Title = post.Title;
                 oldPost.Image = post.Image;
                 oldPost.Body = post.Body;
 
-                Post updatedPost = _postRepo.UpdatePostById(id, oldPost);
+                Post updatedPost = await _postRepo.UpdatePostById(id, oldPost);
                 return Ok(updatedPost);
             }
             return NotFound();
@@ -86,9 +86,9 @@ namespace PostN.WebApi.Controllers
 
         // DELETE api/post/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if(_postRepo.GetPostById(id) is Post post)
+            if(await _postRepo.GetPostById(id) is Post post)
             {
                 _postRepo.DeletePostById(id, post);
                 return NoContent();
@@ -97,43 +97,42 @@ namespace PostN.WebApi.Controllers
         }
 
         [HttpGet("{postId}/comment")]
-        public ActionResult<Post> Post(int postId, [FromBody] CreatedComment comment)
+        public async Task<ActionResult<Post>> Post(int postId, [FromBody] CreatedComment comment)
         {
-            if(_postRepo.GetPostById(postId) is Post post)
+            if(await _postRepo.GetPostById(postId) is Post post)
             {
                 var newComment = new Comment
                 {
                     UserId = comment.UserId,
                     Username = comment.Username,
                     PostId = postId,
-                    Created = comment.Created,
+                    Created = DateTime.Now,
                     CommentBody = comment.CommentBody
                 };
-                post = _postRepo.CreateCommentByPostId(postId, newComment);
+                await _postRepo.CreateCommentByPostId(postId, newComment);
                 return Ok(post);
             }
             return NotFound();
         }
 
         [HttpPut("{postId}/comment/{commentId}")]
-        public ActionResult<Post> Put(int postId, int commentId, [FromBody] Comment comment)
+        public async Task<ActionResult<Post>> Put(int postId, int commentId, [FromBody] Comment comment)
         {
             // find post ID, then comment ID, then update comment
-            if (_postRepo.GetPostById(postId) is Post post)
+            if (await _postRepo.GetPostById(postId) is Post post)
             {
-                Post postUpdatedComment = _postRepo.UpdateCommentById(commentId, comment);
+                Post postUpdatedComment = await _postRepo.UpdateCommentById(commentId, comment);
                 return Ok(postUpdatedComment);
             }
             return NotFound();
         }
         [HttpDelete("{postId}/comment/{commendId}")]
-        public ActionResult<Post> Delete(int postId, int commentId, [FromBody] Comment comment)
+        public async Task<ActionResult<Post>> Delete(int postId, int commentId, [FromBody] Comment comment)
         {
-            // find post by postId, then find comment
-            if (_postRepo.GetPostById(postId) is Post post)
+            if (await _postRepo.GetPostById(postId) is Post post)
             {
-                Post postUpdatedComment = _postRepo.DeleteCommentById(commentId, comment);
-                return Ok(postUpdatedComment);
+                _postRepo.DeleteCommentById(commentId, comment);
+                return Ok(post);
             }
             return NotFound();
         }

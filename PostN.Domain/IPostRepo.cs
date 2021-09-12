@@ -9,18 +9,18 @@ namespace PostN.Domain
 {
     public interface IPostRepo
     {
-        List<Post> GetAllPosts();
-        Post GetPostById(int id);
+        Task<List<Post>> GetAllPosts();
+        Task<Post> GetPostById(int id);
 
-        Post CreatePost(Post post);
+        Task<Post> CreatePost(Post post);
 
-        Post UpdatePostById(int id, Post post);
+        Task<Post> UpdatePostById(int id, Post post);
 
         Post DeletePostById(int id, Post post);
 
-        Post CreateCommentByPostId(int postId, Comment comment);
+        Task<Comment> CreateCommentByPostId(int postId, Comment comment);
 
-        Post UpdateCommentById(int commentId, Comment comment);
+        Task<Post> UpdateCommentById(int commentId, Comment comment);
 
         Post DeleteCommentById(int commentId, Comment comment);
     }
