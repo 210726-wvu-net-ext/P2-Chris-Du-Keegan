@@ -18,7 +18,11 @@ namespace PostN.WebApi.Controllers
         {
             _postRepo = postRepo;
         }
-        // GET: api/post - we are getting all posts
+        // GET: api/post
+        /// <summary>
+        /// Get's all Posts with Comments
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<Post>> Get()
         {
@@ -26,7 +30,12 @@ namespace PostN.WebApi.Controllers
             return Ok(Post);
         }
 
-        // GET api/post/5 -- gets a specific post to display
+        // GET api/post/5
+        /// <summary>
+        /// GET one post w/ comments by Post ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Post>> Get(int id)
         {
@@ -34,11 +43,15 @@ namespace PostN.WebApi.Controllers
             {
                 return Ok(singlePost);
             }
-            // need to return comments as well
             return NotFound();
         }
 
-        // POST api/post - creates new post
+        // POST api/post
+        /// <summary>
+        /// Create a POST using Post body
+        /// </summary>
+        /// <param name="viewPost"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult<Post>> Post([FromBody] CreatedPost viewPost)
         {
@@ -68,7 +81,13 @@ namespace PostN.WebApi.Controllers
             return NotFound();
         }
 
-        // PUT api/post/5 // update post body
+        // PUT api/post/5
+        /// <summary>
+        /// Update Post using Post URL ID and post body
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="post"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<ActionResult<Post>> Put(int id, [FromBody] Post post)
         {
@@ -85,6 +104,11 @@ namespace PostN.WebApi.Controllers
         }
 
         // DELETE api/post/5
+        /// <summary>
+        /// Delete post by POST ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -95,7 +119,12 @@ namespace PostN.WebApi.Controllers
             }
             return NotFound();
         }
-
+        /// <summary>
+        /// Create a comment using POST ID
+        /// </summary>
+        /// <param name="postId"></param>
+        /// <param name="comment"></param>
+        /// <returns></returns>
         [HttpGet("{postId}/comment")]
         public async Task<ActionResult<Post>> Post(int postId, [FromBody] CreatedComment comment)
         {
@@ -115,6 +144,13 @@ namespace PostN.WebApi.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        /// Update Comment by Comment&Post ID
+        /// </summary>
+        /// <param name="postId"></param>
+        /// <param name="commentId"></param>
+        /// <param name="comment"></param>
+        /// <returns></returns>
         [HttpPut("{postId}/comment/{commentId}")]
         public async Task<ActionResult<Post>> Put(int postId, int commentId, [FromBody] Comment comment)
         {
@@ -126,6 +162,14 @@ namespace PostN.WebApi.Controllers
             }
             return NotFound();
         }
+
+        /// <summary>
+        /// Delete Comment by Comment&Post ID - API Route
+        /// </summary>
+        /// <param name="postId"></param>
+        /// <param name="commentId"></param>
+        /// <param name="comment"></param>
+        /// <returns></returns>
         [HttpDelete("{postId}/comment/{commendId}")]
         public async Task<ActionResult<Post>> Delete(int postId, int commentId, [FromBody] Comment comment)
         {
