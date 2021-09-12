@@ -1,87 +1,142 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PostN.Domain;
+using PostN.WebApi.Models;
 
 namespace PostN.WebApi.Controllers
 {
-    public class PostController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class PostController : ControllerBase
     {
-        // GET: PostController
-        public ActionResult Index()
+        private readonly IPostRepo _postRepo;
+
+        public PostController(IPostRepo postRepo)
         {
-            return View();
+            _postRepo = postRepo;
+        }
+        // GET: api/post - we are getting all posts
+        [HttpGet]
+        public IActionResult Get()
+        {
+            List<Post> Post = _postRepo.GetAllPosts();
+            return Ok(Post);
         }
 
-        // GET: PostController/Details/5
-        public ActionResult Details(int id)
+        // GET api/post/5 -- gets a specific post to display
+        [HttpGet("{id}")]
+        public ActionResult<Post> Get(int id)
         {
-            return View();
+            if (_postRepo.GetPostById(id) is Post singlePost)
+            {
+                return Ok(singlePost);
+            }
+            // need to return comments as well
+            return NotFound();
         }
 
-        // GET: PostController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: PostController/Create
+        // POST api/post - creates new post
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public IActionResult Post([FromBody] CreatedPost viewPost)
         {
-            try
+            //need to check if user is logged in. need user's ID
+            //return the new post information - route them to that specific post
+            if(viewPost != null)
             {
-                return RedirectToAction(nameof(Index));
+                var post = new Post
+                {
+                    UserId = viewPost.UserId,
+                    Image = viewPost.Image,
+                    Created = viewPost.Created,
+                    Title = viewPost.Title,
+                    Body = viewPost.Body,
+                    Username = viewPost.Username
+                };
+                try
+                {
+                    var newPost = _postRepo.CreatePost(post);
+                    return Ok(newPost);
+                }
+                catch (Exception e)
+                {
+                    return NotFound(e);
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return NotFound();
         }
 
-        // GET: PostController/Edit/5
-        public ActionResult Edit(int id)
+        // PUT api/post/5 // update post body
+        [HttpPut("{id}")]
+        public ActionResult<Post> Put(int id, [FromBody] Post post)
         {
-            return View();
+            if (_postRepo.GetPostById(id) is Post oldPost)
+            {
+                oldPost.Title = post.Title;
+                oldPost.Image = post.Image;
+                oldPost.Body = post.Body;
+
+                Post updatedPost = _postRepo.UpdatePostById(id, oldPost);
+                return Ok(updatedPost);
+            }
+            return NotFound();
         }
 
-        // POST: PostController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        // DELETE api/post/5
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
         {
-            try
+            if(_postRepo.GetPostById(id) is Post post)
             {
-                return RedirectToAction(nameof(Index));
+                _postRepo.DeletePostById(id, post);
+                return NoContent();
             }
-            catch
-            {
-                return View();
-            }
+            return NotFound();
         }
 
-        // GET: PostController/Delete/5
-        public ActionResult Delete(int id)
+        [HttpGet("{postId}/comment")]
+        public ActionResult<Post> Post(int postId, [FromBody] CreatedComment comment)
         {
-            return View();
+            if(_postRepo.GetPostById(postId) is Post post)
+            {
+                var newComment = new Comment
+                {
+                    UserId = comment.UserId,
+                    Username = comment.Username,
+                    PostId = postId,
+                    Created = comment.Created,
+                    CommentBody = comment.CommentBody
+                };
+                post = _postRepo.CreateCommentByPostId(postId, newComment);
+                return Ok(post);
+            }
+            return NotFound();
         }
 
-        // POST: PostController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        [HttpPut("{postId}/comment/{commentId}")]
+        public ActionResult<Post> Put(int postId, int commentId, [FromBody] Comment comment)
         {
-            try
+            // find post ID, then comment ID, then update comment
+            if (_postRepo.GetPostById(postId) is Post post)
             {
-                return RedirectToAction(nameof(Index));
+                Post postUpdatedComment = _postRepo.UpdateCommentById(commentId, comment);
+                return Ok(postUpdatedComment);
             }
-            catch
-            {
-                return View();
-            }
+            return NotFound();
         }
+        [HttpDelete("{postId}/comment/{commendId}")]
+        public ActionResult<Post> Delete(int postId, int commentId, [FromBody] Comment comment)
+        {
+            // find post by postId, then find comment
+            if (_postRepo.GetPostById(postId) is Post post)
+            {
+                Post postUpdatedComment = _postRepo.DeleteCommentById(commentId, comment);
+                return Ok(postUpdatedComment);
+            }
+            return NotFound();
+        }
+
     }
 }

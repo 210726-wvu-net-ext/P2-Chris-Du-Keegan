@@ -9,8 +9,12 @@ namespace PostN.Domain
     public interface IUserRepo
     {
         List<User> GetUsers();
+        void UpdateUser(string otherFirstName, string otherLastName, string otherEmail, string otherPhoneNumber, string otherAboutMe, int id);
+        User SearchUserById(int id);
+        User AddAUser(User user);
+        void DeleteUser(int id);
         List<Follower> GetFollowers();
-        User SearchUsers(string username);
+        User SearchUsersBYName(string username);
         
     }
 }

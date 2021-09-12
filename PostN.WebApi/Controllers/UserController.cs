@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 
+
 namespace PostN.WebApi.Controllers
 {
     [Route("api/[controller]")]
@@ -32,27 +33,49 @@ namespace PostN.WebApi.Controllers
 
         // GET api/<UserController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            var user = _repo.GetUsers().First(x => x.Id == id);
+            return Ok(user);
         }
 
         // POST api/<UserController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Create(User user)
         {
+            if (!ModelState.IsValid)
+            {
+                return Ok();
+            }
+
+            try
+            {
+                var newuser = _repo.AddAUser(user);
+                return Ok(newuser);
+            }
+            catch(Exception e)
+            {
+                ModelState.AddModelError("Username", e.Message);
+                ModelState.AddModelError("Email", e.Message);
+                
+                return Ok(e.Message);
+            }
+            
         }
 
         // PUT api/<UserController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Update(string otherFirstName, string otherLastName, string otherEmail, string otherPhoneNumber, string otherAboutMe, int id)
         {
+            _repo.UpdateUser(otherFirstName, otherLastName, otherEmail, otherPhoneNumber, otherAboutMe, id);
+            return NoContent();
         }
 
         // DELETE api/<UserController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            _repo.DeleteUser(id);
         }
     }
 }
