@@ -30,7 +30,9 @@ namespace PostN.WebApi.Controllers
             var posts = _prepo.GetAllPosts();
             return Ok(posts);
         }
-        [HttpGet]
+
+        // GET: api/<ExploreController>
+        [HttpGet("search/{username}")]
         public IActionResult SearchUsers()
         {
             return Ok();
@@ -53,21 +55,10 @@ namespace PostN.WebApi.Controllers
         }
 
         // POST api/<ExploreController>
-        [HttpPost]
+/*        [HttpPost]
         public void Post([FromBody] string value)
         {
-        }
+        }*/
 
-        // PUT api/<ExploreController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<ExploreController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }
