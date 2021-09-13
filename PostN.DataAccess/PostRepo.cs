@@ -89,6 +89,7 @@ namespace PostN.DataAccess
                     UserId = p.User.Id,
                     Username = p.User.Username,
                     Image = p.Image,
+                    Created = p.Created,
                     Title = p.Title,
                     Body = p.Body,
                     Comments = p.Comments.Select(k => new Domain.Comment(k.Id, k.UserId, k.PostId, k.User.Username, k.Created, k.CommentBody)).ToList()
@@ -114,6 +115,7 @@ namespace PostN.DataAccess
                     Id = p.Id,
                     Username = p.User.Username,
                     Image = p.Image,
+                    Created = p.Created,
                     Title = p.Title,
                     Body = p.Body,
                     Comments = p.Comments.Select(k => new Domain.Comment(k.Id, k.UserId, k.PostId, k.User.Username, k.Created, k.CommentBody)).ToList()
