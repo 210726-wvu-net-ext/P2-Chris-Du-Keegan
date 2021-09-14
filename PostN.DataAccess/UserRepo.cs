@@ -1,4 +1,5 @@
-﻿using PostN.DataAccess.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using PostN.DataAccess.Entities;
 using PostN.Domain;
 using System;
 using System.Collections.Generic;
@@ -16,11 +17,45 @@ namespace PostN.DataAccess
             _context = context;
         }
 
-        public List<Domain.User> GetUsers()
+        public Task<List<Domain.User>> GetUsers()
         {
-            return _context.Users.Select(
-                users => new Domain.User(users.Id, users.FirstName, users.LastName, users.Email, users.Username, users.AboutMe, users.State, users.Country, users.Admin, users.PhoneNumber, users.DoB)
+            return Task.FromResult(_context.Users.Select(
+                users => new Domain.User
+                (
+                    users.Id, 
+                    users.FirstName, 
+                    users.LastName, 
+                    users.Email, 
+                    users.Username, 
+                    users.AboutMe, 
+                    users.State, 
+                    users.Country, 
+                    users.Admin, 
+                    users.PhoneNumber, 
+                    users.DoB
+                 )
+            ).ToList());
+        }
+        public Task<Domain.User> GetUsersById(int id)
+        {
+            var returnedUser = _context.Users.Select(
+                users => new Domain.User
+                (
+                    users.Id,
+                    users.FirstName,
+                    users.LastName,
+                    users.Email,
+                    users.Username,
+                    users.AboutMe,
+                    users.State,
+                    users.Country,
+                    users.Admin,
+                    users.PhoneNumber,
+                    users.DoB
+                 )
             ).ToList();
+            var USer = returnedUser.FirstOrDefault(user => user.Id == id);
+            return Task.FromResult(USer);
         }
 
         public Domain.User SearchUserById(int id)
@@ -46,7 +81,7 @@ namespace PostN.DataAccess
             _context.SaveChanges();
             
         }
-        public Domain.User AddAUser(Domain.User user)
+        public async Task<Domain.User> AddAUser(Domain.User user)
         {
             if (_context.Users.Any(u => u.Username == user.Username))
             {
@@ -56,7 +91,8 @@ namespace PostN.DataAccess
             {
                 throw new Exception($"Email {user.Email} has been already used");
             }
-            _context.Users.Add(
+
+            await _context.Users.AddAsync(
                 new Entities.User
                 {
                     FirstName = user.FirstName,
@@ -71,7 +107,8 @@ namespace PostN.DataAccess
                     DoB = user.DoB,
                 }
             );
-            _context.SaveChanges();
+            
+            await _context.SaveChangesAsync();
             return user;
         }
         public List<Domain.Follower> GetFollowers()
@@ -81,12 +118,18 @@ namespace PostN.DataAccess
             ).ToList();
 
         }
-        public void DeleteUser(int id)
+        public async Task<bool> DeleteUserById(int id)
         {
-            Entities.User foundUser = _context.Users
-                .FirstOrDefault(user => user.Id == id);
-            _context.Users.Remove(foundUser);
-            _context.SaveChanges();
+            Entities.User userToDelete = await _context.Users
+                .FirstOrDefaultAsync(user => user.Id == id);
+            if(userToDelete != null)
+            {
+                _context.Users.Remove(userToDelete);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
         }
 
         //For the explore controller
