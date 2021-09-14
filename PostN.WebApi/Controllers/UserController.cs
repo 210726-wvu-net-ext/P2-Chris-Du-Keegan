@@ -74,7 +74,7 @@ namespace PostN.WebApi.Controllers
                 ModelState.AddModelError("Username", e.Message);
                 ModelState.AddModelError("Email", e.Message);
                 
-                return Ok(e.Message);
+                return BadRequest(e.Message);
             }
             
         }
