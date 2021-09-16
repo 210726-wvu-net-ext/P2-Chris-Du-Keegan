@@ -9,6 +9,12 @@ namespace PostN.Domain
     {
         public User() { }
 
+        public User(int id, string username)
+        {
+            Id = id;
+            Username = username;
+        }
+
         public User(int id, string otherFirstName, string otherLastName, string otherEmail, string otherPhoneNumber, string otherAboutMe)
         {
             this.Id = id;

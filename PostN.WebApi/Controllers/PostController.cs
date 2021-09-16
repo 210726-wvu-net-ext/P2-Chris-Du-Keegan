@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using PostN.Domain;
 using PostN.WebApi.Models;
+using Microsoft.Extensions.Logging;
 
 namespace PostN.WebApi.Controllers
 {
@@ -14,10 +15,12 @@ namespace PostN.WebApi.Controllers
     public class PostController : ControllerBase
     {
         private readonly IPostRepo _postRepo;
+        private readonly ILogger<PostController> _logger;
 
-        public PostController(IPostRepo postRepo)
+        public PostController(IPostRepo postRepo, ILogger<PostController> logger)
         {
             _postRepo = postRepo;
+            _logger = logger;
         }
         // GET: api/post
         /// <summary>
@@ -42,6 +45,7 @@ namespace PostN.WebApi.Controllers
         {
             if (await _postRepo.GetPostById(id) is Post singlePost)
             {
+                _logger.LogInformation($"Found PostId:{id}");
                 return Ok(singlePost);
             }
             return NotFound();
@@ -71,11 +75,13 @@ namespace PostN.WebApi.Controllers
                 };
                 try
                 {
+                    _logger.LogDebug($"New {post.Title}, {post.Username}");
                     Post newPost = await _postRepo.CreatePost(post);
                     return Ok(newPost);
                 }
                 catch (Exception e)
                 {
+                    _logger.LogCritical("Failed to create new post", e);
                     return NotFound(e);
                 }
             }
@@ -101,6 +107,7 @@ namespace PostN.WebApi.Controllers
                 Post updatedPost = await _postRepo.UpdatePostById(id, oldPost);
                 return Ok(updatedPost);
             }
+            _logger.LogCritical($"Unable to update Post, ID: {id}, with {post.Title} | {post.Image} | {post.Body} | information");
             return NotFound();
         }
 
@@ -115,8 +122,10 @@ namespace PostN.WebApi.Controllers
         {
             if(await _postRepo.DeletePostByIdAsync(id))
             {
+                _logger.LogDebug($"Post ID: {id} was successfully deleted");
                 return NoContent();
             }
+            _logger.LogDebug($"Unable to find POST {id} to delete");
             return NotFound($"Post with ID: {id} not found!");
         }
         /// <summary>
@@ -130,6 +139,7 @@ namespace PostN.WebApi.Controllers
         {
             if(await _postRepo.GetPostById(postId) is Post post)
             {
+                _logger.LogDebug($"Found post {postId} to create comment");
                 var newComment = new Comment
                 {
                     UserId = comment.UserId,
@@ -141,6 +151,7 @@ namespace PostN.WebApi.Controllers
                newComment = await _postRepo.CreateCommentByPostId(postId, newComment);
                 return Ok(newComment);
             }
+            _logger.LogError($"Was not able to find post {postId} or something went wrong when creating {comment}");
             return NotFound();
         }
 
@@ -157,9 +168,12 @@ namespace PostN.WebApi.Controllers
             // find post ID, then comment ID, then update comment
             if (await _postRepo.GetPostById(postId) is Post post)
             {
+                _logger.LogInformation($"Found post {postId}");
                 Comment updatedComment = await _postRepo.UpdateCommentById(commentId, comment);
+                _logger.LogInformation($"Successfuly created comment with ID: {updatedComment.Id}");
                 return Ok(updatedComment);
             }
+            _logger.LogError($"Was not able to find post {postId} or something went wrong when updating {comment}");
             return NotFound();
         }
 
@@ -183,9 +197,10 @@ namespace PostN.WebApi.Controllers
 
             if(await _postRepo.DeleteCommentByIdAsync(postId, commentId))
             {
-
+                _logger.LogDebug($"Successfully deleted comment {commentId} under Post {postId}");
                 return NoContent();
             }
+            _logger.LogError($"Post with ID: {postId} and Comment ID: {commentId} not found!");
             return NotFound($"Post with ID: {postId} and Comment ID: {commentId} not found!");
         }
 

@@ -31,7 +31,7 @@ namespace PostN.WebApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> Get(int id)
         {
-            var user = await _repo.GetUsersById(id);
+            var user = await _repo.GetUserById(id);
             return Ok(user);
         }
 

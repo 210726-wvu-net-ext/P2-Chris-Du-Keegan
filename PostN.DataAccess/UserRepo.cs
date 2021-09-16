@@ -19,7 +19,7 @@ namespace PostN.DataAccess
 
         public Task<List<Domain.User>> GetUsers()
         {
-            return Task.FromResult(_context.Users.Select(
+            return /*Task.FromResult(_context.Users.Select(
                 users => new Domain.User
                 (
                     users.Id,
@@ -34,55 +34,126 @@ namespace PostN.DataAccess
                     users.PhoneNumber,
                     users.DoB
                  )
-            ).ToList());
+            ).ToList());*/
+                Task.FromResult(_context.Users
+                   .Include(p => p.Posts)
+                   .ThenInclude(c => c.Comments)
+                   .Include(f => f.FollowerUsers)
+                   .Select(u => new Domain.User
+                   {
+                       Id = u.Id,
+                       FirstName = u.FirstName,
+                       LastName = u.LastName,
+                       Email = u.Email,
+                       Username = u.Username,
+                       AboutMe = u.AboutMe,
+                       State = u.State,
+                       Country = u.Country,
+                       Admin = u.Admin,
+                       PhoneNumber = u.PhoneNumber,
+                       DoB = u.DoB,
+                       Comments = u.Comments.Select(c => new Domain.Comment(c.Id, c.UserId, c.PostId, c.Created, c.CommentBody)).ToList(),
+                       /*Friends = u.FollowerUsers.Select(f => new Domain.User(u.Id, u.Username)).ToList(),*/
+                       Posts = u.Posts.Select(k => new Domain.Post(k.Id, k.UserId, k.User.Username, k.Image, k.Created, k.Title, k.Body, k.Comments.Select(k => new Domain.Comment(k.Id, k.UserId, k.PostId, k.User.Username, k.Created, k.CommentBody)).ToList())).ToList()
+                   }
+                ).ToList());
         }
-        public Task<Domain.User> GetUsersById(int id)
+        public Task<Domain.User> GetUserById(int id)
         {
-            var returnedUser = _context.Users.Select(
-                users => new Domain.User
-                (
-                    users.Id,
-                    users.FirstName,
-                    users.LastName,
-                    users.Email,
-                    users.Username,
-                    users.AboutMe,
-                    users.State,
-                    users.Country,
-                    users.Admin,
-                    users.PhoneNumber,
-                    users.DoB
-                 )
-            ).ToList();
-            var USer = returnedUser.FirstOrDefault(user => user.Id == id);
-            return Task.FromResult(USer);
+            var returnedUsers = _context.Users
+                   .Include(p => p.Posts)
+                   .ThenInclude(c => c.Comments)
+                   .Select(u => new Domain.User
+                   {
+                       Id = u.Id,
+                       FirstName = u.FirstName,
+                       LastName = u.LastName,
+                       Email = u.Email,
+                       Username = u.Username,
+                       AboutMe = u.AboutMe,
+                       State = u.State,
+                       Country = u.Country,
+                       Admin = u.Admin,
+                       PhoneNumber = u.PhoneNumber,
+                       DoB = u.DoB,
+                       Comments = u.Comments.Select(c => new Domain.Comment(c.Id, c.UserId, c.User.Username, c.PostId, c.Created, c.CommentBody)).ToList(),
+                       Posts = u.Posts.Select(k => new Domain.Post(k.Id, k.UserId, k.User.Username, k.Image, k.Created, k.Title, k.Body, k.Comments.Select(k => new Domain.Comment(k.Id, k.UserId, k.PostId, k.User.Username, k.Created, k.CommentBody)).ToList())).ToList()
+                   }
+                ).ToList();
+            Domain.User singleUser = returnedUsers.FirstOrDefault(p => p.Id == id);
+            return Task.FromResult(singleUser);
+        }
+        public Task<Domain.User> GetUserwithPostComment(int id)
+        {
+            var returnedUsers =_context.Users
+                   .Include(p => p.Posts)
+                   .ThenInclude(c => c.Comments)
+                   .Select(u => new Domain.User
+                   {
+                       Id = u.Id,
+                       FirstName = u.FirstName,
+                       LastName = u.LastName,
+                       Email = u.Email,
+                       Username = u.Username,
+                       AboutMe = u.AboutMe,
+                       State = u.State,
+                       Country = u.Country,
+                       Admin = u.Admin,
+                       PhoneNumber = u.PhoneNumber,
+                       DoB = u.DoB,
+                       Comments = u.Comments.Select(c => new Domain.Comment(c.Id, c.UserId, c.User.Username, c.PostId, c.Created, c.CommentBody)).ToList(),
+                       Posts = u.Posts.Select(k => new Domain.Post(k.Id, k.UserId, k.User.Username, k.Image, k.Created, k.Title, k.Body, k.Comments.Select(k => new Domain.Comment(k.Id, k.UserId, k.PostId, k.User.Username, k.Created, k.CommentBody)).ToList())).ToList()
+                   }
+                ).ToList();
+            Domain.User singleUser = returnedUsers.FirstOrDefault(p => p.Id == id);
+            return Task.FromResult(singleUser);
         }
 
-        public Domain.User SearchUserById(int id)
+        public Task<Domain.User> SearchUserById(int id)
         {
-            Entities.User foundUser = _context.Users
-                .FirstOrDefault(user => user.Id == id);
-            return new Domain.User(foundUser.Id, foundUser.FirstName, foundUser.LastName, foundUser.Email, foundUser.Username, foundUser.AboutMe, foundUser.State, foundUser.Country, foundUser.Admin, foundUser.PhoneNumber, foundUser.DoB);
+            var returnedUsers = _context.Users
+                   .Include(p => p.Posts)
+                   .ThenInclude(c => c.Comments)
+                   .Select(u => new Domain.User
+                   {
+                       Id = u.Id,
+                       FirstName = u.FirstName,
+                       LastName = u.LastName,
+                       Email = u.Email,
+                       Username = u.Username,
+                       AboutMe = u.AboutMe,
+                       State = u.State,
+                       Country = u.Country,
+                       Admin = u.Admin,
+                       PhoneNumber = u.PhoneNumber,
+                       DoB = u.DoB,
+                       Comments = u.Comments.Select(c => new Domain.Comment(c.Id, c.UserId, c.User.Username, c.PostId, c.Created, c.CommentBody)).ToList(),
+                       Posts = u.Posts.Select(k => new Domain.Post(k.Id, k.UserId, k.User.Username, k.Image, k.Created, k.Title, k.Body, k.Comments.Select(k => new Domain.Comment(k.Id, k.UserId, k.PostId, k.User.Username, k.Created, k.CommentBody)).ToList())).ToList()
+                   }
+                ).ToList();
+            Domain.User singleUser = returnedUsers.FirstOrDefault(p => p.Id == id);
+            return Task.FromResult(singleUser);
         }
         public async Task<Domain.User> UpdateUser(int id, string otherFirstName, string otherLastName, string otherEmail, string otherPhoneNumber, string otherAboutMe)
         {
-            var olduser = SearchUserById(id);
-            if (olduser != null)
+            Entities.User foundUser = await _context.Users.FindAsync(id);
+            if (foundUser != null)
             {
-                if (otherFirstName == null) otherFirstName = olduser.FirstName;
-                olduser.FirstName = otherFirstName;
-                if (otherLastName == null) otherLastName = olduser.LastName;
-                olduser.LastName = otherLastName;
-                if (otherEmail == null) otherEmail = olduser.Email;
-                olduser.Email = otherEmail;
-                if (otherPhoneNumber == null) otherPhoneNumber = olduser.PhoneNumber;
-                olduser.PhoneNumber = otherPhoneNumber;
-                if (otherAboutMe == null) otherAboutMe = olduser.AboutMe;
-                olduser.AboutMe = otherAboutMe;
-            }
-            await _context.SaveChangesAsync();
+                foundUser.Id = id;
+                foundUser.FirstName = otherFirstName;
+                foundUser.LastName = otherFirstName;
+                foundUser.Email = otherEmail;
+                foundUser.PhoneNumber = otherPhoneNumber;
+                foundUser.AboutMe = otherAboutMe;
 
-            return olduser;
+                 _context.Users.Update(foundUser);
+                await _context.SaveChangesAsync();
+
+                var updatedUser = await GetUserById(id);
+                return updatedUser;
+            }
+
+            return new Domain.User();
 
         }
         public async Task<Domain.User> AddAUser(Domain.User user)
@@ -161,6 +232,7 @@ namespace PostN.DataAccess
             }
             catch (System.InvalidOperationException e)
             {
+                Console.WriteLine(e);
                 return null;
             }
         }
