@@ -11,7 +11,7 @@ namespace PostN.Domain
     {
         Task<List<User>> GetUsers();
         Task<User> GetUsersById(int id);
-        void UpdateUser(string otherFirstName, string otherLastName, string otherEmail, string otherPhoneNumber, string otherAboutMe, int id);
+        Task<User> UpdateUser(int id, string otherFirstName, string otherLastName, string otherEmail, string otherPhoneNumber, string otherAboutMe);
         User SearchUserById(int id);
         Task<User> AddAUser(User user);
         Task<bool> DeleteUserById(int id);

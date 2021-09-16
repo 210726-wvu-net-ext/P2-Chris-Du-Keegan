@@ -2,13 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PostN.Domain;
-using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using PostN.WebApi.Models;
+using System.Net.Http;
 
 namespace PostN.WebApi.Controllers
 {
@@ -81,20 +78,28 @@ namespace PostN.WebApi.Controllers
 
         // PUT api/<UserController>/5
         [HttpPut("{id}")]
-        public IActionResult Update(string otherFirstName, string otherLastName, string otherEmail, string otherPhoneNumber, string otherAboutMe, int id)
+        public async Task<ActionResult> Put(string otherFirstName, string otherLastName, string otherEmail, string otherPhoneNumber, string otherAboutMe, int id)
         {
-            _repo.UpdateUser(otherFirstName, otherLastName, otherEmail, otherPhoneNumber, otherAboutMe, id);
-            return NoContent();
+            try { 
+            var updateUser = await _repo.UpdateUser(id, otherFirstName, otherLastName, otherEmail, otherPhoneNumber, otherAboutMe);
+                return Ok(updateUser);
+            }
+            catch(Exception e)
+            {
+                return NotFound(e.Message);
+            }
+            
         }
 
         // DELETE api/<UserController>/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             bool result = await _repo.DeleteUserById(id);
             if (result == false)
                 return NotFound($"Post with ID: {id} not found!");
-            return Ok();
+            return Ok("It has been deleted");
         }
+
     }
 }

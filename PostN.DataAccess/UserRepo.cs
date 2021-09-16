@@ -64,22 +64,26 @@ namespace PostN.DataAccess
                 .FirstOrDefault(user => user.Id == id);
             return new Domain.User(foundUser.Id, foundUser.FirstName, foundUser.LastName, foundUser.Email, foundUser.Username, foundUser.AboutMe, foundUser.State, foundUser.Country, foundUser.Admin, foundUser.PhoneNumber, foundUser.DoB);
         }
-        public void UpdateUser(string otherFirstName, string otherLastName, string otherEmail, string otherPhoneNumber, string otherAboutMe, int id)
+        public async Task<Domain.User> UpdateUser(int id, string otherFirstName, string otherLastName, string otherEmail, string otherPhoneNumber, string otherAboutMe)
         {
-            Entities.User olduser = _context.Users.First(user => user.Id == id);
-                if (otherFirstName == null) otherFirstName = olduser.FirstName;  
-            olduser.FirstName = otherFirstName;
+            var olduser = SearchUserById(id);
+            if (olduser != null)
+            {
+                if (otherFirstName == null) otherFirstName = olduser.FirstName;
+                olduser.FirstName = otherFirstName;
                 if (otherLastName == null) otherLastName = olduser.LastName;
-            olduser.LastName = otherLastName;
+                olduser.LastName = otherLastName;
                 if (otherEmail == null) otherEmail = olduser.Email;
-            olduser.Email = otherEmail;
+                olduser.Email = otherEmail;
                 if (otherPhoneNumber == null) otherPhoneNumber = olduser.PhoneNumber;
-            olduser.PhoneNumber = otherPhoneNumber;
+                olduser.PhoneNumber = otherPhoneNumber;
                 if (otherAboutMe == null) otherAboutMe = olduser.AboutMe;
-            olduser.AboutMe = otherAboutMe;
-                
-            _context.SaveChanges();
-            
+                olduser.AboutMe = otherAboutMe;
+            }
+            await _context.SaveChangesAsync();
+
+            return olduser;
+
         }
         public async Task<Domain.User> AddAUser(Domain.User user)
         {
@@ -126,10 +130,11 @@ namespace PostN.DataAccess
         {
             if (_context.Users.Any(user => user.Email == email))
             {
-                return false;
+                return true;
             }
-            return true;
+            return false;
         }
+
         public List<Domain.Follower> GetFollowers()
         {
             return _context.Followers.Select(
@@ -150,6 +155,8 @@ namespace PostN.DataAccess
 
             return false;
         }
+        
+       
 
         //For the explore controller
 

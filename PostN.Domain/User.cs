@@ -9,12 +9,15 @@ namespace PostN.Domain
     {
         public User() { }
 
-        public User(int id, string firstName, string lastName, string aboutMe)
+        public User(int id, string otherFirstName, string otherLastName, string otherEmail, string otherPhoneNumber, string otherAboutMe)
         {
             this.Id = id;
-            this.FirstName = firstName;
-            this.LastName = lastName;
-            this.AboutMe = aboutMe;
+            this.FirstName = otherFirstName;
+            this.LastName = otherLastName;
+            this.Email = otherEmail;
+            this.PhoneNumber = otherPhoneNumber;
+            this.AboutMe = otherAboutMe;
+
         }
 
         public User(int id, string firstName, string lastname, string email, string username, string aboutMe, string state, string country, int admin, string phonenumber, DateTime dob)
