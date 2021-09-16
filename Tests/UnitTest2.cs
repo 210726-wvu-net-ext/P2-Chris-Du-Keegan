@@ -31,7 +31,7 @@ namespace Tests
                 IUserRepo _repo = new UserRepo(testcontext1);
         
                 bool result = _repo.UniqueUsername("dtran");
-                Assert.True(result, "expect to be true");
+                Assert.False(result, "expect to be false");
             }
         
         }
