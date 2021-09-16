@@ -17,6 +17,8 @@ namespace PostN.Domain
         Task<bool> DeleteUserById(int id);
         List<Follower> GetFollowers();
         User SearchUsersByName(string username);
-        
+        bool UniqueUsername(string username);
+        bool UniqueEmail(string email);
+
     }
 }

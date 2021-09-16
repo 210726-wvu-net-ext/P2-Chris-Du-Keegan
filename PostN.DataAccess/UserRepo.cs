@@ -83,11 +83,11 @@ namespace PostN.DataAccess
         }
         public async Task<Domain.User> AddAUser(Domain.User user)
         {
-            if (_context.Users.Any(u => u.Username == user.Username))
+            if (UniqueUsername(user.Username) is true)
             {
                 throw new Exception($"Username {user.Username} has been already used");
             }
-            if (_context.Users.Any(u => u.Email == user.Email))
+            if (UniqueEmail(user.Email) is true)
             {
                 throw new Exception($"Email {user.Email} has been already used");
             }
@@ -110,6 +110,25 @@ namespace PostN.DataAccess
             
             await _context.SaveChangesAsync();
             return user;
+        }
+
+        //Username should be unique
+        public bool UniqueUsername(string username)
+        {
+            if (_context.Users.Any(u => u.Username == username))
+            {
+                return true;
+            }
+            return false;
+        }
+        //Email should be unique
+        public bool UniqueEmail(string email)
+        {
+            if (_context.Users.Any(user => user.Email == email))
+            {
+                return false;
+            }
+            return true;
         }
         public List<Domain.Follower> GetFollowers()
         {
