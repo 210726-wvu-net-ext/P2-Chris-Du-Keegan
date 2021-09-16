@@ -1,0 +1,58 @@
+import { User } from "./interfaces/user";
+
+export const USERS: User[] = [
+    {
+        Id: 1,
+        FirstName: "Keegan",
+        LastName: "Traun",
+        Email: "kwedwick@gmail.com",
+        Username: "KTran",
+        Password: "password",
+        AboutMe: "New ASP.NET developer",
+        State: "MA",
+        Country: "USA",
+        Admin: 1,
+        PhoneNumber: "789-123-1111",
+    },
+    {
+        Id: 2,
+        FirstName: "Chris",
+        LastName: "Traun",
+        Email: "CT@gmail.com",
+        Username: "CTran",
+        Password: "password",
+        AboutMe: "New ASP.NET developer",
+        State: "MA",
+        Country: "USA",
+        Admin: 1,
+        PhoneNumber: "789-123-1111",
+    },
+    {
+        Id: 3,
+        FirstName: "Bob",
+        LastName: "Traun",
+        Email: "BTran@gmail.com",
+        Username: "BTran",
+        Password: "password",
+        AboutMe: "New ASP.NET developer",
+        State: "MA",
+        Country: "USA",
+        Admin: 1,
+        PhoneNumber: "789-123-1111",
+    },
+    {
+        Id: 4,
+        FirstName: "Du",
+        LastName: "Tran",
+        Email: "dTran@gmail.com",
+        Username: "dTran",
+        Password: "password",
+        AboutMe: "New ASP.NET developer",
+        State: "MA",
+        Country: "USA",
+        Admin: 1,
+        PhoneNumber: "789-123-1111",
+    },
+
+
+]

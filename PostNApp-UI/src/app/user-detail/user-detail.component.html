@@ -1,0 +1,7 @@
+<button (click)="goBack()">go back</button>
+<div *ngIf="user">
+    <h2>User Details:</h2>
+    <h2>{{user.FirstName}} {{user.LastName}}</h2>
+    <div><span>Username: {{user.Username}}</span></div>
+    <div><span>Email: {{user.Email}}</span></div>
+</div>

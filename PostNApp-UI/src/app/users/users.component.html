@@ -1,0 +1,9 @@
+<h1>ALL USERS</h1>
+<ul>
+  <li *ngFor="let user of users">
+    <a routerLink="/profile/{{user.Id}}">
+        {{user.Id}}: {{user.Username}}
+      </a>
+  </li>
+</ul>
+
