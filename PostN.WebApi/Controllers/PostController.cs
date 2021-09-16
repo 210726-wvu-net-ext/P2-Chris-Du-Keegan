@@ -1,87 +1,208 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PostN.Domain;
+using PostN.WebApi.Models;
+using Microsoft.Extensions.Logging;
 
 namespace PostN.WebApi.Controllers
 {
-    public class PostController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class PostController : ControllerBase
     {
-        // GET: PostController
-        public ActionResult Index()
+        private readonly IPostRepo _postRepo;
+        private readonly ILogger<PostController> _logger;
+
+        public PostController(IPostRepo postRepo, ILogger<PostController> logger)
         {
-            return View();
+            _postRepo = postRepo;
+            _logger = logger;
+        }
+        // GET: api/post
+        /// <summary>
+        /// Get's all Posts with Comments
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<ActionResult<Post>> Get()
+        {
+            List<Post> Post = await _postRepo.GetAllPosts();
+            return Ok(Post);
         }
 
-        // GET: PostController/Details/5
-        public ActionResult Details(int id)
+        // GET api/post/5
+        /// <summary>
+        /// GET one post w/ comments by Post ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Post>> Get(int id)
         {
-            return View();
+            if (await _postRepo.GetPostById(id) is Post singlePost)
+            {
+                _logger.LogInformation($"Found PostId:{id}");
+                return Ok(singlePost);
+            }
+            return NotFound();
         }
 
-        // GET: PostController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: PostController/Create
+        // POST api/post
+        /// <summary>
+        /// Create a POST using Post body
+        /// </summary>
+        /// <param name="viewPost"></param>
+        /// <returns></returns>
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult<Post>> Post([FromBody] CreatedPost viewPost)
         {
-            try
+            //need to check if user is logged in. need user's ID
+            //return the new post information - route them to that specific post
+            if(viewPost != null)
             {
-                return RedirectToAction(nameof(Index));
+                var post = new Post
+                {
+                    UserId = viewPost.UserId,
+                    Image = viewPost.Image,
+                    Created = DateTime.Now,
+                    Title = viewPost.Title,
+                    Body = viewPost.Body,
+                    Username = viewPost.Username
+                };
+                try
+                {
+                    _logger.LogDebug($"New {post.Title}, {post.Username}");
+                    Post newPost = await _postRepo.CreatePost(post);
+                    return Ok(newPost);
+                }
+                catch (Exception e)
+                {
+                    _logger.LogCritical("Failed to create new post", e);
+                    return NotFound(e);
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return NotFound();
         }
 
-        // GET: PostController/Edit/5
-        public ActionResult Edit(int id)
+        // PUT api/post/5
+        /// <summary>
+        /// Update Post using Post URL ID and post body
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="post"></param>
+        /// <returns></returns>
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Post>> Put(int id, [FromBody] Post post)
         {
-            return View();
+            if (await _postRepo.GetPostById(id) is Post oldPost)
+            {
+                oldPost.Title = post.Title;
+                oldPost.Image = post.Image;
+                oldPost.Body = post.Body;
+
+                Post updatedPost = await _postRepo.UpdatePostById(id, oldPost);
+                return Ok(updatedPost);
+            }
+            _logger.LogCritical($"Unable to update Post, ID: {id}, with {post.Title} | {post.Image} | {post.Body} | information");
+            return NotFound();
         }
 
-        // POST: PostController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        // DELETE api/post/5
+        /// <summary>
+        /// Delete post by POST ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
-            try
+            if(await _postRepo.DeletePostByIdAsync(id))
             {
-                return RedirectToAction(nameof(Index));
+                _logger.LogDebug($"Post ID: {id} was successfully deleted");
+                return NoContent();
             }
-            catch
+            _logger.LogDebug($"Unable to find POST {id} to delete");
+            return NotFound($"Post with ID: {id} not found!");
+        }
+        /// <summary>
+        /// Create a comment using POST ID
+        /// </summary>
+        /// <param name="postId"></param>
+        /// <param name="comment"></param>
+        /// <returns></returns>
+        [HttpPost("{postId}/comment")]
+        public async Task<ActionResult<Post>> Post(int postId, [FromBody] CreatedComment comment)
+        {
+            if(await _postRepo.GetPostById(postId) is Post post)
             {
-                return View();
+                _logger.LogDebug($"Found post {postId} to create comment");
+                var newComment = new Comment
+                {
+                    UserId = comment.UserId,
+                    Username = comment.Username,
+                    PostId = postId,
+                    Created = DateTime.Now,
+                    CommentBody = comment.CommentBody
+                };
+               newComment = await _postRepo.CreateCommentByPostId(postId, newComment);
+                return Ok(newComment);
             }
+            _logger.LogError($"Was not able to find post {postId} or something went wrong when creating {comment}");
+            return NotFound();
         }
 
-        // GET: PostController/Delete/5
-        public ActionResult Delete(int id)
+        /// <summary>
+        /// Update Comment by Comment&Post ID
+        /// </summary>
+        /// <param name="postId"></param>
+        /// <param name="commentId"></param>
+        /// <param name="comment"></param>
+        /// <returns></returns>
+        [HttpPut("{postId}/comment/{commentId}")]
+        public async Task<ActionResult<Comment>> Put(int postId, int commentId, [FromBody] Comment comment)
         {
-            return View();
+            // find post ID, then comment ID, then update comment
+            if (await _postRepo.GetPostById(postId) is Post post)
+            {
+                _logger.LogInformation($"Found post {postId}");
+                Comment updatedComment = await _postRepo.UpdateCommentById(commentId, comment);
+                _logger.LogInformation($"Successfuly created comment with ID: {updatedComment.Id}");
+                return Ok(updatedComment);
+            }
+            _logger.LogError($"Was not able to find post {postId} or something went wrong when updating {comment}");
+            return NotFound();
         }
 
-        // POST: PostController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        /// <summary>
+        /// Delete Comment by Comment&Post ID - API Route
+        /// </summary>
+        /// <param name="postId"></param>
+        /// <param name="commentId"></param>
+        /// <param name="comment"></param>
+        /// <returns></returns>
+        [HttpDelete("{postId}/comment/{commentId}")]
+        public async Task<IActionResult> Delete(int postId, int commentId)
         {
-            try
+            /*if (await _postRepo.GetPostById(postId) is Post post)
             {
-                return RedirectToAction(nameof(Index));
+                await _postRepo.DeleteCommentByIdAsync(commentId);
+                return Ok(post);
             }
-            catch
+            return NotFound();*/
+
+
+            if(await _postRepo.DeleteCommentByIdAsync(postId, commentId))
             {
-                return View();
+                _logger.LogDebug($"Successfully deleted comment {commentId} under Post {postId}");
+                return NoContent();
             }
+            _logger.LogError($"Post with ID: {postId} and Comment ID: {commentId} not found!");
+            return NotFound($"Post with ID: {postId} and Comment ID: {commentId} not found!");
         }
+
     }
 }

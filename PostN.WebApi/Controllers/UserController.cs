@@ -1,13 +1,10 @@
-
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PostN.Domain;
-﻿using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
+using PostN.WebApi.Models;
+using System.Net.Http;
 
 namespace PostN.WebApi.Controllers
 {
@@ -24,35 +21,86 @@ namespace PostN.WebApi.Controllers
         }
         // GET: api/<UserController>
         [HttpGet]
-        public IActionResult GetUsers()
+        public async Task<ActionResult<User>> GetUsers()
         {
-            var user = _repo.GetUsers();
+            var user = await _repo.GetUsers();
             return Ok(user);
         }
 
         // GET api/<UserController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<User>> Get(int id)
         {
-            return "value";
+            var user = await _repo.GetUserById(id);
+            return Ok(user);
         }
 
         // POST api/<UserController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult> Create(CreatedUser user)
         {
+
+            if (!ModelState.IsValid)
+            {
+                return Ok();
+            }
+
+            try
+            {
+                var newUser = new User
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,
+                    Username = user.Username,
+                    Password = user.Password,
+                    AboutMe = user.AboutMe,
+                    State = user.State,
+                    Country = user.Country,
+                    Admin = user.Admin,
+                    PhoneNumber = user.PhoneNumber,
+                    DoB = user.DoB
+
+                };
+                var returnedUSer = await _repo.AddAUser(newUser);
+                return Ok(returnedUSer);
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError("Username", e.Message);
+                ModelState.AddModelError("Email", e.Message);
+
+                return BadRequest(e.Message);
+            }
+
         }
 
         // PUT api/<UserController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult> Put(int id, UpdatedUser user)
         {
+            try
+            {
+                var updateUser = await _repo.UpdateUser(id, user.FirstName, user.LastName, user.Email, user.PhoneNumber, user.AboutMe);
+                return Ok(updateUser);
+            }
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
+            }
+
+
         }
 
         // DELETE api/<UserController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
+            bool result = await _repo.DeleteUserById(id);
+            if (result == false)
+                return NotFound($"Post with ID: {id} not found!");
+            return Ok("It has been deleted");
         }
+
     }
 }
