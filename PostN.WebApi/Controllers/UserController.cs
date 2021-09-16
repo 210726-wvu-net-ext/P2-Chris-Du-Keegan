@@ -78,7 +78,7 @@ namespace PostN.WebApi.Controllers
 
         // PUT api/<UserController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, Domain.User user)
+        public async Task<ActionResult> Put(int id, UpdatedUser user)
         {
             try
             {
