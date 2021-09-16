@@ -2,6 +2,13 @@
 {
     public class Follower
     {
+        public Follower(int id, int userId2, string username, int friendrequest)
+        {
+            Id = id;
+            UserId2 = userId2;
+            FriendUsername = username;
+            FriendRequest = friendrequest;
+        }
 
         public Follower(int id, int userid, int userid2, int friedrequest)
         {

@@ -39,6 +39,7 @@ namespace PostN.DataAccess
                    .Include(p => p.Posts)
                    .ThenInclude(c => c.Comments)
                    .Include(f => f.FollowerUsers)
+                   .ThenInclude(fu => fu.UserId2Navigation)
                    .Select(u => new Domain.User
                    {
                        Id = u.Id,
@@ -53,7 +54,7 @@ namespace PostN.DataAccess
                        PhoneNumber = u.PhoneNumber,
                        DoB = u.DoB,
                        Comments = u.Comments.Select(c => new Domain.Comment(c.Id, c.UserId, c.PostId, c.Created, c.CommentBody)).ToList(),
-                       /*Friends = u.FollowerUsers.Select(f => new Domain.User(u.Id, u.Username)).ToList(),*/
+                       Friends = u.FollowerUsers.Select(f => new Domain.Follower(f.Id, f.UserId2, f.UserId2Navigation.Username, f.FriendRequest)).ToList(),
                        Posts = u.Posts.Select(k => new Domain.Post(k.Id, k.UserId, k.User.Username, k.Image, k.Created, k.Title, k.Body, k.Comments.Select(k => new Domain.Comment(k.Id, k.UserId, k.PostId, k.User.Username, k.Created, k.CommentBody)).ToList())).ToList()
                    }
                 ).ToList());
@@ -63,6 +64,8 @@ namespace PostN.DataAccess
             var returnedUsers = _context.Users
                    .Include(p => p.Posts)
                    .ThenInclude(c => c.Comments)
+                   .Include(f => f.FollowerUsers)
+                   .ThenInclude(fu => fu.UserId2Navigation)
                    .Select(u => new Domain.User
                    {
                        Id = u.Id,
@@ -77,6 +80,7 @@ namespace PostN.DataAccess
                        PhoneNumber = u.PhoneNumber,
                        DoB = u.DoB,
                        Comments = u.Comments.Select(c => new Domain.Comment(c.Id, c.UserId, c.User.Username, c.PostId, c.Created, c.CommentBody)).ToList(),
+                       Friends = u.FollowerUsers.Select(f => new Domain.Follower(f.Id, f.UserId2, f.UserId2Navigation.Username, f.FriendRequest)).ToList(),
                        Posts = u.Posts.Select(k => new Domain.Post(k.Id, k.UserId, k.User.Username, k.Image, k.Created, k.Title, k.Body, k.Comments.Select(k => new Domain.Comment(k.Id, k.UserId, k.PostId, k.User.Username, k.Created, k.CommentBody)).ToList())).ToList()
                    }
                 ).ToList();
@@ -114,6 +118,8 @@ namespace PostN.DataAccess
             var returnedUsers = _context.Users
                    .Include(p => p.Posts)
                    .ThenInclude(c => c.Comments)
+                   .Include(f => f.FollowerUsers)
+                   .ThenInclude(fu => fu.UserId2Navigation)
                    .Select(u => new Domain.User
                    {
                        Id = u.Id,
@@ -128,6 +134,7 @@ namespace PostN.DataAccess
                        PhoneNumber = u.PhoneNumber,
                        DoB = u.DoB,
                        Comments = u.Comments.Select(c => new Domain.Comment(c.Id, c.UserId, c.User.Username, c.PostId, c.Created, c.CommentBody)).ToList(),
+                       Friends = u.FollowerUsers.Select(f => new Domain.Follower(f.Id, f.UserId2, f.UserId2Navigation.Username, f.FriendRequest)).ToList(),
                        Posts = u.Posts.Select(k => new Domain.Post(k.Id, k.UserId, k.User.Username, k.Image, k.Created, k.Title, k.Body, k.Comments.Select(k => new Domain.Comment(k.Id, k.UserId, k.PostId, k.User.Username, k.Created, k.CommentBody)).ToList())).ToList()
                    }
                 ).ToList();
