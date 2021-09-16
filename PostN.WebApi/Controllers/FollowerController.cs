@@ -21,7 +21,7 @@ namespace PostN.WebApi.Controllers
             _repo = repo;
         }
 
-        // GET api/<UserController>/5
+        // GET api/<FollowerController>/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -29,40 +29,32 @@ namespace PostN.WebApi.Controllers
             return Ok(follower);
         }
 
-        // POST api/<UserController>
-        [HttpPost]
-        public IActionResult Create(Follower follower)
+        // put api/<FollowerController>
+        [HttpPut]
+        public async Task<ActionResult<Follower>> Put(bool request, Follower follower)
         {
-            if (!ModelState.IsValid)
+            if(request == true)
             {
+                var newFollower = await _repo.AddAFollower(follower);
+                return Ok(newFollower);
+            }
+            else
+            {
+                request = false;
                 return Ok();
             }
-
-            try
-            {
-                var newfollower = _repo.AddAFollower(follower);
-                return Ok(newfollower);
-            }
-            catch (Exception e)
-            {
-                ModelState.AddModelError("Username", e.Message);
-                return Ok(e.Message);
-            }
-
         }
 
-        public IActionResult Put(int id)
-        {
-            id = 0;
-            if()
-            return Ok();
-        }
-
-        // DELETE api/<UserController>/5
+        // DELETE api/<FollowerController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _repo.DeleteFollower(id);
+            var x = await _repo.DeleteFollower(id);
+            if(x == false)
+            {
+                return Ok("Are you sure you're frinds?");
+            }
+            return Ok("Friend has been removed");
         }
     }
 }
