@@ -57,6 +57,31 @@ namespace PostN.DataAccess
             var USer = returnedUser.FirstOrDefault(user => user.Id == id);
             return Task.FromResult(USer);
         }
+        public Task<Domain.User> GetUserwithPostComment(int id)
+        {
+            var returnedUser = _context.Users
+                .Include(p => p.Posts)
+                .ThenInclude(c => c.Comments)
+                .Select(
+                users => new Domain.User
+                {
+                    Id = users.Id,
+                    FirstName = users.FirstName,
+                    LastName = users.LastName,
+                    Email = users.Email,
+                    Username = users.Username,
+                    AboutMe = users.AboutMe,
+                    State = users.State,
+                    Country = users .Country,
+                    Admin = users.Admin,
+                    PhoneNumber = users.PhoneNumber,
+                    DoB = users.DoB,
+                    Posts = users.Posts.Select(x => new Domain.Post(x.Id, x.UserId,  )).ToList()
+                    //p.Posts.First(x => x.UserId = users.Id).ToList()
+
+                }).ToList();
+            return Task.FromResult(returnedUser);
+        }
 
         public Domain.User SearchUserById(int id)
         {
