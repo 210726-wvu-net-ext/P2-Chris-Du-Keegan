@@ -112,12 +112,11 @@ namespace PostN.WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            if(await _postRepo.GetPostById(id) is Post post)
+            if(await _postRepo.DeletePostByIdAsync(id))
             {
-                _postRepo.DeletePostById(id, post);
                 return NoContent();
             }
-            return NotFound();
+            return NotFound($"Post with ID: {id} not found!");
         }
         /// <summary>
         /// Create a comment using POST ID
@@ -138,8 +137,8 @@ namespace PostN.WebApi.Controllers
                     Created = DateTime.Now,
                     CommentBody = comment.CommentBody
                 };
-                await _postRepo.CreateCommentByPostId(postId, newComment);
-                return Ok(post);
+               newComment = await _postRepo.CreateCommentByPostId(postId, newComment);
+                return Ok(newComment);
             }
             return NotFound();
         }
@@ -171,14 +170,22 @@ namespace PostN.WebApi.Controllers
         /// <param name="comment"></param>
         /// <returns></returns>
         [HttpDelete("{postId}/comment/{commentId}")]
-        public async Task<IActionResult> Delete(int postId, int commentId, [FromBody] Comment comment)
+        public async Task<IActionResult> Delete(int postId, int commentId)
         {
-            if (await _postRepo.GetPostById(postId) is Post post)
+            /*if (await _postRepo.GetPostById(postId) is Post post)
             {
-                _postRepo.DeleteCommentById(commentId, comment);
+                await _postRepo.DeleteCommentByIdAsync(commentId);
                 return Ok(post);
             }
-            return NotFound();
+            return NotFound();*/
+
+
+            if(await _postRepo.DeleteCommentByIdAsync(postId, commentId))
+            {
+
+                return NoContent();
+            }
+            return NotFound($"Post with ID: {postId} and Comment ID: {commentId} not found!");
         }
 
     }

@@ -16,12 +16,12 @@ namespace PostN.Domain
 
         Task<Post> UpdatePostById(int id, Post post);
 
-        Post DeletePostById(int id, Post post);
+        Task<bool> DeletePostByIdAsync(int id);
 
         Task<Comment> CreateCommentByPostId(int postId, Comment comment);
 
         Task<Comment> UpdateCommentById(int commentId, Comment comment);
 
-        Post DeleteCommentById(int commentId, Comment comment);
+        Task<bool> DeleteCommentByIdAsync(int postId, int commentId);
     }
 }
