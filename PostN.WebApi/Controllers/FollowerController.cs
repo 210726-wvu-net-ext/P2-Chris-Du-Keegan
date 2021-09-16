@@ -51,20 +51,11 @@ namespace PostN.WebApi.Controllers
 
         }
 
-        // PUT api/<FollowerController>/5
-        [HttpPut("{id}")]
-        public async Task<ActionResult> Put(string otherFirstName, string otherLastName, string otherEmail, string otherPhoneNumber, string otherAboutMe, int id)
+        public IActionResult Put(int id)
         {
-            try
-            {
-                var updateUser = await _repo.UpdateUser(id, otherFirstName, otherLastName, otherEmail, otherPhoneNumber, otherAboutMe);
-                return Ok(updateUser);
-            }
-            catch (Exception e)
-            {
-                return NotFound(e.Message);
-            }
-
+            id = 0;
+            if()
+            return Ok();
         }
 
         // DELETE api/<UserController>/5
