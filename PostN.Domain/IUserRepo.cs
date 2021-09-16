@@ -14,8 +14,9 @@ namespace PostN.Domain
         User SearchUserById(int id);
         User AddAUser(User user);
         void DeleteUser(int id);
-        List<Follower> GetFollowers();
         User SearchUsersByName(string username);
-        
+        List<Follower> GetFollowers();
+        Follower AddAFollower(Follower follower);
+        void DeleteFollower(int id);
     }
 }

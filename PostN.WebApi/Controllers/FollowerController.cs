@@ -1,24 +1,21 @@
-
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using PostN.Domain;
-using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-
+using PostN.Domain;
+using Microsoft.Extensions.Logging;
 
 namespace PostN.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class FollowerController : ControllerBase
     {
-        private readonly ILogger<UserController> _logger;
+        private readonly ILogger<FollowerController> _logger;
         private readonly IUserRepo _repo;
-        public UserController(ILogger<UserController> logger, IUserRepo repo)
+        public FollowerController(ILogger<FollowerController> logger, IUserRepo repo)
         {
             _logger = logger;
             _repo = repo;
@@ -41,7 +38,7 @@ namespace PostN.WebApi.Controllers
 
         // POST api/<UserController>
         [HttpPost]
-        public IActionResult Create(User user)
+        public IActionResult Create(Follower follower)
         {
             if (!ModelState.IsValid)
             {
@@ -50,17 +47,15 @@ namespace PostN.WebApi.Controllers
 
             try
             {
-                var newuser = _repo.AddAUser(user);
-                return Ok(newuser);
+                var newfollower = _repo.AddAFollower(follower);
+                return Ok(newfollower);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 ModelState.AddModelError("Username", e.Message);
-                ModelState.AddModelError("Email", e.Message);
-                
                 return Ok(e.Message);
             }
-            
+
         }
 
         // PUT api/<UserController>/5
@@ -75,7 +70,7 @@ namespace PostN.WebApi.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            _repo.DeleteUser(id);
+            _repo.DeleteFollower(id);
         }
     }
 }

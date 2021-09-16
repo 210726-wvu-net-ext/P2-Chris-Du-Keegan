@@ -74,13 +74,6 @@ namespace PostN.DataAccess
             _context.SaveChanges();
             return user;
         }
-        public List<Domain.Follower> GetFollowers()
-        {
-            return _context.Followers.Select(
-                followers => new PostN.Domain.Follower(followers.Id, followers.UserId, followers.UserId2, followers.FriendRequest)
-            ).ToList();
-
-        }
         public void DeleteUser(int id)
         {
             Entities.User foundUser = _context.Users
@@ -103,6 +96,37 @@ namespace PostN.DataAccess
             {
                 return null;
             }
+        }
+        public List<Domain.Follower> GetFollowers()
+        {
+            return _context.Followers.Select(
+                followers => new PostN.Domain.Follower(followers.Id, followers.UserId, followers.UserId2, followers.FriendRequest)
+            ).ToList();
+
+        }
+        public Domain.Follower AddAFollower(Domain.Follower follower)
+        {
+            if (_context.Followers.Any(u => u.UserId == follower.Id))
+            {
+                throw new Exception($"{follower.Username} is already following you.");
+            }
+            _context.Followers.Add(
+                new Entities.Follower
+                {
+                    UserId = follower.UserId,
+                    UserId2 = follower.UserId2,
+                    FriendRequest = follower.FriendRequest,
+                }
+            );
+            _context.SaveChanges();
+            return follower;
+        }
+        public void DeleteFollower(int id)
+        {
+            Entities.Follower foundFollower = _context.Followers
+                .FirstOrDefault(follower => follower.Id == id);
+            _context.Followers.Remove(foundFollower);
+            _context.SaveChanges();
         }
     }
 }
