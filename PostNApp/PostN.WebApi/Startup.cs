@@ -75,7 +75,6 @@ namespace PostN.WebApi
 
             app.UseRouting();
 
-            // applies CORS policy to all action methods
             app.UseCors("AllowNgServe");
 
             app.UseAuthorization();
