@@ -20,20 +20,13 @@ namespace PostN.WebApi.Controllers
             _logger = logger;
             _repo = repo;
         }
-        // GET: api/<UserController>
-        [HttpGet]
-        public IActionResult GetUsers()
-        {
-            var user = _repo.GetUsers();
-            return Ok(user);
-        }
 
         // GET api/<UserController>/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var user = _repo.GetUsers().First(x => x.Id == id);
-            return Ok(user);
+            var follower = _repo.GetFollowers().First(x => x.Id == id);
+            return Ok(follower);
         }
 
         // POST api/<UserController>
@@ -58,12 +51,20 @@ namespace PostN.WebApi.Controllers
 
         }
 
-        // PUT api/<UserController>/5
+        // PUT api/<FollowerController>/5
         [HttpPut("{id}")]
-        public IActionResult Update(string otherFirstName, string otherLastName, string otherEmail, string otherPhoneNumber, string otherAboutMe, int id)
+        public async Task<ActionResult> Put(string otherFirstName, string otherLastName, string otherEmail, string otherPhoneNumber, string otherAboutMe, int id)
         {
-            _repo.UpdateUser(otherFirstName, otherLastName, otherEmail, otherPhoneNumber, otherAboutMe, id);
-            return NoContent();
+            try
+            {
+                var updateUser = await _repo.UpdateUser(id, otherFirstName, otherLastName, otherEmail, otherPhoneNumber, otherAboutMe);
+                return Ok(updateUser);
+            }
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
+            }
+
         }
 
         // DELETE api/<UserController>/5

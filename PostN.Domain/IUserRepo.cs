@@ -9,14 +9,18 @@ namespace PostN.Domain
 {
     public interface IUserRepo
     {
-        List<User> GetUsers();
-        void UpdateUser(string otherFirstName, string otherLastName, string otherEmail, string otherPhoneNumber, string otherAboutMe, int id);
+        Task<List<User>> GetUsers();
+        Task<User> GetUsersById(int id);
+        Task<User> UpdateUser(int id, string otherFirstName, string otherLastName, string otherEmail, string otherPhoneNumber, string otherAboutMe);
         User SearchUserById(int id);
-        User AddAUser(User user);
-        void DeleteUser(int id);
+        Task<User> AddAUser(User user);
+        Task<bool> DeleteUserById(int id);
         User SearchUsersByName(string username);
         List<Follower> GetFollowers();
-        Follower AddAFollower(Follower follower);
-        void DeleteFollower(int id);
+        Task<Follower> AddAFollower(Follower follower);
+        Task<bool> DeleteFollower(int id);
+        bool UniqueUsername(string username);
+        bool UniqueEmail(string email);
+
     }
 }

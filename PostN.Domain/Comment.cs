@@ -13,6 +13,16 @@ namespace PostN.Domain
             Created = created;
             CommentBody = commentBody;
         }
+
+        public Comment(int id, int userId, int postId, DateTime created, string commentBody)
+        {
+            Id = id;
+            UserId = userId;
+            PostId = postId;
+            Created = created;
+            CommentBody = commentBody;
+        }
+
         public Comment(int id, int userId, int postId, string username, DateTime created, string commentBody)
         {
             Id = id;

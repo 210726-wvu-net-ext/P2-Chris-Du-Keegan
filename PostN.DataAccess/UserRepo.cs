@@ -1,4 +1,5 @@
-﻿using PostN.DataAccess.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using PostN.DataAccess.Entities;
 using PostN.Domain;
 using System;
 using System.Collections.Generic;
@@ -16,11 +17,45 @@ namespace PostN.DataAccess
             _context = context;
         }
 
-        public List<Domain.User> GetUsers()
+        public Task<List<Domain.User>> GetUsers()
         {
-            return _context.Users.Select(
-                users => new Domain.User(users.Id, users.FirstName, users.LastName, users.Email, users.Username, users.AboutMe, users.State, users.Country, users.Admin, users.PhoneNumber, users.DoB)
+            return Task.FromResult(_context.Users.Select(
+                users => new Domain.User
+                (
+                    users.Id,
+                    users.FirstName,
+                    users.LastName,
+                    users.Email,
+                    users.Username,
+                    users.AboutMe,
+                    users.State,
+                    users.Country,
+                    users.Admin,
+                    users.PhoneNumber,
+                    users.DoB
+                 )
+            ).ToList());
+        }
+        public Task<Domain.User> GetUsersById(int id)
+        {
+            var returnedUser = _context.Users.Select(
+                users => new Domain.User
+                (
+                    users.Id,
+                    users.FirstName,
+                    users.LastName,
+                    users.Email,
+                    users.Username,
+                    users.AboutMe,
+                    users.State,
+                    users.Country,
+                    users.Admin,
+                    users.PhoneNumber,
+                    users.DoB
+                 )
             ).ToList();
+            var USer = returnedUser.FirstOrDefault(user => user.Id == id);
+            return Task.FromResult(USer);
         }
 
         public Domain.User SearchUserById(int id)
@@ -29,34 +64,39 @@ namespace PostN.DataAccess
                 .FirstOrDefault(user => user.Id == id);
             return new Domain.User(foundUser.Id, foundUser.FirstName, foundUser.LastName, foundUser.Email, foundUser.Username, foundUser.AboutMe, foundUser.State, foundUser.Country, foundUser.Admin, foundUser.PhoneNumber, foundUser.DoB);
         }
-        public void UpdateUser(string otherFirstName, string otherLastName, string otherEmail, string otherPhoneNumber, string otherAboutMe, int id)
+        public async Task<Domain.User> UpdateUser(int id, string otherFirstName, string otherLastName, string otherEmail, string otherPhoneNumber, string otherAboutMe)
         {
-            Entities.User olduser = _context.Users.First(user => user.Id == id);
-                if (otherFirstName == null) otherFirstName = olduser.FirstName;  
-            olduser.FirstName = otherFirstName;
+            var olduser = SearchUserById(id);
+            if (olduser != null)
+            {
+                if (otherFirstName == null) otherFirstName = olduser.FirstName;
+                olduser.FirstName = otherFirstName;
                 if (otherLastName == null) otherLastName = olduser.LastName;
-            olduser.LastName = otherLastName;
+                olduser.LastName = otherLastName;
                 if (otherEmail == null) otherEmail = olduser.Email;
-            olduser.Email = otherEmail;
+                olduser.Email = otherEmail;
                 if (otherPhoneNumber == null) otherPhoneNumber = olduser.PhoneNumber;
-            olduser.PhoneNumber = otherPhoneNumber;
+                olduser.PhoneNumber = otherPhoneNumber;
                 if (otherAboutMe == null) otherAboutMe = olduser.AboutMe;
-            olduser.AboutMe = otherAboutMe;
-                
-            _context.SaveChanges();
-            
+                olduser.AboutMe = otherAboutMe;
+            }
+            await _context.SaveChangesAsync();
+
+            return olduser;
+
         }
-        public Domain.User AddAUser(Domain.User user)
+        public async Task<Domain.User> AddAUser(Domain.User user)
         {
-            if (_context.Users.Any(u => u.Username == user.Username))
+            if (UniqueUsername(user.Username) is true)
             {
                 throw new Exception($"Username {user.Username} has been already used");
             }
-            if (_context.Users.Any(u => u.Email == user.Email))
+            if (UniqueEmail(user.Email) is true)
             {
                 throw new Exception($"Email {user.Email} has been already used");
             }
-            _context.Users.Add(
+
+            await _context.Users.AddAsync(
                 new Entities.User
                 {
                     FirstName = user.FirstName,
@@ -71,15 +111,42 @@ namespace PostN.DataAccess
                     DoB = user.DoB,
                 }
             );
-            _context.SaveChanges();
+
+            await _context.SaveChangesAsync();
             return user;
         }
-        public void DeleteUser(int id)
+
+        //Username should be unique
+        public bool UniqueUsername(string username)
         {
-            Entities.User foundUser = _context.Users
-                .FirstOrDefault(user => user.Id == id);
-            _context.Users.Remove(foundUser);
-            _context.SaveChanges();
+            if (_context.Users.Any(u => u.Username == username))
+            {
+                return true;
+            }
+            return false;
+        }
+        //Email should be unique
+        public bool UniqueEmail(string email)
+        {
+            if (_context.Users.Any(user => user.Email == email))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<bool> DeleteUserById(int id)
+        {
+            Entities.User userToDelete = await _context.Users
+                .FirstOrDefaultAsync(user => user.Id == id);
+            if (userToDelete != null)
+            {
+                _context.Users.Remove(userToDelete);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
         }
 
         //For the explore controller
@@ -97,6 +164,7 @@ namespace PostN.DataAccess
                 return null;
             }
         }
+
         public List<Domain.Follower> GetFollowers()
         {
             return _context.Followers.Select(
@@ -104,13 +172,14 @@ namespace PostN.DataAccess
             ).ToList();
 
         }
-        public Domain.Follower AddAFollower(Domain.Follower follower)
+
+        public async Task<Domain.Follower> AddAFollower(Domain.Follower follower)
         {
             if (_context.Followers.Any(u => u.UserId == follower.Id))
             {
                 throw new Exception($"{follower.Username} is already following you.");
             }
-            _context.Followers.Add(
+            await _context.Followers.AddAsync(
                 new Entities.Follower
                 {
                     UserId = follower.UserId,
@@ -118,15 +187,21 @@ namespace PostN.DataAccess
                     FriendRequest = follower.FriendRequest,
                 }
             );
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return follower;
         }
-        public void DeleteFollower(int id)
+
+        public async Task<bool> DeleteFollower(int id)
         {
-            Entities.Follower foundFollower = _context.Followers
-                .FirstOrDefault(follower => follower.Id == id);
-            _context.Followers.Remove(foundFollower);
-            _context.SaveChanges();
+            Entities.Follower foundFollower = await _context.Followers
+                .FirstOrDefaultAsync(follower => follower.Id == id);
+            if(foundFollower != null)
+            {
+                _context.Followers.Remove(foundFollower);
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
         }
     }
 }
