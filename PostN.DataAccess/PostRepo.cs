@@ -57,31 +57,30 @@ namespace PostN.DataAccess
             return post;
         }
 
-        public Domain.Post DeleteCommentById(int commentId, Domain.Comment comment)
+        public async Task<bool> DeleteCommentByIdAsync(int postId, int commentId)
         {
-            var commentToDelete = _context.Comments.Single(c => c.Id == commentId);
+            var commentToDelete = await _context.Comments.FirstOrDefaultAsync(c => c.Id == commentId && c.PostId == postId);
             if (commentToDelete != null)
             {
                 _context.Remove(commentToDelete);
                 _context.SaveChanges();
-                return new Domain.Post();
+                return true;
             }
 
-            return new Domain.Post();
+            return false;
         }
 
-        public Domain.Post DeletePostById(int id, Domain.Post post)
+        public async Task<bool> DeletePostByIdAsync(int id)
         {
+                var postToDelete = await _context.Posts.FirstOrDefaultAsync(p => p.Id == id);
+                if (postToDelete != null)
+                {
+                    _context.Remove(postToDelete);
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+                return false;
 
-            var postToDelete = _context.Posts.Single(p => p.Id == id);
-            if (postToDelete != null)
-            {
-                _context.Remove(postToDelete);
-                _context.SaveChanges();
-                return new Domain.Post();
-            }
-
-            return new Domain.Post();
         }
 
         public Task<List<Domain.Post>> GetAllPosts()
@@ -97,6 +96,7 @@ namespace PostN.DataAccess
                     UserId = p.User.Id,
                     Username = p.User.Username,
                     Image = p.Image,
+                    Created = p.Created,
                     Title = p.Title,
                     Body = p.Body,
                     Comments = p.Comments.Select(k => new Domain.Comment(k.Id, k.UserId, k.PostId, k.User.Username, k.Created, k.CommentBody)).ToList()
@@ -120,8 +120,10 @@ namespace PostN.DataAccess
                 .Select(p => new Domain.Post
                 {
                     Id = p.Id,
+                    UserId = p.UserId,
                     Username = p.User.Username,
                     Image = p.Image,
+                    Created = p.Created,
                     Title = p.Title,
                     Body = p.Body,
                     Comments = p.Comments.Select(k => new Domain.Comment(k.Id, k.UserId, k.PostId, k.User.Username, k.Created, k.CommentBody)).ToList()
@@ -146,10 +148,8 @@ namespace PostN.DataAccess
                 foundComment.CommentBody = comment.CommentBody;
                 _context.Comments.Update(foundComment);
                 await _context.SaveChangesAsync();
-                return comment;
-
+                return new Domain.Comment(foundComment.Id, foundComment.UserId, foundComment.PostId, foundComment.Created, foundComment.CommentBody);
             }
-
             return new Domain.Comment();
             /*var updatePost = new Entities.Post
             {
@@ -174,7 +174,9 @@ namespace PostN.DataAccess
                 _context.Posts.Update(foundPost);
                 await _context.SaveChangesAsync();
 
-                return post;
+                var updatedPost = await GetPostById(id);
+
+                return updatedPost;
             }
 
             return new Domain.Post();
