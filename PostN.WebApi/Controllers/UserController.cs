@@ -78,17 +78,19 @@ namespace PostN.WebApi.Controllers
 
         // PUT api/<UserController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(string otherFirstName, string otherLastName, string otherEmail, string otherPhoneNumber, string otherAboutMe, int id)
+        public async Task<ActionResult> Put(int id, Domain.User user)
         {
-            try { 
-            var updateUser = await _repo.UpdateUser(id, otherFirstName, otherLastName, otherEmail, otherPhoneNumber, otherAboutMe);
+            try
+            {
+                var updateUser = await _repo.UpdateUser(id, user.FirstName, user.LastName, user.Email, user.PhoneNumber, user.AboutMe);
                 return Ok(updateUser);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return NotFound(e.Message);
             }
-            
+
+
         }
 
         // DELETE api/<UserController>/5
