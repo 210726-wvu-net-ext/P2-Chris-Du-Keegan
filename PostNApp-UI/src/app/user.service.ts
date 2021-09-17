@@ -38,10 +38,10 @@ export class UserService {
   }
 
   /** PUT: update the hero on the server */
-  updateUser(id: number): Observable<any> {
-    const url = `${this.usersUrl}/${id}`;
+  updateUser(user: User): Observable<any> {
+    //const url = `${this.usersUrl}/${id}`;
     //const data = Json.(id);
-    return this.http.put<User>(url, id, this.httpOptions).pipe(
+    return this.http.put<User>(`${this.usersUrl}/${user.id}`, user).pipe(
       //tap(_ => this.log(`updated hero id=${hero.id}`)),
       catchError(this.handleError<any>('updateUser'))
     );

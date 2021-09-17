@@ -141,19 +141,19 @@ namespace PostN.DataAccess
             Domain.User singleUser = returnedUsers.FirstOrDefault(p => p.Id == id);
             return Task.FromResult(singleUser);
         }
-        public async Task<Domain.User> UpdateUser(int id, string otherFirstName, string otherLastName, string otherEmail, string otherPhoneNumber, string otherAboutMe)
+        public async Task<Domain.User> UpdateUser(int id, Domain.User user)
         {
             Entities.User foundUser = await _context.Users.FindAsync(id);
             if (foundUser != null)
             {
                 foundUser.Id = id;
-                foundUser.FirstName = otherFirstName;
-                foundUser.LastName = otherLastName;
-                foundUser.Email = otherEmail;
-                foundUser.PhoneNumber = otherPhoneNumber;
-                foundUser.AboutMe = otherAboutMe;
+                foundUser.FirstName = user.FirstName;
+                foundUser.LastName = user.LastName;
+                foundUser.Email = user.Email;
+                foundUser.PhoneNumber = user.PhoneNumber;
+                foundUser.AboutMe = user.AboutMe;
 
-                 _context.Users.Update(foundUser);
+                _context.Users.Update(foundUser);
                 await _context.SaveChangesAsync();
 
                 var updatedUser = await GetUserById(id);
@@ -161,7 +161,6 @@ namespace PostN.DataAccess
             }
 
             return new Domain.User();
-
         }
         public async Task<Domain.User> AddAUser(Domain.User user)
         {
