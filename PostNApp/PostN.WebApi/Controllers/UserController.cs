@@ -37,7 +37,7 @@ namespace PostN.WebApi.Controllers
 
         // POST api/<UserController>
         [HttpPost]
-        public async Task<ActionResult> Create(CreatedUser user)
+        public async Task<ActionResult> Create([FromBody] CreatedUser user)
         {
 
             if (!ModelState.IsValid)
@@ -77,19 +77,26 @@ namespace PostN.WebApi.Controllers
 
         // PUT api/<UserController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, UpdatedUser user)
+        public async Task<ActionResult<User>> Put(int id, [FromBody] UpdatedUser user)
         {
             try
             {
-                var updateUser = await _repo.UpdateUser(id, user.FirstName, user.LastName, user.Email, user.PhoneNumber, user.AboutMe);
+                User newUpdateUser = new()
+                {
+                    Id = id,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+                    AboutMe = user.AboutMe
+                };
+                User updateUser = await _repo.UpdateUser(id, newUpdateUser);
                 return Ok(updateUser);
             }
             catch (Exception e)
             {
                 return NotFound(e.Message);
             }
-
-
         }
 
         // DELETE api/<UserController>/5

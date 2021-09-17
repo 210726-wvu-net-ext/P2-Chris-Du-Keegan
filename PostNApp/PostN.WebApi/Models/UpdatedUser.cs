@@ -9,8 +9,6 @@ namespace PostN.WebApi.Models
     public class UpdatedUser
     {
         public int Id { get; set; }
-
-        
         public string FirstName { get; set; }
 
      
