@@ -1,14 +1,17 @@
 export interface User {
-    Id: number,
-    FirstName: string,
-    LastName: string,
-    Email: string,
-    Username: string,
-    Password: string,
-    AboutMe: string,
-    State: string,
-    Country: string,
-    Admin: number,
-    PhoneNumber: string,
+    id: number,
+    firstName: string,
+    lastName: string,
+    email: string,
+    username: string,
+    password: string,
+    aboutMe: string,
+    state: string,
+    country: string,
+    admin: number,
+    phoneNumber: string,
     //Dob: ??
+    // Comments: string[],
+    // Posts: string[],
+    // Follows: string[]
 }
