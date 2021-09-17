@@ -5,6 +5,7 @@ using System;
 using System.Threading.Tasks;
 using PostN.WebApi.Models;
 using System.Net.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PostN.WebApi.Controllers
 {
