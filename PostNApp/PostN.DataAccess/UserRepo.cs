@@ -141,6 +141,10 @@ namespace PostN.DataAccess
             Domain.User singleUser = returnedUsers.FirstOrDefault(p => p.Id == id);
             return Task.FromResult(singleUser);
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6951ff4e8c46ad046b133718538047e200bc2356
         public async Task<Domain.User> UpdateUser(int id, Domain.User user)
         {
             Entities.User foundUser = await _context.Users.FindAsync(id);
@@ -162,6 +166,7 @@ namespace PostN.DataAccess
 
             return new Domain.User();
         }
+
         public async Task<Domain.User> AddAUser(Domain.User user)
         {
             if (UniqueUsername(user.Username) is true)
@@ -173,23 +178,22 @@ namespace PostN.DataAccess
                 throw new Exception($"Email {user.Email} has been already used");
             }
 
-            await _context.Users.AddAsync(
-                new Entities.User
-                {
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Email = user.Email,
-                    Username = user.Username,
-                    Password = user.Password,
-                    AboutMe = user.AboutMe,
-                    State = user.State,
-                    Country = user.Country,
-                    PhoneNumber = user.PhoneNumber,
-                    DoB = user.DoB,
-                }
-            );
-
+            var newEntity = new Entities.User
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                Username = user.Username,
+                Password = user.Password,
+                AboutMe = user.AboutMe,
+                State = user.State,
+                Country = user.Country,
+                PhoneNumber = user.PhoneNumber,
+                DoB = user.DoB,
+            };
+            await _context.Users.AddAsync(newEntity);
             await _context.SaveChangesAsync();
+            user.Id = newEntity.Id;
             return user;
         }
 

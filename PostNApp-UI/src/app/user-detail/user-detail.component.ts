@@ -32,9 +32,9 @@ export class UserDetailComponent implements OnInit {
 
  
   save(): void {
-    //const id = Number(this.route.snapshot.paramMap.get('id'));
-    if (this.user) {
-      this.userService.updateUser(this.user)
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    if (this.user && id) {
+      this.userService.updateUser(id, this.user)
         .subscribe(() => this.goBack());
     }
   }
