@@ -5,6 +5,7 @@ using System;
 using System.Threading.Tasks;
 using PostN.WebApi.Models;
 using System.Net.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PostN.WebApi.Controllers
 {
@@ -21,6 +22,7 @@ namespace PostN.WebApi.Controllers
         }
         // GET: api/<UserController>
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<User>> GetUsers()
         {
             var user = await _repo.GetUsers();

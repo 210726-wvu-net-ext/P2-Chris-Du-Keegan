@@ -22,5 +22,7 @@ namespace PostN.Domain
         bool UniqueUsername(string username);
         bool UniqueEmail(string email);
 
+        Task<bool> UserLoginAsync(User user);
+
     }
 }

@@ -1,7 +1,7 @@
 <h1>ALL USERS</h1>
 <ul>
   <li *ngFor="let user of users">
-    <a routerLink="/profile/{{user.id}}">
+    <a routerLink="/profile/update/{{user.id}}">
         {{user.id}}: {{user.username}}
       </a>
   </li>
