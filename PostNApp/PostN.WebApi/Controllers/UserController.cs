@@ -81,26 +81,16 @@ namespace PostN.WebApi.Controllers
         {
             try
             {
-<<<<<<< HEAD
-                var newUpdateUser = new User
-                {
-                    Id = user.Id,
-=======
                 User newUpdateUser = new()
                 {
                     Id = id,
->>>>>>> 6951ff4e8c46ad046b133718538047e200bc2356
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     Email = user.Email,
                     PhoneNumber = user.PhoneNumber,
                     AboutMe = user.AboutMe
                 };
-<<<<<<< HEAD
-                var updateUser = await _repo.UpdateUser(id, newUpdateUser);
-=======
                 User updateUser = await _repo.UpdateUser(id, newUpdateUser);
->>>>>>> 6951ff4e8c46ad046b133718538047e200bc2356
                 return Ok(updateUser);
             }
             catch (Exception e)
