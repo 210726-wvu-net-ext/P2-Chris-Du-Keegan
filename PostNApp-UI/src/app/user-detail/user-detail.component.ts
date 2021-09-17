@@ -4,12 +4,15 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { UserService } from '../user.service';
 
+
 @Component({
   selector: 'app-user-detail',
   templateUrl: './user-detail.component.html',
   styleUrls: ['./user-detail.component.css']
 })
 export class UserDetailComponent implements OnInit {
+
+
   @Input() user?: User;
   constructor(
     private route: ActivatedRoute,
@@ -37,6 +40,13 @@ export class UserDetailComponent implements OnInit {
       this.userService.updateUser(id, this.user)
         .subscribe(() => this.goBack());
     }
+  }
+
+  delete(): void {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+   
+    //this.user = this.user.filter(u => u !== user);
+    this.userService.deleteUser(id).subscribe(() => this.goBack());
   }
 
   

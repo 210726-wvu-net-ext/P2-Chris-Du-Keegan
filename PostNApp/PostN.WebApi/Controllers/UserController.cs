@@ -105,8 +105,8 @@ namespace PostN.WebApi.Controllers
         {
             bool result = await _repo.DeleteUserById(id);
             if (result == false)
-                return NotFound($"Post with ID: {id} not found!");
-            return Ok("It has been deleted");
+                return NotFound();
+            return Ok();
         }
 
     }
