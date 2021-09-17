@@ -148,7 +148,7 @@ namespace PostN.DataAccess
             {
                 foundUser.Id = id;
                 foundUser.FirstName = otherFirstName;
-                foundUser.LastName = otherFirstName;
+                foundUser.LastName = otherLastName;
                 foundUser.Email = otherEmail;
                 foundUser.PhoneNumber = otherPhoneNumber;
                 foundUser.AboutMe = otherAboutMe;

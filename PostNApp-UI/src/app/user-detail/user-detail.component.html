@@ -4,4 +4,20 @@
     <h2>{{user.firstName}} {{user.lastName}}</h2>
     <div><span>Username: {{user.username}}</span></div>
     <div><span>Email: {{user.email}}</span></div>
+    <p>Update information</p>
+    <div>
+        <label>id: </label>
+        <input [(ngModel)]="user.id" placeholder="user.id" />
+        <label>Firstname: </label>
+        <input [(ngModel)]="user.firstName" placeholder="firstName" />
+        <label>Lastname: </label>
+        <input [(ngModel)]="user.lastName" placeholder="lastName" />
+        <label>Email: </label>
+        <input [(ngModel)]="user.email" placeholder="email" />
+        <label>Phonenumber: </label>
+        <input [(ngModel)]="user.phoneNumber" placeholder="phoneNumber" />
+        <label>AboutMe: </label>
+        <input [(ngModel)]="user.aboutMe" placeholder="aboutMe" />
+    </div>
 </div>
+<button (click)="save()">save</button>

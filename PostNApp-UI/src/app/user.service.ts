@@ -12,9 +12,9 @@ export class UserService {
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
-
+  
   private usersUrl = 'https://localhost:44365/api/User';
-
+ 
   constructor(private http: HttpClient) { }
 
   getUsers(): Observable<User[]>
@@ -35,6 +35,16 @@ export class UserService {
               catchError(this.handleError<User>(`getUser id={id}`))
             );
     
+  }
+
+  /** PUT: update the hero on the server */
+  updateUser(id: number): Observable<any> {
+    const url = `${this.usersUrl}/${id}`;
+    //const data = Json.(id);
+    return this.http.put<User>(url, id, this.httpOptions).pipe(
+      //tap(_ => this.log(`updated hero id=${hero.id}`)),
+      catchError(this.handleError<any>('updateUser'))
+    );
   }
 
     /**
