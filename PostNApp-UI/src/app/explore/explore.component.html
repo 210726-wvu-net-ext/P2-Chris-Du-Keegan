@@ -1,1 +1,8 @@
-<p>explore works!</p>
+<h2>Explore</h2>
+<ul>
+    <li *ngFor="let post of posts">
+        <a routerLink="/explore/{{post.id}}">
+            {{post.username}}: {{post.image}}
+        </a>
+    </li>
+</ul>
