@@ -10,10 +10,11 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: '*.sln'
+  solution: './PostNApp/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  workingDirectory: '.'
+  postNAppDirectory: './PostNApp'
+  postNAppUIDirectory: './PostNApp-UI'
 
 stages:
 - stage: Build
@@ -49,7 +50,7 @@ stages:
         --
         DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
       displayName: dotnet test
-      workingDirectory: $(workingDirectory)
+      workingDirectory: $(postNAppDirectory)
 
     - task: SonarCloudAnalyze@1
       displayName: 'Run SonarCloud analysis'
