@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace PostN.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/posts")]
     [ApiController]
     public class PostController : ControllerBase
     {

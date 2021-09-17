@@ -13,7 +13,7 @@ export class UserService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
   
-  private usersUrl = 'https://localhost:44365/api/User';
+  private usersUrl = 'https://localhost:44365/api/users';
  
   constructor(private http: HttpClient) { }
 
