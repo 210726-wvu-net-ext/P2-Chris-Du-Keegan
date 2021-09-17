@@ -10,5 +10,8 @@ export interface User {
     country: string,
     admin: number,
     phoneNumber: string,
-    //DoB: Date
+    //Dob: ??
+    // Comments: string[],
+    // Posts: string[],
+    // Follows: string[]
 }
