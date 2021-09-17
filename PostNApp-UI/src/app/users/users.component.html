@@ -2,8 +2,35 @@
 <ul>
   <li *ngFor="let user of users">
     <a routerLink="/profile/{{user.id}}">
-        {{user.id}}: {{user.username}}
-      </a>
+      <span class="badge">{{user.id}}:</span> {{user.username}}
+    </a>
+   
   </li>
 </ul>
+<div>
+  <label for="new-user">User firstname: </label>
+  <input id="new-user" #firstName />
+  <label for="new-user">User lastname: </label>
+  <input id="new-user" #lastName />
+  <label for="new-user">User username: </label>
+  <input id="new-user" #username />
+  <label for="new-user">User email: </label>
+  <input id="new-user" #email />
+  <label for="new-user">User password: </label>
+  <input id="new-user" #password />
+  <label for="new-user">User phoneNumber: </label>
+  <input id="new-user" #phoneNumber />
+  <label for="new-user">User aboutMe: </label>
+  <input id="new-user" #aboutMe />
+  <label for="new-user">User state: </label>
+  <input id="new-user" #state />
+  <label for="new-user">User country: </label>
+  <input id="new-user" #country />
 
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button class="add-button" (click)="add(
+    firstName.value, lastName.value, email.value, username.value, password.value, phoneNumber.value, aboutMe.value, state.value, country.value); 
+    firstName.value=''">
+    Add User
+  </button>
+</div>
