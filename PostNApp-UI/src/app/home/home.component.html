@@ -1,7 +1,6 @@
-<p>Home</p>
-<ul *ngIf="posts">
-    <li *ngFor="let post of posts">
+<div *ngIf="posts">
+    <div *ngFor="let post of posts">
         <app-posts [post]="post"></app-posts>
-    </li>
-</ul>
+    </div>
+</div>
 

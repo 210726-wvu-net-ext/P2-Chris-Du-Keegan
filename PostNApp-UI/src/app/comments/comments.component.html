@@ -1,4 +1,4 @@
-<li>
-    Comment by: {{comment?.username}} <br>
-    Body: {{comment?.commentBody}}
-</li>
+<mat-card>
+    <mat-card-content>{{comment?.commentBody}}</mat-card-content>
+    <mat-card-subtitle>{{comment?.username}} | {{comment?.created}}</mat-card-subtitle> 
+</mat-card>
