@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { PostService } from '../post.service';
+import { Post } from '../interfaces/post';
 
 @Component({
   selector: 'app-home',
@@ -9,8 +11,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class HomeComponent {
 
-  
-  constructor(private jwtHelper: JwtHelperService, private router: Router) {}
+  posts: Post[] = [];
+  constructor(private jwtHelper: JwtHelperService, private router: Router, private postService: PostService) {}
 
   isUserAuthenticated() {
     const token: string = JSON.parse(localStorage.getItem("jwt")!);
@@ -21,5 +23,13 @@ export class HomeComponent {
       return false;
     }
   }
+  ngOnInit(): void {
+    this.getPosts();
+  }
+  getPosts(): void {
+    this.postService.getPosts()
+      .subscribe(posts => this.posts = posts);
+  }
 
+  
 }

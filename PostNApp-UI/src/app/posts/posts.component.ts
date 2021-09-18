@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { PostService } from '../post.service';
+import { Component, Input, OnInit } from '@angular/core';
 import { Post } from '../interfaces/post';
 
 @Component({
@@ -9,17 +8,12 @@ import { Post } from '../interfaces/post';
 })
 export class PostsComponent implements OnInit {
 
-  posts: Post[] = [];
+  @Input() post?: Post;
 
-  constructor(private postService: PostService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.getPosts();
   }
-
-  getPosts(): void {
-    this.postService.getPosts()
-      .subscribe(posts => this.posts = posts);
-  }
+  
 
 }
