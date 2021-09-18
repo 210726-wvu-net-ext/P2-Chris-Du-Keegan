@@ -6,6 +6,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { first } from 'rxjs/operators';
 
 
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -30,7 +31,7 @@ export class RegisterComponent implements OnInit {
     
     loading = false;
     submitted = false;
-    error: string="";
+  
   
     users: User[] = [];
   constructor(
@@ -77,8 +78,8 @@ export class RegisterComponent implements OnInit {
           },
           error => {
             this.loading = false;
-            this.error = error;
-            alert("Fail!");
+           
+            alert(error);
           }
         )
 
