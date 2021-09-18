@@ -10,6 +10,9 @@
                                 <li class ="list-group-item d-flex justify-content-between align-items-center text-light p-0 border-0 mb-1" *ngFor="let post of posts">
                                     <a routerLink="/explore/{{post.username}}/{{post.id}}">
                                         <h2>{{post.username}}</h2>
+                                        {{post.image}}
+                                        <h3>{{post.title}}</h3>
+                                        <p>{{post.body}}</p>
                                     </a>
                                 </li>
                             </ul>
