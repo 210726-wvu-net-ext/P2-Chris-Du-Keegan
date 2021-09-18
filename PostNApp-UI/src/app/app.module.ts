@@ -18,6 +18,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { HomeComponent } from './home/home.component';
 import { JwtModule } from "@auth0/angular-jwt";
+import { RegisterComponent } from './register/register.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -31,7 +32,8 @@ export function tokenGetter() {
     ProfileComponent,
     ExploreComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
