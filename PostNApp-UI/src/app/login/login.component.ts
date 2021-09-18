@@ -13,37 +13,33 @@ import { AuthServiceService } from '../auth-service.service';
 export class LoginComponent implements OnInit {
 
   formGroup = new FormGroup({
-    username: new FormControl('',[Validators.required]),
-    password: new FormControl('',[Validators.required])
+    username: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required])
   });
 
   invalidLogin = new Boolean;
-  
-  constructor(private authService: AuthServiceService, private fb:FormBuilder, private router: Router, private location: Location) { }
-  
+
+  constructor(private authService: AuthServiceService, private fb: FormBuilder, private router: Router, private location: Location) { }
+
   ngOnInit() {
   }
 
-  loginProcess(){
-    if(this.formGroup.valid)
-    {
+  loginProcess() {
+    if (this.formGroup.valid) {
+      const loginObserver = {
+        next: (x: any) => {
+          alert('Welcome back ' + x.username);
+        },
+        error: (err: any) => {
+          console.log(err);
+          alert('Unable to Login. Please check your credentials.');
+        },
+      };
       this.authService.login(this.formGroup.value)
-            .subscribe(response => {
-        if(response.success){
-          alert(response.message);
-          const token = (response).token;
-          localStorage.setItem("jwt", token);
-          this.invalidLogin = false;
-          //this.router.navigate(["/"]);
-          this.location.back();
-        } else {
-          alert(response.message);
-        }
-      }, err => {
-        alert("Login Credentials Invalid");
-        this.invalidLogin = true;
-      }
-      )
-  }}
+        .subscribe(loginObserver)
+    } else {
+      alert("Please enter in your information!");
+    }
+  }
 
 }

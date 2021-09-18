@@ -66,7 +66,7 @@ namespace Tests
                         AboutMe = "Keegan About Me",
                         State = "WI",
                         Country = "USA",
-                        Admin = 1,
+                        Role ="Administrator",
                         PhoneNumber = "608-479-1147",
                         DoB = System.DateTime.Today
                     }
@@ -82,7 +82,7 @@ namespace Tests
                         AboutMe = "New .NET developer",
                         State = "NY",
                         Country = "USA",
-                        Admin = 1,
+                        Role = "Administrator",
                         PhoneNumber = "123-456-1234",
                         DoB = System.DateTime.Today
                     },
@@ -97,7 +97,7 @@ namespace Tests
                         AboutMe = "New ASP.NET developer",
                         State = "MA",
                         Country = "USA",
-                        Admin = 1,
+                        Role = "Administrator",
                         PhoneNumber = "789-123-1111",
                         DoB = System.DateTime.Today
 
@@ -113,7 +113,7 @@ namespace Tests
                         AboutMe = "New JavasScript developer",
                         State = "CA",
                         Country = "USA",
-                        Admin = 0,
+                        Role = "User",
                         PhoneNumber = "399-555-1928",
                         DoB = System.DateTime.Today
 

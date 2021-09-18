@@ -30,7 +30,7 @@ namespace PostN.DataAccess
                     users.AboutMe,
                     users.State,
                     users.Country,
-                    users.Admin,
+                    users.Role,
                     users.PhoneNumber,
                     users.DoB
                  )
@@ -50,7 +50,7 @@ namespace PostN.DataAccess
                        AboutMe = u.AboutMe,
                        State = u.State,
                        Country = u.Country,
-                       Admin = u.Admin,
+                       Role = u.Role,
                        PhoneNumber = u.PhoneNumber,
                        DoB = u.DoB,
                        Comments = u.Comments.Select(c => new Domain.Comment(c.Id, c.UserId, c.PostId, c.Created, c.CommentBody)).ToList(),
@@ -76,7 +76,7 @@ namespace PostN.DataAccess
                        AboutMe = u.AboutMe,
                        State = u.State,
                        Country = u.Country,
-                       Admin = u.Admin,
+                       Role = u.Role,
                        PhoneNumber = u.PhoneNumber,
                        DoB = u.DoB,
                        Comments = u.Comments.Select(c => new Domain.Comment(c.Id, c.UserId, c.User.Username, c.PostId, c.Created, c.CommentBody)).ToList(),
@@ -102,7 +102,7 @@ namespace PostN.DataAccess
                        AboutMe = u.AboutMe,
                        State = u.State,
                        Country = u.Country,
-                       Admin = u.Admin,
+                       Role = u.Role,
                        PhoneNumber = u.PhoneNumber,
                        DoB = u.DoB,
                        Comments = u.Comments.Select(c => new Domain.Comment(c.Id, c.UserId, c.User.Username, c.PostId, c.Created, c.CommentBody)).ToList(),
@@ -130,7 +130,7 @@ namespace PostN.DataAccess
                        AboutMe = u.AboutMe,
                        State = u.State,
                        Country = u.Country,
-                       Admin = u.Admin,
+                       Role = u.Role,
                        PhoneNumber = u.PhoneNumber,
                        DoB = u.DoB,
                        Comments = u.Comments.Select(c => new Domain.Comment(c.Id, c.UserId, c.User.Username, c.PostId, c.Created, c.CommentBody)).ToList(),
@@ -234,7 +234,7 @@ namespace PostN.DataAccess
             {
                 Entities.User foundUser = _context.Users
                .FirstOrDefault(user => user.Username == username);
-                return new Domain.User(foundUser.Id, foundUser.FirstName, foundUser.LastName, foundUser.Email, foundUser.Username, foundUser.AboutMe, foundUser.State, foundUser.Country, foundUser.Admin, foundUser.PhoneNumber, foundUser.DoB);
+                return new Domain.User(foundUser.Id, foundUser.FirstName, foundUser.LastName, foundUser.Email, foundUser.Username, foundUser.AboutMe, foundUser.State, foundUser.Country, foundUser.Role, foundUser.PhoneNumber, foundUser.DoB);
             }
             catch (System.InvalidOperationException e)
             {

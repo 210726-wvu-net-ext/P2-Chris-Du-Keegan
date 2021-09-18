@@ -24,7 +24,7 @@ namespace PostN.DataAccess.Entities
         public string AboutMe { get; set; }
         public string State { get; set; }
         public string Country { get; set; }
-        public int Admin { get; set; }
+        public string Role { get; set; }
         public string PhoneNumber { get; set; }
         public DateTime DoB { get; set; }
         public byte[] ProfilePic { get; set; }

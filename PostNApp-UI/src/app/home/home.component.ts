@@ -14,22 +14,10 @@ export class HomeComponent {
   posts: Post[] = [];
   constructor(private jwtHelper: JwtHelperService, private router: Router, private postService: PostService) {}
 
-  returnUserId() {
-    const token: string = JSON.parse(localStorage.getItem("jwt")!);
-    const userId: string = this.jwtHelper.decodeToken(token).NameIdentifier;
-    if (token && !this.jwtHelper.isTokenExpired(token)) {
-      alert(userId);
-      return userId;
-    }
-    else {
-      return null;
-    }
-  }
+
 
   isUserAuthenticated() {
-    const token: string = JSON.parse(localStorage.getItem("jwt")!);
-    const userId: string = this.jwtHelper.decodeToken(token).NameIdentifier;
-    console.log(userId);
+    const token = localStorage.getItem("jwt");
     if (token && !this.jwtHelper.isTokenExpired(token)) {
       return true;
     }
@@ -39,7 +27,6 @@ export class HomeComponent {
   }
   ngOnInit(): void {
     this.getPosts();
-    this.returnUserId();
   }
   getPosts(): void {
     this.postService.getPosts()
