@@ -11,7 +11,7 @@ export interface User {
     aboutMe: string,
     state: string,
     country: string,
-    admin: number,
+    role: string,
     phoneNumber: string,
     dob: Date,
     Comments: Comment[],

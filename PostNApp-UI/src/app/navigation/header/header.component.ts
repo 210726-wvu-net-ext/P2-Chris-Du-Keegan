@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { AuthServiceService } from 'src/app/auth-service.service';
 
 @Component({
   selector: 'app-header',
@@ -7,7 +8,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   @Output() public sidenavToggle = new EventEmitter();
-  constructor() { }
+  constructor(private authService: AuthServiceService) { }
 
   ngOnInit(): void {
   }
@@ -19,5 +20,12 @@ export class HeaderComponent implements OnInit {
   public logOut = () => {
     localStorage.removeItem("jwt");
     alert("You have logged out. Come back soon!");
+  }
+
+  isAdmin(): boolean {
+    return this.authService.currentUser.role == "Administrator" ? true : false;
+  }
+  isUser(): boolean {
+    return this.authService.currentUser.role == "User" ? true : false;
   }
 }

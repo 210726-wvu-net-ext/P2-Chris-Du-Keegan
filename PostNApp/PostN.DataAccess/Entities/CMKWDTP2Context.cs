@@ -22,6 +22,15 @@ namespace PostN.DataAccess.Entities
         public virtual DbSet<Post> Posts { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=tcp:p2-210726-cdk.database.windows.net,1433;Initial Catalog=CM-KW-DT-P2;Persist Security Info=False;User ID=cdk;Password=password#123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
@@ -38,13 +47,13 @@ namespace PostN.DataAccess.Entities
                 entity.HasOne(d => d.Post)
                     .WithMany(p => p.Comments)
                     .HasForeignKey(d => d.PostId)
-                    .HasConstraintName("FK__Comments__PostId__6CD828CA");
+                    .HasConstraintName("FK__Comments__PostId__1975C517");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Comments)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Comments__UserId__6BE40491");
+                    .HasConstraintName("FK__Comments__UserId__1881A0DE");
             });
 
             modelBuilder.Entity<Follower>(entity =>
@@ -52,13 +61,13 @@ namespace PostN.DataAccess.Entities
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.FollowerUsers)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Followers__UserI__65370702");
+                    .HasConstraintName("FK__Followers__UserI__11D4A34F");
 
                 entity.HasOne(d => d.UserId2Navigation)
                     .WithMany(p => p.FollowerUserId2Navigations)
                     .HasForeignKey(d => d.UserId2)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Followers__UserI__662B2B3B");
+                    .HasConstraintName("FK__Followers__UserI__12C8C788");
             });
 
             modelBuilder.Entity<Post>(entity =>
@@ -77,15 +86,15 @@ namespace PostN.DataAccess.Entities
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Posts)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Posts__UserId__690797E6");
+                    .HasConstraintName("FK__Posts__UserId__15A53433");
             });
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.HasIndex(e => e.Username, "UQ__Users__536C85E443567589")
+                entity.HasIndex(e => e.Username, "UQ__Users__536C85E4CF54D254")
                     .IsUnique();
 
-                entity.HasIndex(e => e.Email, "UQ__Users__A9D105340A0EB9FC")
+                entity.HasIndex(e => e.Email, "UQ__Users__A9D10534A7AF8799")
                     .IsUnique();
 
                 entity.Property(e => e.AboutMe)
@@ -123,6 +132,11 @@ namespace PostN.DataAccess.Entities
                 entity.Property(e => e.PhoneNumber)
                     .IsRequired()
                     .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Role)
+                    .IsRequired()
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.State)
