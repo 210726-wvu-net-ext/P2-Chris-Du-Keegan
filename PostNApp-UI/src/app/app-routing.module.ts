@@ -7,10 +7,12 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guards/auth-gaurd.service';
 import { ExploreComponent } from './explore/explore.component';
 import { RegisterComponent } from './register/register.component';
+import { HomeComponent } from './home/home.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
+  { path: '', component: HomeComponent},
   { path: 'profile', component: ProfileComponent },
   { path: 'profile/update/:id', component: UserDetailComponent, canActivate: [AuthGuard] },
   { path: 'users', component: UsersComponent },

@@ -17,4 +17,8 @@ export class SidenavListComponent implements OnInit {
     this.sidenavClose.emit();
   }
 
+  public logOut = () => {
+    localStorage.removeItem("jwt");
+  }
+
 }

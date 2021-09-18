@@ -1,3 +1,6 @@
+import { Post } from "./post";
+import { Comment } from "./comment";
+
 export interface User {
     id: number,
     firstName: string,
@@ -11,7 +14,7 @@ export interface User {
     admin: number,
     phoneNumber: string,
     dob: Date,
-    Comments: [],
-    Posts: [],
+    Comments: Comment[],
+    Posts: Post[],
     Follows: []
 }

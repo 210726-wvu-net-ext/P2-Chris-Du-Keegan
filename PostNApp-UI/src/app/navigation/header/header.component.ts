@@ -15,4 +15,8 @@ export class HeaderComponent implements OnInit {
   public onToggleSidenav =() => {
     this.sidenavToggle.emit();
   }
+
+  public logOut = () => {
+    localStorage.removeItem("jwt");
+  }
 }
