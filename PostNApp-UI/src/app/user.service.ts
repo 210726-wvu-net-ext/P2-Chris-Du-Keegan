@@ -37,7 +37,7 @@ export class UserService {
     
   }
 
-  /** POST: add a new hero to the server */
+  /** POST: add a new user to the server */
   addUser(user: User): Observable<User> {
     return this.http.post<User>(this.usersUrl, user, this.httpOptions).pipe(
       //tap((newUser: User) => this.log(`added hero w/ id=${newUser.id}`)),
@@ -45,21 +45,21 @@ export class UserService {
     );
   }
 
-  /** PUT: update the hero on the server */
+  /** PUT: update the user on the server */
   updateUser(id: number, user: User): Observable<any> {
     const url = `${this.usersUrl}/${id}`;
     return this.http.put<User>(url, user, this.httpOptions).pipe(
-      //tap(_ => this.log(`updated hero id=${hero.id}`)),
+      //tap(_ => this.log(`updated user id=${user.id}`)),
       catchError(this.handleError<any>('updateUser'))
     );
   }
 
-  /** DELETE: delete the hero from the server */
+  /** DELETE: delete the user from the server */
 deleteUser(id: number): Observable<User> {
   const url = `${this.usersUrl}/${id}`;
 
   return this.http.delete<User>(url, this.httpOptions).pipe(
-    //tap(_ => this.log(`deleted hero id=${id}`)),
+    //tap(_ => this.log(`deleted user id=${id}`)),
     catchError(this.handleError<User>('deleteUser'))
   );
 }

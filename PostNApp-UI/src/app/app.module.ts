@@ -18,6 +18,11 @@ import {MatCardModule} from '@angular/material/card';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { HomeComponent } from './home/home.component';
 import { JwtModule } from "@auth0/angular-jwt";
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { HeaderComponent } from './navigation/header/header.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component'
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -31,7 +36,9 @@ export function tokenGetter() {
     ProfileComponent,
     ExploreComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    HeaderComponent,
+    SidenavListComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +60,9 @@ export function tokenGetter() {
         disallowedRoutes:[]
       }
     }),
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
   ],
   
   providers: [],

@@ -1,8 +1,26 @@
-<h2>Explore</h2>
-<ul>
-    <li *ngFor="let post of posts">
-        <a routerLink="/explore/{{post.id}}">
-            {{post.username}}: {{post.image}}
-        </a>
-    </li>
-</ul>
+<div>
+    <section class="sec-wrapper">
+        <fieldset class="border p-4">
+            <legend class="w-auto">Explore</legend>
+            <div class="row">
+                <div class="col-sm">
+                    <div class="row">
+                        <div class="col">
+                            <ul class="list-group mb-15" *ngIf="posts.length >0">
+                                <li class ="list-group-item d-flex justify-content-between align-items-center text-light p-0 border-0 mb-1" *ngFor="let activity of posts">
+                                   
+                                </li>
+                            </ul>
+                            <ul class="list-group mb-15" *ngIf="posts.length ==0">
+                                <li class = "list-group-item d-flex justify-content-between align-items-center text-light">
+                                    Explorer is Dead
+                                    <i class="fas fa-bell text-light"></i>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </section>
+</div>
