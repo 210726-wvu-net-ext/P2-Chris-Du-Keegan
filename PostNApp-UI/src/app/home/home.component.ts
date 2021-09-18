@@ -22,7 +22,4 @@ export class HomeComponent {
     }
   }
 
-  public logOut = () => {
-    localStorage.removeItem("jwt");
-  }
 }
