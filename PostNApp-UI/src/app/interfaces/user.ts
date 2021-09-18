@@ -10,7 +10,7 @@ export interface User {
     country: string,
     admin: number,
     phoneNumber: string,
-    Dob: string
+    dob: Date,
     Comments: [],
     Posts: [],
     Follows: []
