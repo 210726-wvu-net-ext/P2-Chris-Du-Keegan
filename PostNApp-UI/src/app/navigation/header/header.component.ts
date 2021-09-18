@@ -18,5 +18,6 @@ export class HeaderComponent implements OnInit {
 
   public logOut = () => {
     localStorage.removeItem("jwt");
+    alert("You have logged out. Come back soon!");
   }
 }
