@@ -30,6 +30,7 @@ export class RegisterComponent implements OnInit {
     
     loading = false;
     submitted = false;
+    error: string="";
   
     users: User[] = [];
   constructor(
@@ -60,10 +61,10 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
       this.submitted = true;
-      // stop here if form is invalid
-      //if (this.form.invalid) {
-      //    return;
-      //}
+       //stop here if form is invalid
+      if (this.form.invalid) {
+          return;
+      }
       
       this.loading = true;
       //this.id = this.route.snapshot.params['id'];
@@ -72,9 +73,12 @@ export class RegisterComponent implements OnInit {
         .subscribe(
           data => {
             this.router.navigate(['../login'], {relativeTo: this.route});
+            alert("Register successfully!");
           },
           error => {
             this.loading = false;
+            this.error = error;
+            alert("Fail!");
           }
         )
 
