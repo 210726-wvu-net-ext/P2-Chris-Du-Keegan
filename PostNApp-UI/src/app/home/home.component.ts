@@ -16,6 +16,8 @@ export class HomeComponent {
 
   isUserAuthenticated() {
     const token: string = JSON.parse(localStorage.getItem("jwt")!);
+    const userId: string = this.jwtHelper.decodeToken(token).NameIdentifier;
+    console.log(userId);
     if (token && !this.jwtHelper.isTokenExpired(token)) {
       return true;
     }
