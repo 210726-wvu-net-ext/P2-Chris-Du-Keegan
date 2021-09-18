@@ -1,0 +1,9 @@
+<h1>ALL Posts</h1>
+<ul>
+  <li *ngFor="let post of posts">
+    <a>
+        {{post.id}}: {{post.title}}
+        {{post.body}}
+      </a>
+  </li>
+</ul>

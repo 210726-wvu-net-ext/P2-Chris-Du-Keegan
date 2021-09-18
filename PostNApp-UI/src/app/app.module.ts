@@ -24,6 +24,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 import { RegisterComponent } from './register/register.component';
+import { PostsComponent } from './posts/posts.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -40,7 +41,8 @@ export function tokenGetter() {
     HomeComponent,
     HeaderComponent,
     SidenavListComponent,
-    RegisterComponent
+    RegisterComponent,
+    PostsComponent
   ],
   imports: [
     BrowserModule,
