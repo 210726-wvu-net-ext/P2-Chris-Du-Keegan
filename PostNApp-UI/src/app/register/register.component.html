@@ -139,7 +139,7 @@
         <mat-label for='phoneNumber'>Phone Number</mat-label>
         <input type="tel" matInput placeholder="+00 555-555-1234" formControlName="phoneNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }" />
         <div *ngIf="submitted && f.phoneNumber.errors" class="invalid-feedback">
-            <div *ngIf="f.phoneNumber.errors.required">Phonenumber is required</div>
+            <div *ngIf="f.phoneNumber.errors.required">Phone number is required</div>
         </div>
       </mat-form-field>
 
@@ -173,7 +173,7 @@
         <mat-label for='aboutMe'>About Me</mat-label>
         <input matInput maxlength="256" placeholder="Ex. I enjoy...." type="text" formControlName="aboutMe" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.aboutMe.errors }" />
         <div *ngIf="submitted && f.aboutMe.errors" class="invalid-feedback">
-            <div *ngIf="f.aboutMe.errors.required">aboutMe is required</div>
+            <div *ngIf="f.aboutMe.errors.required">About me is required</div>
         </div>
       </mat-form-field>
       <button mat-raised-button fxFlexFill type="submit" class="mt-5" color="primary">Sign up!</button>
