@@ -282,16 +282,16 @@ namespace PostN.DataAccess
             return false;
         }
 
-        public async Task<bool> UserLoginAsync(Domain.User user)
+        public async Task<Domain.User> UserLoginAsync(Domain.User user)
         {
             Entities.User foundUser = await _context.Users.FirstOrDefaultAsync(u => u.Username == user.Username && u.Password == user.Password);
 
             if (foundUser != null)
             {
-                //var loginUser = GetUserById(foundUser.Id);
-                return true;
+               Domain.User loginUser = await GetUserById(foundUser.Id);
+                return loginUser;
             }
-            return false;
+            return null;
         }
     }
 }

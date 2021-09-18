@@ -35,15 +35,22 @@ namespace PostN.WebApi.Controllers
                 Username = user.Username,
                 Password = user.Password
             };
-            if(await _userRepo.UserLoginAsync(loggingInUser))
+            if(await _userRepo.UserLoginAsync(loggingInUser) is User foundUser)
             {
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("secretSupersupes#345"));
                 var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.NameIdentifier, foundUser.Id.ToString()),
+                    new Claim(ClaimTypes.Name, foundUser.Username),
+                    new Claim(ClaimTypes.Email, foundUser.Email),
+                    new Claim(ClaimTypes.Role, "User")
+                };
 
                 var tokenOptions = new JwtSecurityToken(
                     issuer: "https://localhost:44365",
                     audience: "https://localhost:4200",
-                    claims: new List<Claim>(),
+                    claims: claims,
                     expires: DateTime.Now.AddMinutes(5),
                     signingCredentials: signingCredentials
                     );
