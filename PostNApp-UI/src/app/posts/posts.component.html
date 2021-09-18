@@ -5,6 +5,12 @@
     Title: {{post?.title}} | By: {{post?.username}} <br>
     Body: {{post?.body}} <br>
     Image: {{post?.image}} <br>
-    Comments: {{post?.comments}}
   </p>
+  <div *ngIf="post?.comments">
+      <div *ngFor="let comment of post?.comments">
+        <app-comments [comment]="comment"></app-comments>
+    </div>
+    
+  </div>
+  
 </li>
