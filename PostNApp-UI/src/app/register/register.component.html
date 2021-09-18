@@ -163,7 +163,7 @@
 
       <mat-form-field class="input-full-width" appearance="fill">
         <mat-label for='dob'>Date of Birth</mat-label>
-        <input matInput placeholder="1990-01-01" type="text" formControlName="dob" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.dob.errors }" />
+        <input matInput placeholder="1990-01-01" type="date" formControlName="dob" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.dob.errors }" />
         <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
             <div *ngIf="f.dob.errors.required">DOB is required</div>
         </div>

@@ -41,10 +41,10 @@ namespace PostN.WebApi.Controllers
         public async Task<ActionResult> Create([FromBody] CreatedUser user)
         {
 
-            if (!ModelState.IsValid)
-            {
-                return Ok();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Ok();
+            //}
 
             try
             {

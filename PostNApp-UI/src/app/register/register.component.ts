@@ -6,7 +6,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { first } from 'rxjs/operators';
 
 
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',

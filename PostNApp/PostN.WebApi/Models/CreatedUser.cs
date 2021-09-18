@@ -21,10 +21,11 @@ namespace PostN.WebApi.Models
         public string Email { get; set; }
 
         [Required]
-        [MinLength(5)]
+        [MinLength(5, ErrorMessage = "Please enter more than 5 characters")]
         public string Username { get; set; }
 
         [Required]
+        [MinLength(6, ErrorMessage = "Enter at least 6 characters")]
         public string Password { get; set; }
         public string AboutMe { get; set; }
         public string State { get; set; }
