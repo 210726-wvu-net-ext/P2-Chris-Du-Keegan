@@ -26,6 +26,7 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
 import { RegisterComponent } from './register/register.component';
 import { PostsComponent } from './posts/posts.component';
 import { CommentsComponent } from './comments/comments.component';
+import { AddPostComponent } from './add-post/add-post.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -44,7 +45,8 @@ export function tokenGetter() {
     SidenavListComponent,
     RegisterComponent,
     PostsComponent,
-    CommentsComponent
+    CommentsComponent,
+    AddPostComponent
   ],
   imports: [
     BrowserModule,
