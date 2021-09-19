@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { User } from './interfaces/user';
-import { Observable, of} from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { observable, Observable, of, throwError} from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +18,10 @@ export class UserService {
   
   private usersUrl = 'https://localhost:44365/api/users';
  
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router
+    ) { }
 
   getUsers(): Observable<User[]>
   {
@@ -38,11 +44,13 @@ export class UserService {
   }
 
   /** POST: add a new user to the server */
-  addUser(user: User): Observable<User> {
+  addUser(user: User): Observable<User>{
     return this.http.post<User>(this.usersUrl, user, this.httpOptions).pipe(
       //tap((newUser: User) => this.log(`added hero w/ id=${newUser.id}`)),
-      catchError(this.handleError<User>('addUser'))
-    );
+      catchError(this.handleError1));
+  }
+  handleError1(error: HttpErrorResponse){
+    return throwError(error.error)
   }
 
   /** PUT: update the user on the server */
@@ -84,4 +92,7 @@ deleteUser(id: number): Observable<User> {
       return of(result as T);
     };
   }
+
+  
 }
+

@@ -21,17 +21,16 @@ namespace PostN.WebApi.Models
         public string Email { get; set; }
 
         [Required]
-        [MinLength(5)]
+        [MinLength(5, ErrorMessage = "Please enter more than 5 characters")]
         public string Username { get; set; }
 
         [Required]
-        [MinLength(6, ErrorMessage = "Password length should be more than 6.")]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[^\da-zA-Z]).{6,20}$", ErrorMessage = "Password must be between 6 and 20 characters one lowercase letter, one digit and one special character.")]
+        [MinLength(6, ErrorMessage = "Enter at least 6 characters")]
         public string Password { get; set; }
         public string AboutMe { get; set; }
         public string State { get; set; }
         public string Country { get; set; }
-        public int Admin { get; set; }
+        public string Role { get; set; }
         public string PhoneNumber { get; set; }
 
         [Required]

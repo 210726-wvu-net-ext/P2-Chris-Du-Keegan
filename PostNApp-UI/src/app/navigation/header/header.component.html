@@ -9,7 +9,7 @@
   </div>
   <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
     <ul fxLayout fxLayoutGap="15px" class="navigation-items">
-      <li>
+      <li *ngIf="isAdmin()">
         <a routerLink="/users">Users</a>
       </li>
       <li>
@@ -18,8 +18,14 @@
       <li>
         <a routerLink="/explore">Explore</a>
       </li>
-      <li>
+      <li *ngIf="!authService.loggedIn()">
         <a routerLink="/login">Login</a>
+      </li>
+      <li *ngIf="!authService.loggedIn()">
+        <a routerLink="/register">Register</a>
+      </li>
+      <li *ngIf="authService.loggedIn()">
+        <a (click)="logout()" >Log Out</a>
       </li>
     </ul>
   </div>

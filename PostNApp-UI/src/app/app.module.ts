@@ -22,7 +22,12 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import { HeaderComponent } from './navigation/header/header.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component'
+import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
+import { RegisterComponent } from './register/register.component';
+import { PostsComponent } from './posts/posts.component';
+import { CommentsComponent } from './comments/comments.component';
+import { AddPostComponent } from './add-post/add-post.component';
+import { EditPostComponent } from './edit-post/edit-post.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -38,7 +43,12 @@ export function tokenGetter() {
     LoginComponent,
     HomeComponent,
     HeaderComponent,
-    SidenavListComponent
+    SidenavListComponent,
+    RegisterComponent,
+    PostsComponent,
+    CommentsComponent,
+    AddPostComponent,
+    EditPostComponent
   ],
   imports: [
     BrowserModule,

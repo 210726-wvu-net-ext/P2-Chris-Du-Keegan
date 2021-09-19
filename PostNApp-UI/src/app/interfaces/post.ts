@@ -1,4 +1,5 @@
 import { Byte } from "@angular/compiler/src/util";
+import { Comment } from "./comment";
 
 export interface Post {
     id: number,
@@ -8,5 +9,5 @@ export interface Post {
     title: string,
     body: string, 
     username: string,
-    comments: string[],
+    comments: Comment[],
 }

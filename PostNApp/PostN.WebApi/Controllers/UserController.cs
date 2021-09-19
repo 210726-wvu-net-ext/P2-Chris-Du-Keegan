@@ -41,10 +41,10 @@ namespace PostN.WebApi.Controllers
         public async Task<ActionResult> Create([FromBody] CreatedUser user)
         {
 
-            if (!ModelState.IsValid)
-            {
-                return Ok();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Ok();
+            //}
 
             try
             {
@@ -58,7 +58,7 @@ namespace PostN.WebApi.Controllers
                     AboutMe = user.AboutMe,
                     State = user.State,
                     Country = user.Country,
-                    Admin = user.Admin,
+                    Role = "User",
                     PhoneNumber = user.PhoneNumber,
                     DoB = user.DoB
 
@@ -68,8 +68,8 @@ namespace PostN.WebApi.Controllers
             }
             catch (Exception e)
             {
-                ModelState.AddModelError("Username", e.Message);
-                ModelState.AddModelError("Email", e.Message);
+               //ModelState.AddModelError("Username", e.Message);
+               //ModelState.AddModelError("Email", e.Message);
 
                 return BadRequest(e.Message);
             }

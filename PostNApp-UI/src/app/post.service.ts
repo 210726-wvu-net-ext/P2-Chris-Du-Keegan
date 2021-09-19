@@ -14,7 +14,7 @@ export class PostService {
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json'})
   };
-  private url = `${baseUrl}/posts`;
+  private url = `${baseUrl}posts`;
 
   constructor(private http: HttpClient) { }
 
@@ -38,7 +38,7 @@ export class PostService {
   }
 
    /** POST: add a new post to the server */
-   addPost(post: Post): Observable<Post> {
+   addPost(post: any): Observable<Post> {
     return this.http.post<Post>(this.url, post, this.httpOptions).pipe(
       //tap((newPost: Post) => this.log(`added post w/ id=${newPost.id}`)),
       catchError(this.handleError<Post>('addPost'))
@@ -55,8 +55,8 @@ export class PostService {
   }
 
    /** PUT: update the user on the server */
-   updatePost(id: number, post: Post): Observable<any> {
-    const url = `${this.url}/${id}`;
+   updatePost(postId: number, post: Post): Observable<any> {
+    const url = `${this.url}/${postId}`;
     return this.http.put<Post>(url, post, this.httpOptions).pipe(
       //tap(_ => this.log(`updated user id=${post.id}`)),
       catchError(this.handleError<any>('updatePost'))

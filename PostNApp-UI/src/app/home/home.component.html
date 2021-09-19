@@ -1,2 +1,8 @@
-<p>home works!</p>
-<button (click)="logOut()">Log Out</button>
+<app-add-post></app-add-post>
+<br>
+<div *ngIf="posts" class="container">
+    <div *ngFor="let post of posts" class="row justify-content-md-center">
+        <app-posts [post]="post" class="col"></app-posts>
+    </div>
+</div>
+

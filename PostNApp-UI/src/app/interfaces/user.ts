@@ -1,3 +1,6 @@
+import { Post } from "./post";
+import { Comment } from "./comment";
+
 export interface User {
     id: number,
     firstName: string,
@@ -8,10 +11,10 @@ export interface User {
     aboutMe: string,
     state: string,
     country: string,
-    admin: number,
+    role: string,
     phoneNumber: string,
-    Dob: string
-    Comments: [],
-    Posts: [],
-    Follows: []
+    dob: Date,
+    comments: Comment[],
+    posts: Post[],
+    follows: []
 }
