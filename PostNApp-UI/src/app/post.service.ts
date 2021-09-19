@@ -29,11 +29,11 @@ export class PostService {
 
   getPostById(id: number)
   {
-    const url = `${baseUrl}/${id}`;
+    const url = `${this.url}/${id}`;
     return this.http.get<Post>(url)
             .pipe(
               //tap(_ => this.log(`fetched post id=${id}`)),
-              catchError(this.handleError<Post>(`getPostById id={id}`))
+              catchError(this.handleError<Post>(`getPostById id=${id}`))
             );
   }
 
@@ -47,7 +47,7 @@ export class PostService {
 
   /** POST: add a new Comment to the server */
   addComment(postId: number, comment: Comment): Observable<Comment> {
-    const url = `${baseUrl}${postId}`;
+    const url = `${this.url}/${postId}`;
     return this.http.post<Comment>(url, comment, this.httpOptions).pipe(
       //tap((newComment: Comment) => this.log(`added comment w/ id=${newComment.id}`)),
       catchError(this.handleError<Comment>('addComment'))
@@ -55,8 +55,8 @@ export class PostService {
   }
 
    /** PUT: update the user on the server */
-   updatePost(id: number, post: Post): Observable<any> {
-    const url = `${this.url}${id}`;
+   updatePost(postId: number, post: Post): Observable<any> {
+    const url = `${this.url}/${postId}`;
     return this.http.put<Post>(url, post, this.httpOptions).pipe(
       //tap(_ => this.log(`updated user id=${post.id}`)),
       catchError(this.handleError<any>('updatePost'))
@@ -65,7 +65,7 @@ export class PostService {
 
   /** PUT: add a new Comment to the server */
     updateComment(postId: number, commentId: number, comment: Comment): Observable<any> {
-    const url = `${baseUrl}${postId}/comment/${commentId}`;
+    const url = `${this.url}/${postId}/comment/${commentId}`;
     return this.http.put<Comment>(url, comment, this.httpOptions).pipe(
       //tap((newComment: Comment) => this.log(`added comment w/ id=${newComment.id}`)),
       catchError(this.handleError<Comment>('updateComment'))
@@ -74,7 +74,7 @@ export class PostService {
 
       /** DELETE: delete the post from the server */
   deletePostById(id: number): Observable<Post> {
-    const url = `${this.url}${id}`;
+    const url = `${this.url}/${id}`;
     return this.http.delete<Post>(url, this.httpOptions).pipe(
       //tap(_ => this.log(`deleted post id=${id}`)),
       catchError(this.handleError<Post>('deletePost'))
@@ -83,7 +83,7 @@ export class PostService {
 
   /** DELETE: add a new Comment to the server */
   deleteComment(postId: number, commentId: number): Observable<any> {
-    const url = `${baseUrl}${postId}/comment/${commentId}`;
+    const url = `${this.url}/${postId}/comment/${commentId}`;
     return this.http.delete<Comment>(url, this.httpOptions).pipe(
       //tap(_ => this.log(`deleted comment id=${commentId}`)),
       catchError(this.handleError<Comment>('updateComment'))

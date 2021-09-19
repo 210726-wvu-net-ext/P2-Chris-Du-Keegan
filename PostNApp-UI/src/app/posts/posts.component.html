@@ -23,6 +23,8 @@
   <mat-card-actions>
     <button mat-button>LIKE</button>
     <button mat-button>COMMENT</button>
+    <button mat-button *ngIf="post?.username == authService.currentUser.username" routerLink="/edit/post/{{post?.id}}">Edit Post</button>
+    <button mat-button *ngIf="post?.username == authService.currentUser.username" (click)="deletePost()">Delete Post</button>
   </mat-card-actions>
 </mat-card>
 <br>
