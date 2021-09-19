@@ -41,10 +41,9 @@ namespace PostN.WebApi.Controllers
                 var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.NameIdentifier, foundUser.Id.ToString()),
-                    new Claim(ClaimTypes.Name, foundUser.Username),
-                    new Claim(ClaimTypes.Email, foundUser.Email),
-                    new Claim(ClaimTypes.Role, "User")
+                    new Claim(JwtRegisteredClaimNames.Email, foundUser.Email),
+                    new Claim(JwtRegisteredClaimNames.NameId, foundUser.Username),
+                    new Claim(ClaimTypes.Role, foundUser.Role)
                 };
 
                 var tokenOptions = new JwtSecurityToken(
@@ -56,7 +55,7 @@ namespace PostN.WebApi.Controllers
                     );
 
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-                return Ok(new { Token = tokenString, message = "You have logged in!", success = true });
+                return Ok(new { Token = tokenString, message = "You have logged in!", success = true, userId = foundUser.Id, role = foundUser.Role });
             }
             return Unauthorized(new { message = "Your credentials were incorrect! Please try again or Sign up.", success = false });
         }

@@ -9,7 +9,7 @@
   </div>
   <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
     <ul fxLayout fxLayoutGap="15px" class="navigation-items">
-      <li>
+      <li *ngIf="isAdmin()">
         <a routerLink="/users">Users</a>
       </li>
       <li>

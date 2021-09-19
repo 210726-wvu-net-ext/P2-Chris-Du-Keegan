@@ -26,7 +26,7 @@ namespace PostN.Domain
 
         }
 
-        public User(int id, string firstName, string lastname, string email, string username, string aboutMe, string state, string country, int admin, string phonenumber, DateTime dob)
+        public User(int id, string firstName, string lastname, string email, string username, string aboutMe, string state, string country, string role, string phonenumber, DateTime dob)
         {
             this.Id = id;
             this.FirstName = firstName;
@@ -36,7 +36,7 @@ namespace PostN.Domain
             this.AboutMe = aboutMe;
             this.State = state;
             this.Country = country;
-            this.Admin = admin;
+            this.Role = role;
             this.PhoneNumber = phonenumber;
             this.DoB = dob;
         }
@@ -51,7 +51,7 @@ namespace PostN.Domain
         public string AboutMe { get; set; }
         public string State { get; set; }
         public string Country { get; set; }
-        public int Admin { get; set; }
+        public string Role { get; set; }
         public string PhoneNumber { get; set; }
         public DateTime DoB { get; set; }
         public byte[] ProfilePic { get; set; }
