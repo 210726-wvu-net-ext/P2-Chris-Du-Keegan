@@ -27,6 +27,7 @@ import { RegisterComponent } from './register/register.component';
 import { PostsComponent } from './posts/posts.component';
 import { CommentsComponent } from './comments/comments.component';
 import { AddPostComponent } from './add-post/add-post.component';
+import { SearchComponent } from './search/search.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -46,7 +47,8 @@ export function tokenGetter() {
     RegisterComponent,
     PostsComponent,
     CommentsComponent,
-    AddPostComponent
+    AddPostComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
