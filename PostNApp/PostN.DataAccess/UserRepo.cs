@@ -184,6 +184,7 @@ namespace PostN.DataAccess
                 AboutMe = user.AboutMe,
                 State = user.State,
                 Country = user.Country,
+                Role = "User",
                 PhoneNumber = user.PhoneNumber,
                 DoB = user.DoB,
             };

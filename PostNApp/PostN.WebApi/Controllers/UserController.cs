@@ -58,7 +58,7 @@ namespace PostN.WebApi.Controllers
                     AboutMe = user.AboutMe,
                     State = user.State,
                     Country = user.Country,
-                    Role = user.Role,
+                    Role = "User",
                     PhoneNumber = user.PhoneNumber,
                     DoB = user.DoB
 
