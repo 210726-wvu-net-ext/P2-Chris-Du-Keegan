@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem("jwt");
     alert("You have logged out. Come back soon!");
   }
-
+  
   isAdmin(): boolean {
     return this.authService.currentUser.role == "Administrator" ? true : false;
   }

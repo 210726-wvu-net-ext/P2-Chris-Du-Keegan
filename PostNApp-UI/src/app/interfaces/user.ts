@@ -14,7 +14,7 @@ export interface User {
     role: string,
     phoneNumber: string,
     dob: Date,
-    Comments: Comment[],
-    Posts: Post[],
-    Follows: []
+    comments: Comment[],
+    posts: Post[],
+    follows: []
 }

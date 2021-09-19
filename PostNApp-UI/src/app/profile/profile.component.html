@@ -21,64 +21,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="container bootstrap snippets bootdey">
-<div class="row ng-scope">
+<div>
+<div *ngIf="user">
     <div class="col-md-4">
         <div class="panel panel-default">
             <div class="panel-body text-center">
                 <div class="pv-lg"><img class="center-block img-responsive img-circle img-thumbnail thumb96" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Contact"></div>
-                <h3 class="m0 text-bold">Audrey Hunt</h3>
+                <h3 class="m0 text-bold">{{user.firstName}} {{user.lastName}}</h3>
                 <div class="mv-lg">
+                    <p>{{user.aboutMe}}</p>
                     <p>Hello, I'm a just a dummy contact in your contact list and this is my presentation text. Have fun!</p>
                 </div>
-                <div class="text-center"><a class="btn btn-primary" href="">Send message</a></div>
+                <div class="text-center"><a class="btn btn-primary" href="">Update</a></div>
             </div>
         </div>
         <div class="panel panel-default hidden-xs hidden-sm">
             <div class="panel-heading">
-                <div class="panel-title text-center">Recent contacts</div>
+                <div class="panel-title text-center">Basic Information</div>
             </div>
             <div class="panel-body">
                 <div class="media">
                     <div class="media-left media-middle">
-                        <a href="#"><img class="media-object img-circle img-thumbnail thumb48" src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="Contact"></a>
+                        <a href="#"><img class="media-object img-circle img-thumbnail thumb48" src="https://cdn-icons-png.flaticon.com/128/2947/2947698.png" alt="Contact"></a>
                     </div>
                     <div class="media-body pt-sm">
-                        <div class="text-bold">Floyd Ortiz
-                            <div class="text-sm text-muted">12m ago</div>
+                        <div class="text-bold">Country
+                            <div class="text-sm text-muted">{{user.state}}</div>
                         </div>
                     </div>
                 </div>
                 <div class="media">
                     <div class="media-left media-middle">
-                        <a href="#"><img class="media-object img-circle img-thumbnail thumb48" src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="Contact"></a>
+                        <a href="#"><img class="media-object img-circle img-thumbnail thumb48" src="https://cdn4.iconfinder.com/data/icons/gradient-circle-blue/36/2025-512.png" alt="Contact"></a>
                     </div>
                     <div class="media-body pt-sm">
-                        <div class="text-bold">Luis Vasquez
-                            <div class="text-sm text-muted">2h ago</div>
+                        <div class="text-bold">State
+                            <div class="text-sm text-muted">{{user.state}}</div>
                         </div>
                     </div>
                 </div>
                 <div class="media">
                     <div class="media-left media-middle">
-                        <a href="#"><img class="media-object img-circle img-thumbnail thumb48" src="https://bootdey.com/img/Content/avatar/avatar4.png" alt="Contact"></a>
+                        <a href="#"><img class="media-object img-circle img-thumbnail thumb48" src="https://images.all-free-download.com/images/graphiclarge/email_icon_6843322.jpg" alt="Contact"></a>
                     </div>
                     <div class="media-body pt-sm">
-                        <div class="text-bold">Duane Mckinney
-                            <div class="text-sm text-muted">yesterday</div>
+                        <div class="text-bold">Email
+                            <div class="text-sm text-muted">{{user.email}}</div>
                         </div>
                     </div>
                 </div>
                 <div class="media">
                     <div class="media-left media-middle">
-                        <a href="#"><img class="media-object img-circle img-thumbnail thumb48" src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="Contact"></a>
+                        <a href="#"><img class="media-object img-circle img-thumbnail thumb48" src="https://www.pngitem.com/pimgs/m/20-202269_phone-number-telephone-svg-png-icon-free-download.png" alt="Contact"></a>
                     </div>
                     <div class="media-body pt-sm">
-                        <div class="text-bold">Connie Lambert
-                            <div class="text-sm text-muted">2 weeks ago</div>
+                        <div class="text-bold">Phone number
+                            <div class="text-sm text-muted">{{user.phoneNumber}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="media">
+                    <div class="media-left media-middle">
+                        <a href="#"><img class="media-object img-circle img-thumbnail thumb48" src="https://image.flaticon.com/icons/png/512/307/307629.png" alt="Contact"></a>
+                    </div>
+                    <div class="media-body pt-sm">
+                        <div class="text-bold">Date of Birth
+                            <div class="text-sm text-muted">{{user.dob}}</div>
                         </div>
                     </div>
                 </div>
@@ -89,84 +103,94 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="pull-right">
-                    <div class="btn-group dropdown" uib-dropdown="dropdown">
-                        <button class="btn btn-link dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false"><em class="fa fa-ellipsis-v fa-lg text-muted"></em></button>
-                        <ul class="dropdown-menu dropdown-menu-right animated fadeInLeft" role="menu">
-                            <li><a href=""><span>Send by message</span></a></li>
-                            <li><a href=""><span>Share contact</span></a></li>
-                            <li><a href=""><span>Block contact</span></a></li>
-                            <li><a href=""><span class="text-warning">Delete contact</span></a></li>
-                        </ul>
-                    </div>
+                   
                 </div>
-                <div class="h4 text-center">Contact Information</div>
+                <div class="h4 text-center">My Posts</div>
                 <div class="row pv-lg">
                     <div class="col-lg-2"></div>
                     <div class="col-lg-8">
-                        <form class="form-horizontal ng-pristine ng-valid">
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label" for="inputContact1">Name</label>
-                                <div class="col-sm-10">
-                                    <input class="form-control" id="inputContact1" type="text" placeholder="" value="Audrey Hunt">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label" for="inputContact2">Email</label>
-                                <div class="col-sm-10">
-                                    <input class="form-control" id="inputContact2" type="email" value="mail@example.com">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label" for="inputContact3">Phone</label>
-                                <div class="col-sm-10">
-                                    <input class="form-control" id="inputContact3" type="text" value="(123) 465 789">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label" for="inputContact4">Mobile</label>
-                                <div class="col-sm-10">
-                                    <input class="form-control" id="inputContact4" type="text" value="(12) 123 987 465">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label" for="inputContact5">Website</label>
-                                <div class="col-sm-10">
-                                    <input class="form-control" id="inputContact5" type="text" value="http://some.wesbite.com">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label" for="inputContact6">Address</label>
-                                <div class="col-sm-10">
-                                    <textarea class="form-control" id="inputContact6" row="4">Some nice Street, 1234</textarea>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label" for="inputContact7">Social</label>
-                                <div class="col-sm-10">
-                                    <input class="form-control" id="inputContact7" type="text" value="@Social">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label" for="inputContact8">Company</label>
-                                <div class="col-sm-10">
-                                    <input class="form-control" id="inputContact8" type="text" placeholder="No Company">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> Favorite contact?</label>
+                        
+                        <div class="col-sm-12">
+                            <div class="panel panel-white post">
+                                <div class="post-heading">
+                                    <div class="pull-left image">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle avatar" alt="user profile image">
+                                    </div>
+                                    <div class="pull-left meta">
+                                        <div class="title h5">
+                                            <a href="#"><b>{{user.firstName}}{{user.lastName}}</b></a>
+                                            
+                                        </div>
+                                        <h6 class="text-muted time">{{user.posts[0].created}}</h6>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button class="btn btn-info" type="submit">Update</button>
+
+                                <div *ngif="img" class="post-image">
+                                    <img src=""><img src="https://via.placeholder.com/400x200" class="image" alt="image post">
+                                </div>
+
+                                <div class="post-description">
+                                    <h4>{{user.posts[0].title}}</h4>
+                                    <p>{{user.posts[0].body}}.</p>
+                                    <div class="stats">
+                                        <a href="javascript:void(0);" class="btn btn-default stat-item">
+                                            <i class="fa fa-thumbs-up icon"></i>228
+                                        </a>
+                                        <a href="javascript:void(0);" class="btn btn-default stat-item">
+                                            <i class="fa fa-share icon"></i>128
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="post-footer">
+                                    <div class="input-group"> 
+                                        <input class="form-control" placeholder="Add a comment" type="text">
+                                        <span class="input-group-addon">
+                                            <a href="javascript:void(0);"><i class="fa fa-edit"></i></a>  
+                                        </span>
+                                    </div>
+                                    <ul class="comments-list">
+                                        <li class="comment">
+                                            <a class="pull-left" href="javascript:void(0);">
+                                                <img class="avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+                                            </a>
+                                            <div class="comment-body">
+                                                <div class="comment-heading">
+                                                    <h4 class="user">John dOE</h4>
+                                                    <h5 class="time">7 minutes ago</h5>
+                                                </div>
+                                                <p>{{user.posts[0].comments[0].commentBody}} .</p>
+                                            </div>
+                                        </li>
+                                        <li class="comment">
+                                            <a class="pull-left" href="javascript:void(0);">
+                                                <img class="avatar" src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
+                                            </a>
+                                            <div class="comment-body">
+                                                <div class="comment-heading">
+                                                    <h4 class="user">John Doe</h4>
+                                                    <h5 class="time">3 minutes ago</h5>
+                                                </div>
+                                                <p>I think I might you this for one of my projects.</p>
+                                            </div>
+                                        </li>
+                                        <li class="comment">
+                                            <a class="pull-left" href="javascript:void(0);">
+                                                <img class="avatar" src="https://bootdey.com/img/Content/avatar/avatar4.png" alt="avatar">
+                                            </a>
+                                            <div class="comment-body">
+                                                <div class="comment-heading">
+                                                    <h4 class="user">John Doe</h4>
+                                                    <h5 class="time">10 seconds ago</h5>
+                                                </div>
+                                                <p>Wow! This is gorgeous.</p>
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
-                        </form>
-                        <div class="text-right"><a class="text-muted" href="#">Delete this contact?</a></div>
+                        </div>
+
+                        
                     </div>
                 </div>
             </div>
