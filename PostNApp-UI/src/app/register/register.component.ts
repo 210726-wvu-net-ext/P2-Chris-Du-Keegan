@@ -12,8 +12,8 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-
-
+  
+    errorMsg: string | undefined;
     form: FormGroup = new FormGroup({
 
       firstName: new FormControl(''),
@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit {
       this.form = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      username: ['', Validators.required],
+      username: ['', [Validators.required], Validators.minLength(5)],
       email: ['', Validators.required, Validators.email],
       password: ['', [Validators.required, Validators.minLength(6)]],
       aboutMe: ['', Validators.required],
@@ -75,9 +75,9 @@ export class RegisterComponent implements OnInit {
             this.router.navigate(['../login'], {relativeTo: this.route});
             alert("Register successfully!");
           },
-          error => {
+          error => { 
             this.loading = false;
-            alert(error);
+            this.errorMsg = error;
           }
         )
 

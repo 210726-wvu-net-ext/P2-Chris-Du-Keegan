@@ -68,8 +68,8 @@ namespace PostN.WebApi.Controllers
             }
             catch (Exception e)
             {
-               //ModelState.AddModelError("Username", e.Message);
-               //ModelState.AddModelError("Email", e.Message);
+               ModelState.AddModelError("Username", e.Message);
+               ModelState.AddModelError("Email", e.Message);
 
                 return BadRequest(e.Message);
             }
