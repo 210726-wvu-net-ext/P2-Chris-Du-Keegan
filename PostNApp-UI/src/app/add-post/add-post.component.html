@@ -1,1 +1,17 @@
-<p>add-post works!</p>
+<div fxLayoutAlign="center center" fxFlexFill class="main-div">
+    <mat-card fxFlex="75">
+        <mat-toolbar color="primary">Add Post</mat-toolbar>
+        <form fxLayoutAlign="stretch" fxLayout="column" class="login-form" [formGroup]="formGroup" (ngSubmit)="newPost()">
+            <mat-form-field class="input-full-width" appearance="fill">
+                <mat-label>Title</mat-label>
+                <input matInput placeholder="Ex. Title" formControlName="title" class="form-control">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Body</mat-label>
+                <input matInput type="text" placeholder="Today..." formControlName="body">
+            </mat-form-field>
+            <button mat-raised-button type="submit" class="mt-5" color="primary">Post</button>
+        </form>
+    </mat-card>
+</div>

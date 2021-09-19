@@ -9,14 +9,14 @@ import { IUser } from './interfaces/app-user';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthServiceService {
+export class AuthService {
 
 
   currentUser: IUser = {
-    id: -1,
-    username: "",
-    email: "",
-    role: "",
+    id: null!,
+    username: null!,
+    email: null!,
+    role: null!,
   }
 
   helper = new JwtHelperService();
@@ -40,8 +40,18 @@ export class AuthServiceService {
   }
 
   loggedIn(): boolean {
-    const token = localStorage.getItem('jwt') || '{}';
+    const token = localStorage.getItem('jwt')!;
     return !this.helper.isTokenExpired(token);
+  }
+
+  logout() {
+    this.currentUser = {
+      id: null!,
+    username: null!,
+    email: null!,
+    role: null!,
+    }
+    localStorage.removeItem('jwt');
   }
 
 }

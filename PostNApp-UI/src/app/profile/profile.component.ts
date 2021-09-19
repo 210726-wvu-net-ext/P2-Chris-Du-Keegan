@@ -2,7 +2,7 @@ import { Component, OnInit, Input} from '@angular/core';
 import { UserService } from '../user.service';
 import { User } from '../interfaces/user';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthServiceService } from 'src/app/auth-service.service';
+import { AuthService } from 'src/app/auth.service';
 
 
 @Component({
@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
-    private authServiceService: AuthServiceService 
+    private authServiceService: AuthService
     ) { }
 
   ngOnInit(): void {
