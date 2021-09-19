@@ -11,7 +11,7 @@ export class ExploreComponent implements OnInit {
   
   posts: Post[] = [];
 
-  constructor(private postService: PostService) { }
+  constructor(private postService: PostService, private location: Location) { }
 
   ngOnInit(): void {
     this.getPosts();
@@ -19,6 +19,9 @@ export class ExploreComponent implements OnInit {
   getPosts(): void {
     this.postService.getPosts()
       .subscribe(posts => this.posts = posts);
+  }
+  goBack(): void {
+    this.location;
   }
 
 }
