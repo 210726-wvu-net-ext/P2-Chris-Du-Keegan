@@ -13,7 +13,7 @@ import { AuthService } from 'src/app/auth.service';
 export class ProfileComponent implements OnInit {
   
   img: boolean = false;
-  numberofpost: number=0;
+  
 
   @Input() user?: User;
   constructor(
