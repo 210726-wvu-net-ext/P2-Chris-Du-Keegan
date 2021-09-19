@@ -13,7 +13,7 @@ import { HomeComponent } from './home/home.component';
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: '', component: HomeComponent},
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+  { path: 'profile', component: ProfileComponent,  canActivate: [AuthGuard]},
   { path: 'profile/update/:id', component: UserDetailComponent, canActivate: [AuthGuard] },
   { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
   { path: 'explore', component: ExploreComponent},
@@ -22,7 +22,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), ],
+  imports: [RouterModule.forRoot(routes), ] ,
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
