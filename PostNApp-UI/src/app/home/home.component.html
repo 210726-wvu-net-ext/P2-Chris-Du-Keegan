@@ -1,8 +1,8 @@
 <app-add-post></app-add-post>
 <br>
-<div *ngIf="posts">
-    <div *ngFor="let post of posts">
-        <app-posts [post]="post"></app-posts>
+<div *ngIf="posts" class="container">
+    <div *ngFor="let post of posts" class="row justify-content-md-center">
+        <app-posts [post]="post" class="col"></app-posts>
     </div>
 </div>
 
