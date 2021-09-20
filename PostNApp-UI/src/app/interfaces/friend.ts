@@ -1,7 +1,4 @@
-import { Post } from "./post";
-import { Comment } from "./comment";
-
-export interface User {
+export interface IFriend {
     id: number,
     firstName: string,
     lastName: string,
@@ -14,7 +11,4 @@ export interface User {
     role: string,
     phoneNumber: string,
     doB: Date,
-    comments: Comment[],
-    posts: Post[],
-    follows: []
 }
