@@ -23,5 +23,7 @@ namespace PostN.Domain
         Task<Comment> UpdateCommentById(int commentId, Comment comment);
 
         Task<bool> DeleteCommentByIdAsync(int postId, int commentId);
+
+        Task<List<FriendPosts>> GetFriendsPosts(int userId);
     }
 }

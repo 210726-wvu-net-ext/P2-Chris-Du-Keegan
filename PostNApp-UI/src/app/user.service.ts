@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from './interfaces/user';
 import { observable, Observable, of, throwError} from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, retry } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 
@@ -49,8 +49,10 @@ export class UserService {
       //tap((newUser: User) => this.log(`added hero w/ id=${newUser.id}`)),
       catchError(this.handleError1));
   }
+  
   handleError1(error: HttpErrorResponse){
-    return throwError(error.error)
+    
+   return throwError(error.error);
   }
 
   /** PUT: update the user on the server */

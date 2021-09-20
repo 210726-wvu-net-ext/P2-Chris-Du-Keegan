@@ -34,7 +34,7 @@ namespace PostN.WebApi.Models
         public string PhoneNumber { get; set; }
 
         [Required]
-        [DataType(DataType.Date)]
+        [DataType(DataType.Date, ErrorMessage = "Please enter date in correct form")]
         public DateTime DoB { get; set; }
     }
 }

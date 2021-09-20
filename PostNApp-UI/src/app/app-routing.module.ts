@@ -8,12 +8,14 @@ import { AuthGuard } from './guards/auth-gaurd.service';
 import { ExploreComponent } from './explore/explore.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
+import { EditPostComponent } from './edit-post/edit-post.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: '', component: HomeComponent},
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+  { path: 'edit/post/:id', component: EditPostComponent},
+  { path: 'profile', component: ProfileComponent,  canActivate: [AuthGuard]},
   { path: 'profile/update/:id', component: UserDetailComponent, canActivate: [AuthGuard] },
   { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
   { path: 'explore', component: ExploreComponent},
@@ -22,7 +24,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), ],
+  imports: [RouterModule.forRoot(routes), ] ,
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

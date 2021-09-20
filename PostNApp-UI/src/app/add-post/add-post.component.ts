@@ -11,19 +11,19 @@ import { Post } from '../interfaces/post';
 })
 export class AddPostComponent implements OnInit {
 
+  userId = this.authService.currentUser.id;
+  username = this.authService.currentUser.username;
   formGroup = new FormGroup({
-    userId: new FormControl('', [Validators.required]),
+    userId: new FormControl(this.userId, [Validators.required]),
     title: new FormControl('', [Validators.required]),
     body: new FormControl('', [Validators.required]),
-    username: new FormControl('', [Validators.required])
+    username: new FormControl(this.username, [Validators.required])
   })
 
   constructor(public authService: AuthService, private fb: FormBuilder, private postService: PostService) { }
 
-  userId = this.authService.currentUser.id;
-  username = this.authService.currentUser.username;
-  ngOnInit(): void {
 
+  ngOnInit(): void {
   }
 
   newPost() {
@@ -46,5 +46,8 @@ export class AddPostComponent implements OnInit {
       alert("Missing post information!");
     }
   }
+  reloadCurrentPage() {
+    window.location.reload();
+   }
 
 }
