@@ -53,8 +53,8 @@ namespace PostN.DataAccess
                        Role = u.Role,
                        PhoneNumber = u.PhoneNumber,
                        DoB = u.DoB,
-                       Comments = u.Comments.Select(c => new Domain.Comment(c.Id, c.UserId, c.PostId, c.Created, c.CommentBody)).ToList(),
-                       Friends = u.FollowerUsers.Select(f => new Domain.Follower(f.Id, f.UserId2, f.UserId2Navigation.Username, f.FriendRequest)).ToList(),
+                       Comments = u.Comments.Select(c => new Domain.Comment(c.Id, c.UserId, c.User.Username, c.PostId, c.Created, c.CommentBody)).ToList(),
+                       Friends = u.FollowerUsers.Select(f => new Domain.Follower(f.Id, f.UserId, f.User.Username, f.UserId2, f.UserId2Navigation.Username, f.FriendRequest)).ToList(),
                        Posts = u.Posts.Select(k => new Domain.Post(k.Id, k.UserId, k.User.Username, k.Image, k.Created, k.Title, k.Body, k.Comments.Select(k => new Domain.Comment(k.Id, k.UserId, k.PostId, k.User.Username, k.Created, k.CommentBody)).ToList())).ToList()
                    }
                 ).ToList());
@@ -80,7 +80,7 @@ namespace PostN.DataAccess
                        PhoneNumber = u.PhoneNumber,
                        DoB = u.DoB,
                        Comments = u.Comments.Select(c => new Domain.Comment(c.Id, c.UserId, c.User.Username, c.PostId, c.Created, c.CommentBody)).ToList(),
-                       Friends = u.FollowerUsers.Select(f => new Domain.Follower(f.Id, f.UserId2, f.UserId2Navigation.Username, f.FriendRequest)).ToList(),
+                       Friends = u.FollowerUsers.Select(f => new Domain.Follower(f.Id, f.UserId, f.User.Username, f.UserId2, f.UserId2Navigation.Username, f.FriendRequest)).ToList(),
                        Posts = u.Posts.Select(k => new Domain.Post(k.Id, k.UserId, k.User.Username, k.Image, k.Created, k.Title, k.Body, k.Comments.Select(k => new Domain.Comment(k.Id, k.UserId, k.PostId, k.User.Username, k.Created, k.CommentBody)).ToList())).ToList()
                    }
                 ).ToList();
@@ -136,7 +136,7 @@ namespace PostN.DataAccess
                        PhoneNumber = u.PhoneNumber,
                        DoB = u.DoB,
                        Comments = u.Comments.Select(c => new Domain.Comment(c.Id, c.UserId, c.User.Username, c.PostId, c.Created, c.CommentBody)).ToList(),
-                       Friends = u.FollowerUsers.Select(f => new Domain.Follower(f.Id, f.UserId2, f.UserId2Navigation.Username, f.FriendRequest)).ToList(),
+                       Friends = u.FollowerUsers.Select(f => new Domain.Follower(f.Id, f.UserId, f.User.Username, f.UserId2, f.UserId2Navigation.Username, f.FriendRequest)).ToList(),
                        Posts = u.Posts.Select(k => new Domain.Post(k.Id, k.UserId, k.User.Username, k.Image, k.Created, k.Title, k.Body, k.Comments.Select(k => new Domain.Comment(k.Id, k.UserId, k.PostId, k.User.Username, k.Created, k.CommentBody)).ToList())).ToList()
                    }
                 ).ToList();
@@ -247,11 +247,25 @@ namespace PostN.DataAccess
             }
         }
 
-        public List<Domain.Follower> GetFollowers()
+        public Task<List<Domain.User>> GetFollowers(int userId)
         {
-            return _context.Followers.Select(
-                followers => new PostN.Domain.Follower(followers.Id, followers.UserId, followers.UserId2, followers.FriendRequest)
-            ).ToList();
+            var friends = _context.Followers.Where(f => f.UserId == userId)
+                .Include(n => n.UserId2Navigation).Select(u => new Domain.User
+                {
+                    Id = u.UserId2,
+                    FirstName = u.UserId2Navigation.FirstName,
+                    LastName = u.UserId2Navigation.LastName,
+                    Email = u.UserId2Navigation.Email,
+                    Username = u.UserId2Navigation.Username,
+                    AboutMe = u.UserId2Navigation.AboutMe,
+                    State = u.UserId2Navigation.State,
+                    Country = u.UserId2Navigation.Country,
+                    Role = u.UserId2Navigation.Role,
+                    PhoneNumber = u.UserId2Navigation.PhoneNumber,
+                    DoB = u.UserId2Navigation.DoB,
+                }).ToList();
+
+                return Task.FromResult(friends);
 
         }
 

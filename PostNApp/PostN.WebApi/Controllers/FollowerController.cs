@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Authorization;
 namespace PostN.WebApi.Controllers
 {
     [Route("api/friends")]
-    [Authorize]
     [ApiController]
     public class FollowerController : ControllerBase
     {
@@ -24,11 +23,11 @@ namespace PostN.WebApi.Controllers
         }
 
         // GET api/<FollowerController>/5
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        [HttpGet("{userId}")]
+        public async Task<ActionResult<User>> Get(int userId)
         {
-            var follower = _repo.GetFollowers().First(x => x.Id == id);
-            return Ok(follower);
+            var followers = await _repo.GetFollowers(userId);
+            return Ok(followers);
         }
 
         // put api/<FollowerController>
