@@ -9,10 +9,14 @@ import { Location } from '@angular/common';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-
-  constructor(private location: Location) { }
+  users: User[] = [];
+  constructor(private location: Location,private userService: UserService) { }
 
   ngOnInit(): void {
+  }
+  getUsers(): void {
+    this.userService.getUsers()
+      .subscribe(users => this.users = users);
   }
   
   goBack(): void {

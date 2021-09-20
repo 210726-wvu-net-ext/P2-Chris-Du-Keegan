@@ -8,6 +8,7 @@ import { AuthGuard } from './guards/auth-gaurd.service';
 import { ExploreComponent } from './explore/explore.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
+import { SearchComponent } from './search/search.component';
 
 
 const routes: Routes = [
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
   { path: 'explore', component: ExploreComponent},
   { path: 'login', component: LoginComponent},
-  { path: 'register', component: RegisterComponent}
+  { path: 'register', component: RegisterComponent},
+  { path: 'search', component: SearchComponent}
 ];
 
 @NgModule({

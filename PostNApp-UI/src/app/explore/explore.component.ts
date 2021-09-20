@@ -22,6 +22,6 @@ export class ExploreComponent implements OnInit {
       .subscribe(posts => this.posts = posts);
   }
   goTo(): void {
-    this.router.navigateByUrl("/profile");
+    this.router.navigateByUrl("/search");
   }
 }
