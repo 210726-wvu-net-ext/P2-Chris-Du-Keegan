@@ -24,7 +24,7 @@ namespace PostN.WebApi.Controllers
 
         // GET api/<FollowerController>/5
         [HttpGet("{userId}")]
-        public async Task<ActionResult<User>> Get(int userId)
+        public async Task<ActionResult<Follower>> Get(int userId)
         {
             var followers = await _repo.GetFollowers(userId);
             return Ok(followers);

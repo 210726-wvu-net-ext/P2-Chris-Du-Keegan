@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { IFriend } from '../interfaces/friend';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+import { FriendService } from '../friend.service';
 
 @Component({
   selector: 'app-friend-list',
@@ -7,9 +11,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FriendListComponent implements OnInit {
 
-  constructor() { }
+  @Input() friends?: IFriend[] = [];
+  constructor(
+    private route: ActivatedRoute,
+    private friendService: FriendService,
+    private location: Location
+  ) { }
+  
 
   ngOnInit(): void {
+
   }
 
 }

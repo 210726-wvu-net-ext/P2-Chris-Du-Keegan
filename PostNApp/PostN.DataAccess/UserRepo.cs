@@ -247,25 +247,20 @@ namespace PostN.DataAccess
             }
         }
 
-        public Task<List<Domain.User>> GetFollowers(int userId)
+        public Task<List<Domain.Follower>> GetFollowers(int userId)
         {
             var friends = _context.Followers.Where(f => f.UserId == userId)
-                .Include(n => n.UserId2Navigation).Select(u => new Domain.User
+                .Include(n => n.UserId2Navigation).Select(u => new Domain.Follower
                 {
-                    Id = u.UserId2,
-                    FirstName = u.UserId2Navigation.FirstName,
-                    LastName = u.UserId2Navigation.LastName,
-                    Email = u.UserId2Navigation.Email,
-                    Username = u.UserId2Navigation.Username,
-                    AboutMe = u.UserId2Navigation.AboutMe,
-                    State = u.UserId2Navigation.State,
-                    Country = u.UserId2Navigation.Country,
-                    Role = u.UserId2Navigation.Role,
-                    PhoneNumber = u.UserId2Navigation.PhoneNumber,
-                    DoB = u.UserId2Navigation.DoB,
+                    Id = u.Id,
+                    UserId = u.UserId,
+                    Username = u.User.Username,
+                    UserId2 = u.UserId2,
+                    FriendUsername = u.UserId2Navigation.Username,
+                    FriendRequest = u.FriendRequest
                 }).ToList();
-
-                return Task.FromResult(friends);
+            //new Domain.Follower(f.Id, f.UserId, f.User.Username, f.UserId2, f.UserId2Navigation.Username, f.FriendRequest)
+            return Task.FromResult(friends);
 
         }
 
