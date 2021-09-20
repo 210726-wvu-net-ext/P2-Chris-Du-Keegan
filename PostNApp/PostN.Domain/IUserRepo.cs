@@ -16,7 +16,7 @@ namespace PostN.Domain
         Task<User> AddAUser(User user);
         Task<bool> DeleteUserById(int id);
         User SearchUsersByName(string username);
-        Task<List<User>> GetFollowers(int userId);
+        Task<List<Follower>> GetFollowers(int userId);
         Task<Follower> AddAFollower(Follower follower);
         Task<bool> DeleteFollower(int id);
         bool UniqueUsername(string username);
