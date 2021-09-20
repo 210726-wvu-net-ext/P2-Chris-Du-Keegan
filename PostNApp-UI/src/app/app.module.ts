@@ -28,6 +28,7 @@ import { PostsComponent } from './posts/posts.component';
 import { CommentsComponent } from './comments/comments.component';
 import { AddPostComponent } from './add-post/add-post.component';
 import { SearchComponent } from './search/search.component';
+import { EditPostComponent } from './edit-post/edit-post.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -48,7 +49,8 @@ export function tokenGetter() {
     PostsComponent,
     CommentsComponent,
     AddPostComponent,
-    SearchComponent
+    SearchComponent,
+    EditPostComponent
   ],
   imports: [
     BrowserModule,

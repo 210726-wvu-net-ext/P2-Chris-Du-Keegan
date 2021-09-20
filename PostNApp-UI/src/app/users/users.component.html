@@ -1,8 +1,12 @@
-<h1>ALL USERS</h1>
-<mat-list>
-  <mat-list-item *ngFor="let user of users">
-    <a routerLink="/profile/update/{{user.id}}">
-        {{user.id}}: {{user.username | uppercase}}
+<mat-card class="container">
+  <h2>ALL USERS</h2>
+  <mat-list>
+    <mat-list-item *ngFor="let user of users">
+      <a routerLink="/profile/update/{{user.id}}">
+        {{user.id}}: {{user.username | uppercase}} | {{user.role}}
       </a>
-  </mat-list-item>
-</mat-list>
+      
+    </mat-list-item>
+  </mat-list>
+
+</mat-card>

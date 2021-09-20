@@ -50,7 +50,7 @@ namespace PostN.WebApi.Controllers
                     issuer: "https://localhost:44365",
                     audience: "https://localhost:4200",
                     claims: claims,
-                    expires: DateTime.Now.AddMinutes(5),
+                    expires: DateTime.Now.AddDays(7),
                     signingCredentials: signingCredentials
                     );
 

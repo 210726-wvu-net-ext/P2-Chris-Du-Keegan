@@ -110,6 +110,32 @@ namespace PostN.DataAccess
             //throw new NotImplementedException();
         }
 
+        public Task<List<Domain.FriendPosts>> GetFriendsPosts(int userId)
+        {
+            /*var foundFriends = _context.Followers.Where(u => u.UserId == userId && u.FriendRequest == 1).Include(fu => fu.UserId2Navigation).ThenInclude(p => p.Posts).ThenInclude(c => c.Comments).Select(p => new Domain.User
+            {
+                Posts = p.UserId2Navigation.Posts.Select(k => new Domain.Post(k.Id, k.UserId, k.User.Username, k.Image, k.Created, k.Title, k.Body, k.Comments.Select(k => new Domain.Comment(k.Id, k.UserId, k.PostId, k.User.Username, k.Created, k.CommentBody)).ToList())).ToList()
+            }).ToList();
+            Task<List<Domain.Post>> posts = foundFriends;
+            return posts;*/
+            try
+            {
+                var friendPosts = _context.Followers.Where(u => u.UserId == userId && u.FriendRequest == 1).Include(fp => fp.UserId2Navigation.Posts).ThenInclude(c => c.Comments).Select(p => new FriendPosts
+                {
+                    Posts = p.UserId2Navigation.Posts.Select(k => new Domain.Post(k.Id, k.UserId, k.User.Username, k.Image, k.Created, k.Title, k.Body, k.Comments.Select(k => new Domain.Comment(k.Id, k.UserId, k.PostId, k.User.Username, k.Created, k.CommentBody)).ToList())).ToList()
+                }).ToList();
+
+                return Task.FromResult(friendPosts);
+            } catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return Task.FromResult(new List<Domain.FriendPosts>());
+            }
+            
+
+            
+        }
+
         public Task<Domain.Post> GetPostById(int id)
         {
             try

@@ -3,9 +3,6 @@
 <div ng-controller="user">
     <ul>
         <li ng-repeat="user in users | filter: search">
-            <a routerLink="/profile/{{user.id}}">
-                {{user.id}}: {{user.username | uppercase}}
-            </a>
         </li>
     </ul>
 </div>
