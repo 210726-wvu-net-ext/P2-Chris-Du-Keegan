@@ -212,9 +212,10 @@ namespace PostN.WebApi.Controllers
             return NotFound($"Post with ID: {postId} and Comment ID: {commentId} not found!");
         }
        
-        [HttpGet("/{userId}/[action]/friends/")]
+        [HttpGet("{userId}/[action]/friends/")]
         public async Task<ActionResult<Post>> GetFriendPosts(int userId)
         {
+           
            
             var Post = await _postRepo.GetFriendsPosts(userId);
 
