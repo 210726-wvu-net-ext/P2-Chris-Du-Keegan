@@ -1,11 +1,10 @@
 <h2>User Profile</h2>
-
+<!--
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <!--  This file has been downloaded from bootdey.com @bootdey on twitter -->
-    <!--  All snippets are MIT license http://bootdey.com/license -->
+ 
     <title>contact details page - Bootdey.com</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
@@ -14,8 +13,30 @@
 	
 </head>
 <body>
-<div class="container">
-<div *ngIf="user">
+    -->
+    <div *ngIf="user">
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <div>
+                        <app-user-card class="col"></app-user-card>
+                    </div>
+                    <br>
+                    <div>
+                        <app-user-card class="col"></app-user-card>
+                    </div>
+                    <div class="row"></div>
+                </div>
+                <div class="col-8">
+                    <div *ngFor="let post of user.posts" class="row justify-content-md-center">
+                        <app-posts [post]="post" class="col"></app-posts>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<!--
     <div class="col-md-4">
         
         
@@ -126,3 +147,4 @@
 </script>
 </body>
 </html>
+-->
