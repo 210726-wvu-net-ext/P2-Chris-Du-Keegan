@@ -15,12 +15,12 @@ export class UserCardComponent implements OnInit {
   constructor(private userService: UserService, private route: ActivatedRoute, private authServiceService: AuthService) { }
 
   ngOnInit(): void {
-    this.getUser();
+    //this.getUser();
   }
-  getUser(): void {
-    const id = this.authServiceService.currentUser.id;
-    this.userService.getUser(id)
-      .subscribe(user => this.user = user);
-  }
+  // getUser(): void {
+  //   const id = this.authServiceService.currentUser.id;
+  //   this.userService.getUser(id)
+  //     .subscribe(user => this.user = user);
+  // }
 
 }

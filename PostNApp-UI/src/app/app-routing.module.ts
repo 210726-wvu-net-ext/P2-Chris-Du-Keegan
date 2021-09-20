@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: '', component: HomeComponent},
   { path: 'edit/post/:id', component: EditPostComponent},
-  { path: 'profile', component: ProfileComponent,  canActivate: [AuthGuard]},
+  { path: 'profile/:id', component: ProfileComponent,  canActivate: [AuthGuard]},
   { path: 'profile/update/:id', component: UserDetailComponent, canActivate: [AuthGuard] },
   { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
   { path: 'explore', component: ExploreComponent},

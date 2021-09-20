@@ -31,7 +31,7 @@ export class ProfileComponent implements OnInit {
 
   getUser(): void {
     
-    const id = this.authServiceService.currentUser.id;
+    const id = Number(this.route.snapshot.paramMap.get('id'));
     this.userService.getUser(id)
       .subscribe(
         user => {

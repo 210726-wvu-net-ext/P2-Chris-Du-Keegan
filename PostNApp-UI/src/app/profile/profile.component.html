@@ -14,15 +14,14 @@
 	
 </head>
 <body>
-<div>
+<div class="container">
 <div *ngIf="user">
     <div class="col-md-4">
         
-        <div class="panel panel-default">
-            <app-user-card class="col"></app-user-card>
-        </div>
-
         
+            <app-user-card [user]="user"></app-user-card>
+            <br>
+
         <div class="panel panel-default hidden-xs hidden-sm">
             <div class="panel-heading">
                 <div class="panel-title text-center">Basic Information</div>

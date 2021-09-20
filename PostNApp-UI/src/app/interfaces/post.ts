@@ -3,7 +3,7 @@ import { Comment } from "./comment";
 
 export interface Post {
     id: number,
-    userid: number,
+    userId: number,
     image: Byte,
     created: Date,
     title: string,
