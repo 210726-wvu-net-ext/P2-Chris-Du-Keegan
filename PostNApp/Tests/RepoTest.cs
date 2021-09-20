@@ -13,40 +13,67 @@ using Xunit;
 
 namespace Tests
 {
-    public class UnitTest2
+    public class RepoTest
     {
-   
+
         private readonly DbContextOptions<CMKWDTP2Context> options;
 
-        public UnitTest2()
+        public RepoTest()
         {
             options = new DbContextOptionsBuilder<CMKWDTP2Context>().UseSqlite("Filename=Test.db").Options;
             Seed();
         }
+       
         [Fact]
-        public void UsernameShouldBeUnique()
+        public void GetAllUsersShouldGetAllUsers()
         {
-            using (var testcontext1 = new CMKWDTP2Context(options))
+            using (var testcontext = new CMKWDTP2Context(options))
             {
-                IUserRepo _repo = new UserRepo(testcontext1);
-        
-                bool result = _repo.UniqueUsername("dTran");
-                Assert.True(result, "expect to be false");
+                IUserRepo _repo = new UserRepo(testcontext);
+                var users = _repo.GetUsers();
+                int i = users.Result.Count;
+                Assert.Equal(4, i);
             }
-        
         }
+
         [Fact]
-        public void EmailShouldBeUnique()
+        public void AddAUserShouldAddAUser()
         {
-            using (var testcontext2 = new CMKWDTP2Context(options))
+            using (var testcontext = new CMKWDTP2Context(options))
             {
-                IUserRepo _repo = new UserRepo(testcontext2);
+                IUserRepo _repo = new UserRepo(testcontext);
         
-                bool result = _repo.UniqueEmail("dTran@gmail.com");
-                Assert.True(result, "expect to be true");
+                //Act
+                _repo.AddAUser(
+                    new PostN.Domain.User
+                    {
+                        Id = 1,
+                        FirstName = "Emma",
+                        LastName = "Lee",
+                        Username = "el12",
+                        Email = "emmaw@gmail.com",
+                        State = "MI",
+                        Country = "US",
+                        Password = "emlee12",
+                        Role = "Administrator",
+                        PhoneNumber = "608-479-1147",
+                        DoB = System.DateTime.Today
+                    }
+                );
             }
+            using (var assertContext = new CMKWDTP2Context(options))
+            {
+                PostN.DataAccess.Entities.User user = assertContext.Users.FirstOrDefault(user => user.Id == 1);
         
+        
+                Assert.NotNull(user);
+                //Assert.Equal(1, customer.Id);
+                //Assert.Equal("Emma", customer.FirstName);
+                //Assert.Equal("Lee", customer.LastName);
+                //Assert.Equal("emmaw@gmail.com", customer.Email);
+            }
         }
+
 
         private void Seed()
         {
@@ -66,7 +93,7 @@ namespace Tests
                         AboutMe = "Keegan About Me",
                         State = "WI",
                         Country = "USA",
-                        Role ="Administrator",
+                        Role = "Administrator",
                         PhoneNumber = "608-479-1147",
                         DoB = System.DateTime.Today
                     }

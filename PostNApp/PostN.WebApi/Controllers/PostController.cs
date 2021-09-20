@@ -91,6 +91,11 @@ namespace PostN.WebApi.Controllers
             return NotFound();
         }
 
+        public Task<List<Post>> GetAllPostAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         // PUT api/post/5
         /// <summary>
         /// Update Post using Post URL ID and post body

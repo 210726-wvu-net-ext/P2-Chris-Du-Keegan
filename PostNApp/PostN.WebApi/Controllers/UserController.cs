@@ -41,11 +41,6 @@ namespace PostN.WebApi.Controllers
         public async Task<ActionResult> Create([FromBody] CreatedUser user)
         {
 
-            //if (!ModelState.IsValid)
-            //{
-            //    return Ok();
-            //}
-
             try
             {
                 var newUser = new User
@@ -68,9 +63,9 @@ namespace PostN.WebApi.Controllers
             }
             catch (Exception e)
             {
-               //ModelState.AddModelError("Username", e.Message);
-               //ModelState.AddModelError("Email", e.Message);
-
+                //ModelState.AddModelError("Username", e.Message);
+                //ModelState.AddModelError("Email", e.Message);
+                _logger.LogCritical("Failed to create new user", e.Message);
                 return BadRequest(e.Message);
             }
 
