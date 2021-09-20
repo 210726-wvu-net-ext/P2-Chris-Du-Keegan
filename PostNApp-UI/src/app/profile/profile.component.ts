@@ -4,7 +4,7 @@ import { User } from '../interfaces/user';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
 import { PostService } from '../post.service';
-import { Post } from '../interfaces/post';
+
 
 
 @Component({
@@ -15,21 +15,18 @@ import { Post } from '../interfaces/post';
 export class ProfileComponent implements OnInit {
   
   img: boolean = false;
-  
-  
-  posts: Post[] = [];
+
   @Input() user?: User;
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
-    private authServiceService: AuthService,
-    private postService: PostService,
+    private authServiceService: AuthService
     ) { }
 
    
   ngOnInit(): void {
-    this.getUser(),
-    this.getUserPosts()
+    this.getUser()
+  
   }
 
   getUser(): void {
@@ -47,12 +44,6 @@ export class ProfileComponent implements OnInit {
         //num => {num = this.user?.posts.length;}  
       );
   }
-  getUserPosts(): void {
-    
-    this.postService.getPosts()
-      .subscribe(posts => this.posts = posts);
-  }
-  
 
 
 }
