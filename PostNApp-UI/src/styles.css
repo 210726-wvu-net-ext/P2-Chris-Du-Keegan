@@ -5,4 +5,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .input-full-width {
     width: 100%;
   }
-  
+
+a:hover {
+    text-decoration: none;
+}
