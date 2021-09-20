@@ -49,16 +49,10 @@ export class UserService {
       //tap((newUser: User) => this.log(`added hero w/ id=${newUser.id}`)),
       catchError(this.handleError1));
   }
-  handleError1(error: any){
-    let errorMessage = '';
-    if(error.error instanceof ErrorEvent){
-      //client side error
-      errorMessage = `Error: ${error.error}`;
-      return throwError(errorMessage);
-    }
+  
+  handleError1(error: HttpErrorResponse){
     
-    else
-    return throwError(error.error);
+   return throwError(error.error);
   }
 
   /** PUT: update the user on the server */

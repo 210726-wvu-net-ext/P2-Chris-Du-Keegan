@@ -45,8 +45,8 @@ export class RegisterComponent implements OnInit {
       this.form = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      username: ['', [Validators.required], Validators.minLength(5)],
-      email: ['', Validators.required, Validators.email],
+      username: ['', [Validators.required, Validators.minLength(5)]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       aboutMe: ['', Validators.required],
       state: ['', Validators.required],
@@ -77,7 +77,7 @@ export class RegisterComponent implements OnInit {
           },
           error => { 
             this.loading = false;
-            this.errorMsg = error;
+            alert(error);
           }
         )
 

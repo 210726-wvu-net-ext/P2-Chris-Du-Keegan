@@ -113,7 +113,7 @@
           [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
         <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
           <div *ngIf="f.username.errors.required">Username is required</div>
-          <div *ngIf="f.username.errors.required">More than 5 characters</div>
+          <div *ngIf="f.username.errors.minlength">More than 5 characters</div>
           
         </div>
       </mat-form-field>
@@ -124,6 +124,7 @@
           [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
         <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
           <div *ngIf="f.email.errors.required">Email is required</div>
+          <div *ngIf="f.email.errors.email">Please enter a valid email</div>
         </div>
       </mat-form-field>
 
