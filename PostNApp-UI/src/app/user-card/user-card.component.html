@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!--  This file has been downloaded from bootdey.com @bootdey on twitter-->
+    <!--  All snippets are MIT license http://bootdey.com/license -->
+    <title>contact details page - Bootdey.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>    
+	
+</head>
+<!--
+<body>
+<div *ngif = "user" class="panel panel-default">
+    <div class="panel-body text-center">
+        <div class="pv-lg"><img class="center-block img-responsive img-circle img-thumbnail thumb96" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Contact"></div>
+        <h3 class="m0 text-bold">{{user?.firstName}} {{user?.lastName}}</h3>
+        <div class="mv-lg">
+            <p>{{user?.aboutMe}}</p>
+        </div>
+        <div class="text-center"><a class="btn btn-primary" href="">Update</a></div>
+    </div>
+</div>
+</body>
+-->
+<body>
+<div class="profile-image"></div>
+<mat-card *ngIf="user" class="example-card">
+    <mat-card-header class="panel-body text-center">
+      <div style="display: block;" class="pv-lg"><img class="center-block img-responsive img-circle img-thumbnail thumb96" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Contact"></div>
+      <div style="text-align:bottom;">
+      <mat-card-title class="m0 text-bold">{{user.firstName}} {{user.lastName}}</mat-card-title>
+      <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
+      <mat-card-subtitle>{{user.phoneNumber}}</mat-card-subtitle>
+      <mat-card-subtitle class="mv-lg">{{user.aboutMe}}</mat-card-subtitle>
+    </div>
+    </mat-card-header>
+</mat-card>  
+</body>
