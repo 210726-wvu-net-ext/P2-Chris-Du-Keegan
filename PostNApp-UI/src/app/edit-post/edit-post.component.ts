@@ -4,6 +4,7 @@ import { AuthService } from '../auth.service';
 import { PostService } from '../post.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -28,34 +29,45 @@ export class EditPostComponent implements OnInit {
     private route: ActivatedRoute,
     private authService: AuthService,
     private postService: PostService,
+    private location: Location,
     private fb: FormBuilder
   ) { }
   
   ngOnInit(): void {
+    this.getPost();
+  }
+  goBack(): void {
+    this.location.back();
   }
 
-  updatePost() {
+  getPost(): void {
+    const postId = Number(this.route.snapshot.paramMap.get('id'));
+    console.log(postId);
+    this.postService.getPostById(postId)
+    .subscribe(post => this.post = post);
+  }
+
+  updatePost(): void {
     if (this.formGroup.valid)
     {
       const postObserver ={
         next: (x: any) => 
         {
-          alert('Post added!');
+          alert('Post updated!');
         },
         error: (err:any) =>
         {
           console.log(err);
-          alert("Unable to post. Please try again.");
+          alert("Unable to update post. Please try again.");
         }
       };
       const postId = Number(this.route.snapshot.paramMap.get('id'));
       this.postService.updatePost(postId, this.formGroup.value)
         .subscribe(postObserver)
+        this.goBack();
+
     } else {
       alert("Missing post information!");
     }
   }
-  reloadCurrentPage() {
-    window.location.reload();
-   }
 }

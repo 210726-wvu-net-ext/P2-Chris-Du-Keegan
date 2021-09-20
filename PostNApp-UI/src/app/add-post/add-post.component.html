@@ -1,7 +1,7 @@
 <div class="container">
     <mat-card>
         <mat-toolbar color="primary">Add Post</mat-toolbar>
-        <form fxLayoutAlign="stretch" fxLayout="column" class="login-form" [formGroup]="formGroup" (ngSubmit)="newPost()">
+        <form fxLayoutAlign="stretch" fxLayout="column" [formGroup]="formGroup" (ngSubmit)="newPost()">
             <input matInput formControlName="userId" type="number" class="form-control" value={{userId}} hidden>
             <mat-form-field class="input-full-width" appearance="fill">
                 <mat-label>Title</mat-label>

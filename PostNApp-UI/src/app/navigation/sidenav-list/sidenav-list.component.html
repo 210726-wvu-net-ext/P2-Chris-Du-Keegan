@@ -5,10 +5,10 @@
     <a *ngIf="isAdmin()" mat-list-item routerLink="/users" (click)="onSidenavClose()">
         Users<span class="nav-caption"></span>
     </a>
-    <a mat-list-item routerLink="/profile" (click)="onSidenavClose()">
-        Profile<span class="nav-caption"></span>
+    <a *ngIf="authService.loggedIn()" mat-list-item routerLink="/profile/{{authService.currentUser.id}}" (click)="onSidenavClose()">
+        {{authService.currentUser.username}}<span class="nav-caption"></span>
     </a>
-    <a mat-list-item routerLink="/explore" (click)="onSidenavClose()">
+    <a *ngIf="authService.loggedIn()" mat-list-item routerLink="/explore" (click)="onSidenavClose()">
         Explore<span class="nav-caption"></span>
     </a>
     <a mat-list-item routerLink="/login" (click)="onSidenavClose()" *ngIf="!authService.loggedIn()">

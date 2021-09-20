@@ -5,6 +5,7 @@ import { baseUrl } from 'src/environments/environment';
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { map } from 'rxjs/operators';
 import { IUser } from './interfaces/app-user';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class AuthService {
   }
 
   helper = new JwtHelperService();
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
 
   login(data: any): Observable<IUser> {
@@ -52,6 +53,7 @@ export class AuthService {
     role: null!,
     }
     localStorage.removeItem('jwt');
+    this.router.navigate(['/login']);
   }
 
 }

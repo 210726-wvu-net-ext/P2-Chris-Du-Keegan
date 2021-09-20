@@ -1,15 +1,15 @@
 <div class="container">
-  <button mat-raised-button class="mt-5" color="primary" (click)="goBack()">Go Back</button>
+  <button mat-raised-button class="mt-5" color="accent" (click)="goBack()">Go Back</button>
 </div>
 <div *ngIf="user" class="container">
   <mat-card>
-    <mat-toolbar fxLayoutAlign="stretch" color="accent">User Details:</mat-toolbar>
+    <mat-toolbar fxLayoutAlign="stretch" color="primary">User Details:</mat-toolbar>
     
     <div>Username: {{user.username}}</div>
     <div>Email: {{user.email}}</div>
     <mat-card>
       <mat-card-content>
-        <mat-toolbar fxLayoutAlign="stretch" color="accent">Update User Information:</mat-toolbar>
+        <mat-toolbar fxLayoutAlign="stretch" color="primary">Update User Information:</mat-toolbar>
         <mat-form-field class="input-full-width">
           <label>Firstname:</label><br>
           <input [(ngModel)]="user.firstName" placeholder="firstName" />
@@ -26,6 +26,10 @@
         <mat-form-field class="input-full-width">
             <label>Username:</label><br>
             <input [(ngModel)]="user.username" placeholder="username" />
+          </mat-form-field>
+          <mat-form-field class="input-full-width">
+            <label>Role:</label><br>
+            <input [(ngModel)]="user.role" placeholder="role" />
           </mat-form-field>
         <mat-form-field class="input-full-width">
           <label>Phone number:</label><br>

@@ -3,6 +3,8 @@ import { UserService } from '../user.service';
 import { User } from '../interfaces/user';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
+import { PostService } from '../post.service';
+
 
 
 @Component({
@@ -13,7 +15,6 @@ import { AuthService } from 'src/app/auth.service';
 export class ProfileComponent implements OnInit {
   
   img: boolean = false;
-  
 
   @Input() user?: User;
   constructor(
@@ -22,23 +23,27 @@ export class ProfileComponent implements OnInit {
     private authServiceService: AuthService
     ) { }
 
+   
   ngOnInit(): void {
     this.getUser()
+  
   }
 
   getUser(): void {
     
-    const id = this.authServiceService.currentUser.id;
+    const id = Number(this.route.snapshot.paramMap.get('id'));
     this.userService.getUser(id)
       .subscribe(
         user => {
         this.user = user; 
         },
-        p => {if((this.user?.posts[0].image) == null) this.img = true;},
+        posts => {
+          posts = this.user?.posts
+        }
+        //p => {if((this.user?.posts[0].image) == null) this.img = true;},
         //num => {num = this.user?.posts.length;}  
       );
   }
-  
 
 
 }

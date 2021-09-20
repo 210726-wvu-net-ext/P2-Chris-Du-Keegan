@@ -89,7 +89,7 @@
   <mat-card fxFlex="75">
     <mat-toolbar color="primary" fxLayoutAlign="center center">Sign-up Page</mat-toolbar>
     <form class="signup-form" [formGroup]="form" (ngSubmit)="onSubmit()" class="signup-form-padding">
-
+      
       <mat-form-field class="input-full-width" appearance="fill">
         <mat-label for='firstName'>First name</mat-label>
         <input matInput type="text" placeholder="Ex. Bob" formControlName="firstName" class="form-control"
@@ -113,6 +113,8 @@
           [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
         <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
           <div *ngIf="f.username.errors.required">Username is required</div>
+          <div *ngIf="f.username.errors.minlength">More than 5 characters</div>
+          
         </div>
       </mat-form-field>
 
@@ -122,6 +124,7 @@
           [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
         <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
           <div *ngIf="f.email.errors.required">Email is required</div>
+          <div *ngIf="f.email.errors.email">Please enter a valid email</div>
         </div>
       </mat-form-field>
 
