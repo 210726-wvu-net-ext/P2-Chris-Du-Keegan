@@ -6,10 +6,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using PostN.Domain;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PostN.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/friends")]
+    [Authorize]
     [ApiController]
     public class FollowerController : ControllerBase
     {
@@ -56,5 +58,6 @@ namespace PostN.WebApi.Controllers
             }
             return Ok("Friend has been removed");
         }
+
     }
 }

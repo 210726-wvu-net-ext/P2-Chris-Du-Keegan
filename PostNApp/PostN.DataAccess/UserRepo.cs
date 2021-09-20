@@ -85,6 +85,7 @@ namespace PostN.DataAccess
                    }
                 ).ToList();
             Domain.User singleUser = returnedUsers.FirstOrDefault(p => p.Id == id);
+            singleUser.Posts?.Reverse();
             return Task.FromResult(singleUser);
         }
         public Task<Domain.User> GetUserwithPostComment(int id)
@@ -110,6 +111,7 @@ namespace PostN.DataAccess
                    }
                 ).ToList();
             Domain.User singleUser = returnedUsers.FirstOrDefault(p => p.Id == id);
+            singleUser.Posts?.Reverse();
             return Task.FromResult(singleUser);
         }
 
@@ -139,6 +141,7 @@ namespace PostN.DataAccess
                    }
                 ).ToList();
             Domain.User singleUser = returnedUsers.FirstOrDefault(p => p.Id == id);
+            singleUser.Posts?.Reverse();
             return Task.FromResult(singleUser);
         }
         public async Task<Domain.User> UpdateUser(int id, Domain.User user)

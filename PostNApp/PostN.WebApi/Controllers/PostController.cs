@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using PostN.Domain;
 using PostN.WebApi.Models;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PostN.WebApi.Controllers
 {
@@ -31,6 +32,7 @@ namespace PostN.WebApi.Controllers
         public async Task<ActionResult<Post>> Get()
         {
             List<Post> Post = await _postRepo.GetAllPosts();
+            Post.Reverse();
             return Ok(Post);
         }
 
@@ -57,6 +59,7 @@ namespace PostN.WebApi.Controllers
         /// </summary>
         /// <param name="viewPost"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<Post>> Post([FromBody] CreatedPost viewPost)
         {
@@ -95,6 +98,7 @@ namespace PostN.WebApi.Controllers
         /// <param name="id"></param>
         /// <param name="post"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<ActionResult<Post>> Put(int id, [FromBody] Post post)
         {
@@ -117,6 +121,7 @@ namespace PostN.WebApi.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -134,6 +139,7 @@ namespace PostN.WebApi.Controllers
         /// <param name="postId"></param>
         /// <param name="comment"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpPost("{postId}/comment")]
         public async Task<ActionResult<Post>> Post(int postId, [FromBody] CreatedComment comment)
         {
@@ -162,6 +168,7 @@ namespace PostN.WebApi.Controllers
         /// <param name="commentId"></param>
         /// <param name="comment"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpPut("{postId}/comment/{commentId}")]
         public async Task<ActionResult<Comment>> Put(int postId, int commentId, [FromBody] Comment comment)
         {
@@ -184,6 +191,7 @@ namespace PostN.WebApi.Controllers
         /// <param name="commentId"></param>
         /// <param name="comment"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpDelete("{postId}/comment/{commentId}")]
         public async Task<IActionResult> Delete(int postId, int commentId)
         {
@@ -202,6 +210,23 @@ namespace PostN.WebApi.Controllers
             }
             _logger.LogError($"Post with ID: {postId} and Comment ID: {commentId} not found!");
             return NotFound($"Post with ID: {postId} and Comment ID: {commentId} not found!");
+        }
+       
+        [HttpGet("{userId}/[action]/friends/")]
+        public async Task<ActionResult<Post>> GetFriendPosts(int userId)
+        {
+           
+           
+            var Post = await _postRepo.GetFriendsPosts(userId);
+
+            List<Post> homeposts = new();
+
+            foreach(FriendPosts friendpost in Post)
+            {
+                homeposts.AddRange(friendpost.Posts);
+            }
+            homeposts.Reverse();
+            return Ok(homeposts);
         }
 
     }

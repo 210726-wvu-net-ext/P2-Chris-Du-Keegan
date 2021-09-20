@@ -37,6 +37,16 @@ export class PostService {
             );
   }
 
+  getFriendPosts(id: number)
+  {
+    const url = `${this.url}/${id}/GetFriendPosts/friends`;
+    return this.http.get<Post[]>(url)
+            .pipe(
+              //tap(_ => this.log(`fetched post id=${id}`)),
+              catchError(this.handleError<Post[]>(`getPostById id=${id}`))
+            );
+  }
+
    /** POST: add a new post to the server */
    addPost(post: any): Observable<Post> {
     return this.http.post<Post>(this.url, post, this.httpOptions).pipe(
