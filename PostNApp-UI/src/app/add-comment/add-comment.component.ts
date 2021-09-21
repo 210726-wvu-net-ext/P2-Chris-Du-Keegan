@@ -10,7 +10,7 @@ import { Comment } from '../interfaces/comment';
   styleUrls: ['./add-comment.component.css']
 })
 export class AddCommentComponent implements OnInit {
-
+  mySubscription: any;
   @Input() postId?: any;
 
   userId = this.authService.currentUser.id;
@@ -23,7 +23,14 @@ export class AddCommentComponent implements OnInit {
   })
 
 
-  constructor(public authService: AuthService, private fb: FormBuilder, private postService: PostService) { }
+  constructor(
+    public authService: AuthService, 
+    private fb: FormBuilder, 
+    private postService: PostService,
+    
+    ) { }
+    
+
 
   ngOnInit(): void {
   }
