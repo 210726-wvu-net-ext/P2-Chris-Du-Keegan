@@ -15,7 +15,10 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-
+    defaults:
+      run:
+        working-directory: PostNApp
+        
     steps:
       - uses: actions/checkout@v2
 
