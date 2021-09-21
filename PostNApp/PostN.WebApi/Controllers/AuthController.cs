@@ -43,7 +43,9 @@ namespace PostN.WebApi.Controllers
                 {
                     new Claim(JwtRegisteredClaimNames.Email, foundUser.Email),
                     new Claim(JwtRegisteredClaimNames.NameId, foundUser.Username),
-                    new Claim(ClaimTypes.Role, foundUser.Role)
+                    new Claim("userId", foundUser.Id.ToString()),
+                    new Claim(ClaimTypes.Role, foundUser.Role),
+                    new Claim("role", foundUser.Role)
                 };
 
                 var tokenOptions = new JwtSecurityToken(

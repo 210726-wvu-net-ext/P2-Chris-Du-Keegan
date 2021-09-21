@@ -1,10 +1,9 @@
 <mat-card class="container">
   <div *ngIf="friends">
     <mat-list *ngFor="let friend of friends" class="row">
-      <mat-card-content>
-        <p>{{friend?.friendUsername}}</p>
-        <a mat-button routerLink="/profile/{{friend.userId2}}">View Profile</a>
-      </mat-card-content>
+      <mat-list-item>
+        <a mat-button routerLink="/profile/{{friend.userId2}}">{{friend?.friendUsername | uppercase}}</a>
+      </mat-list-item>
     </mat-list>
   </div>
 </mat-card>

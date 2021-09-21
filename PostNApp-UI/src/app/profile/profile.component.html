@@ -20,6 +20,7 @@
                 <div class="col-4">
                     <div>
                         <app-user-card [user]="user" class="col"></app-user-card>
+                        <app-manage-friend [otherUserId]="user.id"></app-manage-friend>
                     </div>
                     <br>
                     <div>
@@ -29,6 +30,7 @@
                     <div class="row"></div>
                 </div>
                 <div class="col-8">
+                    <app-add-post *ngIf="user.id==authService.currentUser.id"></app-add-post><br *ngIf="user.id==authService.currentUser.id">
                     <div *ngFor="let post of user.posts" class="row justify-content-md-center">
                         <app-posts [post]="post" class="col"></app-posts>
                     </div>
