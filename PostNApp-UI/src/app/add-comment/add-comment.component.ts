@@ -19,7 +19,6 @@ export class AddCommentComponent implements OnInit {
   formGroup = new FormGroup({
     userId: new FormControl(this.userId, [Validators.required]),
     username: new FormControl(this.username, [Validators.required]),
-    postId: new FormControl(this.postId, [Validators.required]),
     commentBody: new FormControl('', [Validators.required]),
   })
 
@@ -46,6 +45,7 @@ export class AddCommentComponent implements OnInit {
       this.postService.addComment(this.postId, this.formGroup.value)
         .subscribe(commentObserver)
     } else {
+      console.log(this.formGroup);
       alert("Missing comment information!");
     }
   }

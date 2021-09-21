@@ -4,9 +4,9 @@
       <input matInput formControlName="userId" type="number" class="form-control" value={{userId}} hidden>
 
       <input matInput type="text" formControlName="username" class="form-control" value={{username}} hidden>
-      <input matInput type="number" formControlName="postId" class="form-control" value={{postId}} hidden>
       <mat-form-field class="input-full-width" appearance="fill">
-        <input matInput placeholder="Write comment..." formControlName="commentBody" class="form-control">
+        <mat-label>Comment</mat-label>
+        <input matInput placeholder="Write comment..." type="text" formControlName="commentBody" class="form-control">
       </mat-form-field>
       <button mat-raised-button type="submit" class="mt-5" color="primary">Submit</button>
     </form>
