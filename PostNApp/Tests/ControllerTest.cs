@@ -64,10 +64,11 @@ namespace Tests
             {
                 IPostRepo _repo = new PostRepo(testcontext);
                 var testPost = _repo.GetAllPosts();
+                
                 var controller = new PostController(mockRepo.Object, logger.Object);
 
-                var result = await controller.GetAllPostAsync() as List<Post>;
-                Assert.Equal(testPost.Result, result);
+                var result = await controller.Get();
+                Assert.Equal(testPost.Result, (IEnumerable<Post>)result.Result);
             }
             
         }
