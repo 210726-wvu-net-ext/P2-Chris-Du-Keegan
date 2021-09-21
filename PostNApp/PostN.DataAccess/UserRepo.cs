@@ -59,7 +59,7 @@ namespace PostN.DataAccess
                    }
                 ).ToList());
         }
-        public Task<Domain.User> GetUserById(int id)
+        public async Task<Domain.User> GetUserById(int id)
         {
             var returnedUsers = _context.Users
                    .Include(p => p.Posts)
@@ -85,8 +85,12 @@ namespace PostN.DataAccess
                    }
                 ).ToList();
             Domain.User singleUser = returnedUsers.FirstOrDefault(p => p.Id == id);
-            singleUser.Posts?.Reverse();
-            return Task.FromResult(singleUser);
+                
+            if(singleUser.Posts != null)
+                singleUser.Posts?.Reverse();
+            
+            
+            return singleUser;
         }
         public Task<Domain.User> GetUserwithPostComment(int id)
         {
