@@ -1,7 +1,6 @@
 <mat-card class="container">
     <h1>Search</h1>
     <input type="text" username="search field" onkeyup="myFunction()" placeholder="Search users..">
-    <ul id="bandsFound"></ul>
     <mat-list id="myUL">
       <mat-list-item *ngFor="let user of users">
         <a routerLink="/profile/{{user.id}}">
