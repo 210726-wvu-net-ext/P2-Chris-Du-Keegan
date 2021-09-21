@@ -17,12 +17,14 @@ namespace PostN.Domain
         Task<bool> DeleteUserById(int id);
         User SearchUsersByName(string username);
         Task<List<Follower>> GetFollowers(int userId);
-        Task<Follower> AddAFollower(Follower follower);
-        Task<bool> DeleteFollower(int id);
+        Task<bool> AddAFollower(int userId, int friendId);
+        Task<bool> DeleteFollower(int userId, int friendId);
         bool UniqueUsername(string username);
         bool UniqueEmail(string email);
 
         Task<User> UserLoginAsync(User user);
+
+        Task<bool> CheckIfFriend(int userId, int friendId);
 
     }
 }

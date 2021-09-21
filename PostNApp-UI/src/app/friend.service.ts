@@ -23,7 +23,7 @@ export class FriendService {
     private router: Router
     ) { }
 
-  getFriends(): Observable<IFriend[]>
+  getFriends(id: number): Observable<IFriend[]>
   {
     return this.http.get<IFriend[]>(this.friendsUrl)
       .pipe(
@@ -38,15 +38,26 @@ export class FriendService {
     return this.http.get<IFriend>(url)
             .pipe(
               //tap(_ => this.log(`fetched user id=${id}`)),
-              catchError(this.handleError<IFriend>(`getIFriend id={id}`))
+              catchError(this.handleError<IFriend>(`getIFriend id=${id}`))
             );
     
   }
 
+  checkFriendship(userId: number, friendId: number): Observable<boolean>
+  {
+    const url = `${this.friendsUrl}/CheckIfFriend/${userId}/${friendId}`;
+    return this.http.get<boolean>(url)
+            .pipe(
+              //tap(_ => this.log(`fetched user id=${id}`)),
+              catchError(this.handleError<boolean>(`getIFriend id=${friendId}`))
+            );
+  }
+
   /** POST: add a new user to the server */
-  addUser(friend: IFriend): Observable<IFriend>{
-    return this.http.post<IFriend>(this.friendsUrl, friend, this.httpOptions).pipe(
-      //tap((newUser: User) => this.log(`added hero w/ id=${newUser.id}`)),
+  addFriend(userId: number, friendId: number): Observable<boolean>{
+    const url = `${this.friendsUrl}/${userId}/${friendId}`;
+    return this.http.post<boolean>(url, this.httpOptions).pipe(
+      //tap((addFriend: IFriend) => this.log(`added friend w/ id=${IFriend.id}`)),
       catchError(this.handleError1));
   }
   
@@ -56,21 +67,21 @@ export class FriendService {
   }
 
   /** PUT: update the user on the server */
-  updateUser(id: number, user: IFriend): Observable<any> {
-    const url = `${this.friendsUrl}/${id}`;
-    return this.http.put<IFriend>(url, user, this.httpOptions).pipe(
-      //tap(_ => this.log(`updated user id=${user.id}`)),
-      catchError(this.handleError<any>('updateUser'))
+  updateFriend(userId: number, friendId: number): Observable<any> {
+    const url = `${this.friendsUrl}/${userId}/${friendId}`;
+    return this.http.put<any>(url, this.httpOptions).pipe(
+      //tap(_ => this.log(`updated friend id=${IFriend.id}`)),
+      catchError(this.handleError<any>('updateFriend'))
     );
   }
 
   /** DELETE: delete the user from the server */
-deleteUser(id: number): Observable<IFriend> {
-  const url = `${this.friendsUrl}/${id}`;
+deleteFriend(userId: number, friendId: number): Observable<boolean> {
+  const url = `${this.friendsUrl}/${userId}/${friendId}`;
 
-  return this.http.delete<IFriend>(url, this.httpOptions).pipe(
+  return this.http.delete<boolean>(url, this.httpOptions).pipe(
     //tap(_ => this.log(`deleted user id=${id}`)),
-    catchError(this.handleError<IFriend>('deleteUser'))
+    catchError(this.handleError<boolean>('deleteFriend'))
   );
 }
 

@@ -269,28 +269,37 @@ namespace PostN.DataAccess
 
         }
 
-        public async Task<Domain.Follower> AddAFollower(Domain.Follower follower)
+        public async Task<bool> AddAFollower(int userId, int friendId)
         {
-            if (_context.Followers.Any(u => u.UserId == follower.Id))
+            try
             {
-                throw new Exception($"{follower.Username} is already following you.");
-            }
-            await _context.Followers.AddAsync(
-                new Entities.Follower
+                if (_context.Followers.Any(u => u.UserId == userId && u.UserId2 == friendId))
                 {
-                    UserId = follower.UserId,
-                    UserId2 = follower.UserId2,
-                    FriendRequest = follower.FriendRequest,
+                    throw new Exception($"{friendId} is already following you.");
                 }
-            );
-            await _context.SaveChangesAsync();
-            return follower;
+                await _context.Followers.AddAsync(
+                    new Entities.Follower
+                    {
+                        UserId = userId,
+                        UserId2 = friendId,
+                        FriendRequest = 1,
+                    }
+                );
+                await _context.SaveChangesAsync();
+
+                return true;
+            } catch
+            {
+                return false;
+            }
+            
+            
         }
 
-        public async Task<bool> DeleteFollower(int id)
+        public async Task<bool> DeleteFollower(int userId, int friendId)
         {
             Entities.Follower foundFollower = await _context.Followers
-                .FirstOrDefaultAsync(follower => follower.Id == id);
+                .FirstOrDefaultAsync(u => u.UserId == userId && u.UserId2 == friendId);
             if(foundFollower != null)
             {
                 _context.Followers.Remove(foundFollower);
@@ -310,6 +319,17 @@ namespace PostN.DataAccess
                 return loginUser;
             }
             return null;
+        }
+
+        public async Task<bool> CheckIfFriend(int userId, int friendId)
+        {
+            Entities.Follower foundFriend = await _context.Followers.FirstOrDefaultAsync(f => f.UserId == userId && f.UserId2 == friendId);
+
+            if (foundFriend != null)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
