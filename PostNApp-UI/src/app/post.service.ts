@@ -56,7 +56,7 @@ export class PostService {
   }
 
   /** POST: add a new Comment to the server */
-  addComment(postId: number, comment: Comment): Observable<Comment> {
+  addComment(postId: number, comment: Comment): Observable<any> {
     const url = `${this.url}/${postId}`;
     return this.http.post<Comment>(url, comment, this.httpOptions).pipe(
       //tap((newComment: Comment) => this.log(`added comment w/ id=${newComment.id}`)),
