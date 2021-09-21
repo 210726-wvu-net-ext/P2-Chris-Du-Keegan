@@ -4,7 +4,7 @@
     <ul id="bandsFound"></ul>
     <mat-list id="myUL">
       <mat-list-item *ngFor="let user of users">
-        <a routerLink="/profile/update/{{user.id}}">
+        <a routerLink="/profile/{{user.id}}">
           {{user.id}}: {{user.username | uppercase}} | {{user.role}}
         </a>
       </mat-list-item>
