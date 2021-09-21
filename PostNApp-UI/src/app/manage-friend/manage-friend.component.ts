@@ -21,6 +21,9 @@ export class ManageFriendComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkFollower();
+    this.route.params.subscribe(routeParams => {
+      this.checkFollower();
+    });
   }
 
   checkFollower() {
@@ -30,9 +33,11 @@ export class ManageFriendComponent implements OnInit {
 
   addFriend(){
     this.friendService.addFriend(this.currentuserId, this.otherUserId)
+    .subscribe(response => this.isFriend = response);
   }
 
   deleteFriend(){
     this.friendService.deleteFriend(this.currentuserId, this.otherUserId)
+    .subscribe(response => this.isFriend = response);
   }
 }
