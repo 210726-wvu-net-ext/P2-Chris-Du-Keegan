@@ -61,7 +61,7 @@ namespace PostN.DataAccess
         }
         public async Task<Domain.User> GetUserById(int id)
         {
-            var returnedUsers = _context.Users
+            var returnedUsers = await _context.Users
                    .Include(p => p.Posts)
                    .ThenInclude(c => c.Comments)
                    .Include(f => f.FollowerUsers)
@@ -83,7 +83,7 @@ namespace PostN.DataAccess
                        Friends = u.FollowerUsers.Select(f => new Domain.Follower(f.Id, f.UserId, f.User.Username, f.UserId2, f.UserId2Navigation.Username, f.FriendRequest)).ToList(),
                        Posts = u.Posts.Select(k => new Domain.Post(k.Id, k.UserId, k.User.Username, k.Image, k.Created, k.Title, k.Body, k.Comments.Select(k => new Domain.Comment(k.Id, k.UserId, k.PostId, k.User.Username, k.Created, k.CommentBody)).ToList())).ToList()
                    }
-                ).ToList();
+                ).ToListAsync();
             Domain.User singleUser = returnedUsers.FirstOrDefault(p => p.Id == id);
                 
             if(singleUser.Posts != null)
@@ -119,9 +119,9 @@ namespace PostN.DataAccess
             return Task.FromResult(singleUser);
         }
 
-        public Task<Domain.User> SearchUserById(int id)
+        public async Task<Domain.User> SearchUserById(int id)
         {
-            var returnedUsers = _context.Users
+            var returnedUsers = await _context.Users
                    .Include(p => p.Posts)
                    .ThenInclude(c => c.Comments)
                    .Include(f => f.FollowerUsers)
@@ -143,10 +143,11 @@ namespace PostN.DataAccess
                        Friends = u.FollowerUsers.Select(f => new Domain.Follower(f.Id, f.UserId, f.User.Username, f.UserId2, f.UserId2Navigation.Username, f.FriendRequest)).ToList(),
                        Posts = u.Posts.Select(k => new Domain.Post(k.Id, k.UserId, k.User.Username, k.Image, k.Created, k.Title, k.Body, k.Comments.Select(k => new Domain.Comment(k.Id, k.UserId, k.PostId, k.User.Username, k.Created, k.CommentBody)).ToList())).ToList()
                    }
-                ).ToList();
+                ).ToListAsync();
             Domain.User singleUser = returnedUsers.FirstOrDefault(p => p.Id == id);
-            singleUser.Posts?.Reverse();
-            return Task.FromResult(singleUser);
+            if (singleUser.Posts != null)
+                singleUser.Posts?.Reverse();
+            return singleUser;
         }
         public async Task<Domain.User> UpdateUser(int id, Domain.User user)
         {
