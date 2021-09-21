@@ -49,5 +49,7 @@ export class AddPostComponent implements OnInit {
   reloadCurrentPage() {
     window.location.reload();
    }
+   
+   
 
 }

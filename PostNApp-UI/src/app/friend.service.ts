@@ -4,6 +4,7 @@ import { observable, Observable, of, throwError} from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { catchError, retry } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { baseUrl } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class FriendService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
   
-  private friendsUrl = 'https://localhost:44365/api/friends';
+  private friendsUrl = `${baseUrl}friends`;
  
   constructor(
     private http: HttpClient,

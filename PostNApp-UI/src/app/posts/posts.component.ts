@@ -15,8 +15,11 @@ import { Location } from '@angular/common';
 })
 export class PostsComponent implements OnInit {
   panelOpenState = false;
+  addCommentOpenState = false;
   
   @Input() post?: Post;
+
+  commentCount = this.post?.comments.length;
 
   constructor(public authService: AuthService, private postService: PostService,
     private route: ActivatedRoute,
@@ -41,5 +44,8 @@ export class PostsComponent implements OnInit {
     };
     this.postService.deletePostById(id).subscribe(postObserver)
   }
+  reloadCurrentPage() {
+    window.location.reload();
+   }
  
 }
