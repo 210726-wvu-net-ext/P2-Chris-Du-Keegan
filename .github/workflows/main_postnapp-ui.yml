@@ -7,11 +7,18 @@ on:
   push:
     branches:
       - main
+    paths:
+      - '.github/workflows/main_postn.yml'
+      - 'PostNApp-UI/**'
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: windows-latest
+    
+    defaults:
+      run:
+        working-directory: PostNApp-UI
 
     steps:
       - uses: actions/checkout@v2
