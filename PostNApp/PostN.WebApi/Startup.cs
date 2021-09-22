@@ -63,10 +63,14 @@ namespace PostN.WebApi
                 options.UseSqlServer(Configuration.GetConnectionString("p2-210726-cdk"));
                 options.LogTo(Console.WriteLine);
             });
+<<<<<<< HEAD
+            
+=======
             /*services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );*/
+>>>>>>> d7d0588fd6d188679d6d00edffb4006848d355bf
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
