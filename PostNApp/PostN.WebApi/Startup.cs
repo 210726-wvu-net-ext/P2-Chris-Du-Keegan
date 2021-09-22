@@ -63,10 +63,10 @@ namespace PostN.WebApi
                 options.UseSqlServer(Configuration.GetConnectionString("p2-210726-cdk"));
                 options.LogTo(Console.WriteLine);
             });
-            services.AddControllersWithViews()
+            /*services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            );
+            );*/
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -77,16 +77,10 @@ namespace PostN.WebApi
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowNgServe", policy =>
-                    policy.WithOrigins("http://localhost:4200")
+                    policy.WithOrigins("http://localhost:4200", "https://postn-ui.azurewebsites.net", "https://postnapp-ui.azurewebsites.net")
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials());
-                options.AddPolicy("EnableCORS", builder =>
-                {
-                    builder.AllowAnyOrigin()
-                      .AllowAnyHeader()
-                      .AllowAnyMethod();
-                });
             });
         }
 
@@ -105,7 +99,6 @@ namespace PostN.WebApi
             app.UseRouting();
 
             app.UseCors("AllowNgServe");
-            app.UseCors("EnableCORS");
             app.UseAuthentication();
             app.UseAuthorization();
 
