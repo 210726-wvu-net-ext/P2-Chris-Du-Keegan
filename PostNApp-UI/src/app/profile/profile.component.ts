@@ -20,15 +20,16 @@ export class ProfileComponent implements OnInit {
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
-    private authServiceService: AuthService
+    public authService: AuthService
     ) { }
 
    
   ngOnInit(): void {
-    this.getUser()
-  
+    this.route.params.subscribe(routeParams => {
+      this.getUser();
+    });
   }
-
+  
   getUser(): void {
     
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -44,6 +45,5 @@ export class ProfileComponent implements OnInit {
         //num => {num = this.user?.posts.length;}  
       );
   }
-
 
 }

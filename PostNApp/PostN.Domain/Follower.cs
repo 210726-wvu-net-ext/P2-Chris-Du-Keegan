@@ -2,11 +2,14 @@
 {
     public class Follower
     {
-        public Follower(int id, int userId2, string username, int friendrequest)
+        public Follower() { }
+        public Follower(int id, int userId, string username, int userId2, string friendUsername, int friendrequest)
         {
             Id = id;
+            UserId = userId;
+            Username = username;
             UserId2 = userId2;
-            FriendUsername = username;
+            FriendUsername = friendUsername;
             FriendRequest = friendrequest;
         }
 

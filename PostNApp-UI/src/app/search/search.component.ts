@@ -13,6 +13,7 @@ export class SearchComponent implements OnInit {
   constructor(private location: Location,private userService: UserService) { }
 
   ngOnInit(): void {
+    this.getUsers();
   }
   getUsers(): void {
     this.userService.getUsers()
@@ -22,4 +23,5 @@ export class SearchComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
+  
 }

@@ -10,9 +10,10 @@ import { AuthService } from '../auth.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
 
   userId = this.authService.currentUser.id;
+  //userId = JSON.parse(localStorage.getItem("userId")!);
   posts: Post[] = [];
   constructor(private jwtHelper: JwtHelperService, private router: Router, private postService: PostService, public authService: AuthService) {}
 

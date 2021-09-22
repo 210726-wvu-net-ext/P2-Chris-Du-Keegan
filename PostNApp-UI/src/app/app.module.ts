@@ -30,6 +30,10 @@ import { AddPostComponent } from './add-post/add-post.component';
 import { SearchComponent } from './search/search.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
 import { UserCardComponent } from './user-card/user-card.component';
+import { FriendListComponent } from './friend-list/friend-list.component';
+import { AddCommentComponent } from './add-comment/add-comment.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { ManageFriendComponent } from './manage-friend/manage-friend.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -52,7 +56,10 @@ export function tokenGetter() {
     AddPostComponent,
     SearchComponent,
     EditPostComponent,
-    UserCardComponent
+    UserCardComponent,
+    FriendListComponent,
+    AddCommentComponent,
+    ManageFriendComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,6 +84,7 @@ export function tokenGetter() {
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    MatExpansionModule
   ],
   
   providers: [],

@@ -1,5 +1,6 @@
 import { Post } from "./post";
 import { Comment } from "./comment";
+import { IFriend } from "./friend";
 
 export interface User {
     id: number,
@@ -13,8 +14,8 @@ export interface User {
     country: string,
     role: string,
     phoneNumber: string,
-    dob: Date,
+    doB: Date,
     comments: Comment[],
     posts: Post[],
-    follows: []
+    friends: IFriend[]
 }
