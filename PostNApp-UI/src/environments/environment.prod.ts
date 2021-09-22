@@ -1,4 +1,5 @@
 export const environment = {
   production: true
 };
-export const baseUrl = `https://localhost:44365/api/`;
+
+export const baseUrl = `https://postn.azurewebsites.net/api/`;
