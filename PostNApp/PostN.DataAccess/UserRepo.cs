@@ -53,15 +53,15 @@ namespace PostN.DataAccess
                        Role = u.Role,
                        PhoneNumber = u.PhoneNumber,
                        DoB = u.DoB,
-                       Comments = u.Comments.Select(c => new Domain.Comment(c.Id, c.UserId, c.PostId, c.Created, c.CommentBody)).ToList(),
-                       Friends = u.FollowerUsers.Select(f => new Domain.Follower(f.Id, f.UserId2, f.UserId2Navigation.Username, f.FriendRequest)).ToList(),
+                       Comments = u.Comments.Select(c => new Domain.Comment(c.Id, c.UserId, c.User.Username, c.PostId, c.Created, c.CommentBody)).ToList(),
+                       Friends = u.FollowerUsers.Select(f => new Domain.Follower(f.Id, f.UserId, f.User.Username, f.UserId2, f.UserId2Navigation.Username, f.FriendRequest)).ToList(),
                        Posts = u.Posts.Select(k => new Domain.Post(k.Id, k.UserId, k.User.Username, k.Image, k.Created, k.Title, k.Body, k.Comments.Select(k => new Domain.Comment(k.Id, k.UserId, k.PostId, k.User.Username, k.Created, k.CommentBody)).ToList())).ToList()
                    }
                 ).ToList());
         }
-        public Task<Domain.User> GetUserById(int id)
+        public async Task<Domain.User> GetUserById(int id)
         {
-            var returnedUsers = _context.Users
+            var returnedUsers = await _context.Users
                    .Include(p => p.Posts)
                    .ThenInclude(c => c.Comments)
                    .Include(f => f.FollowerUsers)
@@ -80,13 +80,17 @@ namespace PostN.DataAccess
                        PhoneNumber = u.PhoneNumber,
                        DoB = u.DoB,
                        Comments = u.Comments.Select(c => new Domain.Comment(c.Id, c.UserId, c.User.Username, c.PostId, c.Created, c.CommentBody)).ToList(),
-                       Friends = u.FollowerUsers.Select(f => new Domain.Follower(f.Id, f.UserId2, f.UserId2Navigation.Username, f.FriendRequest)).ToList(),
+                       Friends = u.FollowerUsers.Select(f => new Domain.Follower(f.Id, f.UserId, f.User.Username, f.UserId2, f.UserId2Navigation.Username, f.FriendRequest)).ToList(),
                        Posts = u.Posts.Select(k => new Domain.Post(k.Id, k.UserId, k.User.Username, k.Image, k.Created, k.Title, k.Body, k.Comments.Select(k => new Domain.Comment(k.Id, k.UserId, k.PostId, k.User.Username, k.Created, k.CommentBody)).ToList())).ToList()
                    }
-                ).ToList();
+                ).ToListAsync();
             Domain.User singleUser = returnedUsers.FirstOrDefault(p => p.Id == id);
-            singleUser.Posts?.Reverse();
-            return Task.FromResult(singleUser);
+                
+            if(singleUser.Posts != null)
+                singleUser.Posts?.Reverse();
+            
+            
+            return singleUser;
         }
         public Task<Domain.User> GetUserwithPostComment(int id)
         {
@@ -115,9 +119,9 @@ namespace PostN.DataAccess
             return Task.FromResult(singleUser);
         }
 
-        public Task<Domain.User> SearchUserById(int id)
+        public async Task<Domain.User> SearchUserById(int id)
         {
-            var returnedUsers = _context.Users
+            var returnedUsers = await _context.Users
                    .Include(p => p.Posts)
                    .ThenInclude(c => c.Comments)
                    .Include(f => f.FollowerUsers)
@@ -136,13 +140,14 @@ namespace PostN.DataAccess
                        PhoneNumber = u.PhoneNumber,
                        DoB = u.DoB,
                        Comments = u.Comments.Select(c => new Domain.Comment(c.Id, c.UserId, c.User.Username, c.PostId, c.Created, c.CommentBody)).ToList(),
-                       Friends = u.FollowerUsers.Select(f => new Domain.Follower(f.Id, f.UserId2, f.UserId2Navigation.Username, f.FriendRequest)).ToList(),
+                       Friends = u.FollowerUsers.Select(f => new Domain.Follower(f.Id, f.UserId, f.User.Username, f.UserId2, f.UserId2Navigation.Username, f.FriendRequest)).ToList(),
                        Posts = u.Posts.Select(k => new Domain.Post(k.Id, k.UserId, k.User.Username, k.Image, k.Created, k.Title, k.Body, k.Comments.Select(k => new Domain.Comment(k.Id, k.UserId, k.PostId, k.User.Username, k.Created, k.CommentBody)).ToList())).ToList()
                    }
-                ).ToList();
+                ).ToListAsync();
             Domain.User singleUser = returnedUsers.FirstOrDefault(p => p.Id == id);
-            singleUser.Posts?.Reverse();
-            return Task.FromResult(singleUser);
+            if (singleUser.Posts != null)
+                singleUser.Posts?.Reverse();
+            return singleUser;
         }
         public async Task<Domain.User> UpdateUser(int id, Domain.User user)
         {
@@ -247,36 +252,54 @@ namespace PostN.DataAccess
             }
         }
 
-        public List<Domain.Follower> GetFollowers()
+        public Task<List<Domain.Follower>> GetFollowers(int userId)
         {
-            return _context.Followers.Select(
-                followers => new PostN.Domain.Follower(followers.Id, followers.UserId, followers.UserId2, followers.FriendRequest)
-            ).ToList();
-
-        }
-
-        public async Task<Domain.Follower> AddAFollower(Domain.Follower follower)
-        {
-            if (_context.Followers.Any(u => u.UserId == follower.Id))
-            {
-                throw new Exception($"{follower.Username} is already following you.");
-            }
-            await _context.Followers.AddAsync(
-                new Entities.Follower
+            var friends = _context.Followers.Where(f => f.UserId == userId)
+                .Include(n => n.UserId2Navigation).Select(u => new Domain.Follower
                 {
-                    UserId = follower.UserId,
-                    UserId2 = follower.UserId2,
-                    FriendRequest = follower.FriendRequest,
-                }
-            );
-            await _context.SaveChangesAsync();
-            return follower;
+                    Id = u.Id,
+                    UserId = u.UserId,
+                    Username = u.User.Username,
+                    UserId2 = u.UserId2,
+                    FriendUsername = u.UserId2Navigation.Username,
+                    FriendRequest = u.FriendRequest
+                }).ToList();
+            //new Domain.Follower(f.Id, f.UserId, f.User.Username, f.UserId2, f.UserId2Navigation.Username, f.FriendRequest)
+            return Task.FromResult(friends);
+
         }
 
-        public async Task<bool> DeleteFollower(int id)
+        public async Task<bool> AddAFollower(int userId, int friendId)
+        {
+            try
+            {
+                if (_context.Followers.Any(u => u.UserId == userId && u.UserId2 == friendId))
+                {
+                    throw new Exception($"{friendId} is already following you.");
+                }
+                await _context.Followers.AddAsync(
+                    new Entities.Follower
+                    {
+                        UserId = userId,
+                        UserId2 = friendId,
+                        FriendRequest = 1,
+                    }
+                );
+                await _context.SaveChangesAsync();
+
+                return true;
+            } catch
+            {
+                return false;
+            }
+            
+            
+        }
+
+        public async Task<bool> DeleteFollower(int userId, int friendId)
         {
             Entities.Follower foundFollower = await _context.Followers
-                .FirstOrDefaultAsync(follower => follower.Id == id);
+                .FirstOrDefaultAsync(u => u.UserId == userId && u.UserId2 == friendId);
             if(foundFollower != null)
             {
                 _context.Followers.Remove(foundFollower);
@@ -296,6 +319,17 @@ namespace PostN.DataAccess
                 return loginUser;
             }
             return null;
+        }
+
+        public async Task<bool> CheckIfFriend(int userId, int friendId)
+        {
+            Entities.Follower foundFriend = await _context.Followers.FirstOrDefaultAsync(f => f.UserId == userId && f.UserId2 == friendId);
+
+            if (foundFriend != null)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
