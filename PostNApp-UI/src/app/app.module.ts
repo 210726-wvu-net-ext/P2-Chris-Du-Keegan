@@ -79,7 +79,7 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        allowedDomains: ["localhost:44365"],
+        allowedDomains: ["localhost:44365", "postn.azurewebsites.net", "https://postn.azurewebsites.net"],
         disallowedRoutes:[]
       }
     }),
