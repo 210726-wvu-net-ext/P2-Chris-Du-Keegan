@@ -14,15 +14,15 @@ import { EditPostComponent } from './edit-post/edit-post.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
-  { path: '', component: HomeComponent},
-  { path: 'edit/post/:id', component: EditPostComponent},
+  { path: '', component: HomeComponent, canActivate: [AuthGuard]},
+  { path: 'edit/post/:id', component: EditPostComponent, canActivate: [AuthGuard]},
   { path: 'profile/:id', component: ProfileComponent,  canActivate: [AuthGuard]},
   { path: 'profile/update/:id', component: UserDetailComponent, canActivate: [AuthGuard] },
   { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
-  { path: 'explore', component: ExploreComponent},
+  { path: 'explore', component: ExploreComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
-  { path: 'search', component: SearchComponent}
+  { path: 'search', component: SearchComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

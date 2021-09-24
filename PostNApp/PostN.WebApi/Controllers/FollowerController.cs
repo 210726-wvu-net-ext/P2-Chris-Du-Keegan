@@ -29,33 +29,35 @@ namespace PostN.WebApi.Controllers
             var followers = await _repo.GetFollowers(userId);
             return Ok(followers);
         }
+        [HttpGet("[action]/{userId}/{friendId}")]
+        public async Task<ActionResult<bool>> CheckIfFriend(int userId, int friendId)
+        {
+            bool status = await _repo.CheckIfFriend(userId, friendId);
+            return Ok(status);
+        }
+
 
         // put api/<FollowerController>
-        [HttpPut]
-        public async Task<ActionResult<Follower>> Put(bool request, Follower follower)
+        [HttpPost("{userId}/{friendId}")]
+        public async Task<ActionResult<bool>> Put(int userId, int friendId)
         {
-            if(request == true)
-            {
-                var newFollower = await _repo.AddAFollower(follower);
+            
+        
+                bool newFollower = await _repo.AddAFollower(userId, friendId);
                 return Ok(newFollower);
-            }
-            else
-            {
-                request = false;
-                return Ok();
-            }
+
         }
 
         // DELETE api/<FollowerController>/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        [HttpDelete("{userId}/{friendId}")]
+        public async Task<IActionResult> Delete(int userId, int friendId)
         {
-            var x = await _repo.DeleteFollower(id);
+            var x = await _repo.DeleteFollower(userId, friendId);
             if(x == false)
             {
-                return Ok("Are you sure you're frinds?");
+                return NotFound(false);
             }
-            return Ok("Friend has been removed");
+            return Ok(true);
         }
 
     }

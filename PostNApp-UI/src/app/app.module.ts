@@ -31,6 +31,10 @@ import { SearchComponent } from './search/search.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
 import { UserCardComponent } from './user-card/user-card.component';
 import { FriendListComponent } from './friend-list/friend-list.component';
+import { AddCommentComponent } from './add-comment/add-comment.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { ManageFriendComponent } from './manage-friend/manage-friend.component';
+import { FilterPipe } from './search/filter/filter.pipe';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -54,7 +58,10 @@ export function tokenGetter() {
     SearchComponent,
     EditPostComponent,
     UserCardComponent,
-    FriendListComponent
+    FriendListComponent,
+    AddCommentComponent,
+    ManageFriendComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
@@ -72,13 +79,14 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        allowedDomains: ["localhost:44365"],
+        allowedDomains: ["localhost:44365", "postn.azurewebsites.net", "https://postn.azurewebsites.net"],
         disallowedRoutes:[]
       }
     }),
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    MatExpansionModule
   ],
   
   providers: [],

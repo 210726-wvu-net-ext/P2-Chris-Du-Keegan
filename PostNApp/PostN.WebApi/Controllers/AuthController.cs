@@ -43,12 +43,16 @@ namespace PostN.WebApi.Controllers
                 {
                     new Claim(JwtRegisteredClaimNames.Email, foundUser.Email),
                     new Claim(JwtRegisteredClaimNames.NameId, foundUser.Username),
-                    new Claim(ClaimTypes.Role, foundUser.Role)
+                    new Claim("userId", foundUser.Id.ToString()),
+                    new Claim(ClaimTypes.Role, foundUser.Role),
+                    new Claim("role", foundUser.Role)
                 };
 
                 var tokenOptions = new JwtSecurityToken(
                     issuer: "https://localhost:44365",
                     audience: "https://localhost:4200",
+                    /*issuer: "https://postn.azurewebsites.net",
+                    audience: "https://postnapp-ui.azurewebsites.net",*/
                     claims: claims,
                     expires: DateTime.Now.AddDays(7),
                     signingCredentials: signingCredentials

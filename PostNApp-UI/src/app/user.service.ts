@@ -4,6 +4,7 @@ import { observable, Observable, of, throwError} from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { catchError, retry } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { baseUrl } from 'src/environments/environment';
 
 
 
@@ -16,7 +17,7 @@ export class UserService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
   
-  private usersUrl = 'https://localhost:44365/api/users';
+  private usersUrl = `${baseUrl}users`;
  
   constructor(
     private http: HttpClient,
