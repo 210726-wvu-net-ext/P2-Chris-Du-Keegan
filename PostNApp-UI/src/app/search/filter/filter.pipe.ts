@@ -13,7 +13,7 @@ export class FilterPipe implements PipeTransform {
 
   const users = [];
     for (const user of value){
-        if (user['firstName'] === searchInput){
+        if (user['firstName'] === searchInput || user['lastName']===searchInput || user['username']===searchInput){
             users.push(user);
         }
     }
