@@ -1,10 +1,10 @@
 <mat-card class="container">
     <h1>Search</h1>
-    <input type="search" [(ngModel)] = username placeholder="Search users..">
-    <mat-list>  
-      <mat-list-item *ngFor="let user of users | filter: username">
+    <input class="form-control form-control-lg" type="search" [(ngModel)] = searchInput placeholder="Search users..">
+    <mat-list>
+      <mat-list-item *ngFor="let user of users | Filter: searchInput">
         <a routerLink="/profile/{{user.id}}">
-          {{user.id}}: {{user.username | uppercase}} | {{user.role}}
+         <div>{{user.firstName}} {{user.lastName}}</div>
         </a>
       </mat-list-item>
     </mat-list>
