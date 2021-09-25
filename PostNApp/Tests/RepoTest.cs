@@ -20,7 +20,7 @@ namespace Tests
 
         public RepoTest()
         {
-            options = new DbContextOptionsBuilder<CMKWDTP2Context>().UseSqlite("Filename=Test.db").Options;
+            options = new DbContextOptionsBuilder<CMKWDTP2Context>().UseSqlite("Filename=Test0.db").Options;
             Seed();
         }
        

@@ -20,7 +20,7 @@ July 2021 Arlington .NET / Nick Escalona
     - implement hypermedia, or, implement an API Description Language, e.g. using Swashbuckle / Swagger - done
     - (optional: implement a custom filter, health check, or middleware, e.g. exception-handling middleware)
 - Azure Pipelines
-    - CI pipelines - backend
+    - CI pipelines - done
         - Unit tests - in progress
         - SonarCloud - in progress
             - Code coverage at least 50% for API, at least 30% for Angular app 
