@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 
 import { UserDetailComponent } from './user-detail.component';
 
@@ -8,7 +9,8 @@ describe('UserDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserDetailComponent ]
+      declarations: [ UserDetailComponent ],
+      imports: [ActivatedRoute]
     })
     .compileComponents();
   });

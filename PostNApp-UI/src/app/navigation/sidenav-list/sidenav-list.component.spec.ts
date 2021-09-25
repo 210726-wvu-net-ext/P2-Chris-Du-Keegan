@@ -1,4 +1,6 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AppRoutingModule } from 'src/app/app-routing.module';
 
 import { SidenavListComponent } from './sidenav-list.component';
 
@@ -8,7 +10,8 @@ describe('SidenavListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SidenavListComponent ]
+      declarations: [ SidenavListComponent ],
+      imports: [HttpClientModule, AppRoutingModule]
     })
     .compileComponents();
   });
