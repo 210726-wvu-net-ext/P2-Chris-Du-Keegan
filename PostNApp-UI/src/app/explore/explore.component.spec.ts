@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { PostService } from '../post.service';
+import { Post } from '../interfaces/post';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { ExploreComponent } from './explore.component';
+import { RouterTestingModule } from '@angular/router/testing';
+
 
 describe('ExploreComponent', () => {
   let component: ExploreComponent;
@@ -8,6 +12,7 @@ describe('ExploreComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule, RouterTestingModule],
       declarations: [ ExploreComponent ]
     })
     .compileComponents();
@@ -20,6 +25,15 @@ describe('ExploreComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    const fixture = TestBed.createComponent(ExploreComponent);
+    const explore = fixture.componentInstance;
+    expect(explore).toBeTruthy();
+  });
+
+  it('should get posts', () => {
+    let testposts: Post[] = [];
+    testposts = PostService.getPosts();
+
+    expect(testposts).toEqual(component.posts);
   });
 });
