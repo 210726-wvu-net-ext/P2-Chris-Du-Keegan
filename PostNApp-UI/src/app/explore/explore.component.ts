@@ -9,6 +9,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./explore.component.css']
 })
 export class ExploreComponent implements OnInit {
+  quoteList(quoteList: any) {
+    throw new Error('Method not implemented.');
+  }
   
   posts: Post[] = [];
 

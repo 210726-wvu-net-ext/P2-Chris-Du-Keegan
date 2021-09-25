@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { PostService } from '../post.service';
+import { Post } from '../interfaces/post';
 
 import { ExploreComponent } from './explore.component';
 
@@ -20,6 +22,13 @@ describe('ExploreComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(ExploreComponent).toBeTruthy();
+  });
+
+  it('should get posts', () => {
+    let testposts: Post[] = [];
+    testposts = PostService.getPosts();
+
+    expect(testposts).toEqual(component.posts);
   });
 });
