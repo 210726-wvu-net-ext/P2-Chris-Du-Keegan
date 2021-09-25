@@ -44,8 +44,8 @@ steps:
     organization: '210726-wvu-net-ext'
     scannerMode: 'CLI'
     configMode: 'manual'
-    cliProjectKey: 'P2-PostN-Backend'
-    cliProjectName: 'P2-PostN-Backend'
+    cliProjectKey: 'P2-PostN-Angular'
+    cliProjectName: 'P2-PostN-Angular'
     cliSources: '$(appDir)/src'
     extraProperties: |
       sonar.javascript.lcov.reportPaths=$(appDir)/coverage/$(appDir)/lcov.info
