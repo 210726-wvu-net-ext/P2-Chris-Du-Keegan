@@ -34,8 +34,8 @@ stages:
         SonarCloud: 'SonarCloudP2'
         organization: '210726-wvu-net-ext'
         scannerMode: 'MSBuild'
-        projectKey: '210726-wvu-net-ext_P2-Chris-Du-Keegan'
-        projectName: 'P2-Chris-Du-Keegan'
+        projectKey: 'P2-PostN-Backend'
+        projectName: 'P2-PostN-Backend'
     - task: VSBuild@1
       inputs:
         solution: '$(solution)'
