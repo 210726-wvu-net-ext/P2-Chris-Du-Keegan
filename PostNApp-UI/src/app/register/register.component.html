@@ -1,126 +1,39 @@
-<!-- 
-<div class="card">
-    <h4 class="card-header">Register</h4>
-    <div class="card-body">
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-            <div class="form-group">
-                <label for="firstName">First Name</label>
-                <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
-                <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
-                    <div *ngIf="f.firstName.errors.required">First Name is required</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="lastName">Last Name</label>
-                <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
-                <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
-                    <div *ngIf="f.lastName.errors.required">Last Name is required</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-                <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-                    <div *ngIf="f.username.errors.required">Username is required</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                    <div *ngIf="f.email.errors.required">Email is required</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                    <div *ngIf="f.password.errors.required">Password is required</div>
-                    <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="email">About Me</label>
-                <input type="text" formControlName="aboutMe" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.aboutMe.errors }" />
-                <div *ngIf="submitted && f.aboutMe.errors" class="invalid-feedback">
-                    <div *ngIf="f.aboutMe.errors.required">aboutMe is required</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="state">State</label>
-                <input type="text" formControlName="state" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.state.errors }" />
-                <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
-                    <div *ngIf="f.state.errors.required">State is required</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="country">Country</label>
-                <input type="text" formControlName="country" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.country.errors }" />
-                <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
-                    <div *ngIf="f.country.errors.required">Country is required</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="dob">Dob</label>
-                <input type="text" formControlName="dob" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.dob.errors }" />
-                <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
-                    <div *ngIf="f.dob.errors.required">DOB is required</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="phoneNumber">phoneNumber</label>
-                <input type="text" formControlName="phoneNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }" />
-                <div *ngIf="submitted && f.phoneNumber.errors" class="invalid-feedback">
-                    <div *ngIf="f.phoneNumber.errors.required">Phonenumber is required</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <button [disabled]="loading" class="btn btn-primary" >
-                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                    Register
-                </button>
-                <a routerLink="../login" class="btn btn-link">Cancel</a>
-            </div>
-        </form>
-    </div>
-</div> -->
-
 <div fxLayoutAlign="center center" fxFlexFill class="main-div">
   <mat-card fxFlex="75">
     <mat-toolbar color="primary" fxLayoutAlign="center center">Sign-up Page</mat-toolbar>
     <form class="signup-form" [formGroup]="form" (ngSubmit)="onSubmit()" class="signup-form-padding">
-      
-      <mat-form-field class="input-full-width" appearance="fill">
+
+      <mat-form-field class="input-full-width">
         <mat-label for='firstName'>First name</mat-label>
-        <input matInput type="text" placeholder="Ex. Bob" formControlName="firstName" class="form-control"
+        <input matInput type="text" placeholder="Ex. Bob" formControlName="firstName"
           [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
         <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
           <div *ngIf="f.firstName.errors.required">First Name is required</div>
         </div>
       </mat-form-field>
-      <mat-form-field class="input-full-width" appearance="fill">
+      <mat-form-field class="input-full-width">
         <mat-label for='lastName'>Last Name</mat-label>
-        <input matInput type="text" placeholder="Ex. Smith" formControlName="lastName" class="form-control"
+        <input matInput type="text" placeholder="Ex. Smith" formControlName="lastName"
           [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
         <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
           <div *ngIf="f.lastName.errors.required">Last Name is required</div>
         </div>
       </mat-form-field>
 
-      <mat-form-field class="input-full-width" appearance="fill">
+      <mat-form-field class="input-full-width">
         <mat-label for='username'>Username</mat-label>
-        <input matInput placeholder="Ex. Username21" type="text" formControlName="username" class="form-control"
+        <input matInput placeholder="Ex. Username21" type="text" formControlName="username"
           [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
         <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
           <div *ngIf="f.username.errors.required">Username is required</div>
           <div *ngIf="f.username.errors.minlength">More than 5 characters</div>
-          
+
         </div>
       </mat-form-field>
 
-      <mat-form-field class="input-full-width" appearance="fill">
+      <mat-form-field class="input-full-width">
         <mat-label for='email'>Email</mat-label>
-        <input matInput placeholder="Ex. pat@email.com" type="text" formControlName="email" class="form-control"
+        <input matInput placeholder="Ex. pat@email.com" type="text" formControlName="email"
           [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
         <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
           <div *ngIf="f.email.errors.required">Email is required</div>
@@ -128,9 +41,9 @@
         </div>
       </mat-form-field>
 
-      <mat-form-field class="input-full-width" appearance="fill">
+      <mat-form-field class="input-full-width">
         <mat-label for='password'>Password</mat-label>
-        <input matInput type="password" formControlName="password" class="form-control"
+        <input matInput type="password" formControlName="password" 
           [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
         <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
           <div *ngIf="f.password.errors.required">Password is required</div>
@@ -138,45 +51,296 @@
         </div>
       </mat-form-field>
 
-      <mat-form-field class="input-full-width" appearance="fill">
+      <mat-form-field class="input-full-width">
         <mat-label for='phoneNumber'>Phone Number</mat-label>
-        <input type="tel" matInput placeholder="+00 555-555-1234" formControlName="phoneNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }" />
+        <input type="tel" matInput placeholder="+00 555-555-1234" formControlName="phoneNumber"
+          [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }" />
         <div *ngIf="submitted && f.phoneNumber.errors" class="invalid-feedback">
-            <div *ngIf="f.phoneNumber.errors.required">Phone number is required</div>
+          <div *ngIf="f.phoneNumber.errors.required">Phone number is required</div>
         </div>
       </mat-form-field>
 
-      <mat-form-field class="input-full-width" appearance="fill">
+      <mat-form-field class="input-full-width">
         <mat-label for='state'>State</mat-label>
-        <input matInput placeholder="Ex. California" type="text" formControlName="state" class="form-control"
+        <input matInput placeholder="Ex. California" type="text" formControlName="state"
           [ngClass]="{ 'is-invalid': submitted && f.state.errors }" />
         <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
-          <div *ngIf="f.state.errors.required">State is required</div>
+          <div *ngIf="f.state.errors.required">State/Province is required</div>
         </div>
       </mat-form-field>
 
-      <mat-form-field class="input-full-width" appearance="fill">
+      <mat-form-field class="input-full-width">
         <mat-label for='country'>Country</mat-label>
-        <input matInput placeholder="Ex. United States" type="text" formControlName="country" class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.country.errors }" />
+        <mat-select formControlName="country"
+          [ngClass]="{ 'is-invalid': submitted && f.country.errors }">
+          <mat-option value='' disabled>Select a country</mat-option>
+          <mat-option value="Afganistan">Afghanistan</mat-option>
+          <mat-option value="Albania">Albania</mat-option>
+          <mat-option value="Algeria">Algeria</mat-option>
+          <mat-option value="American Samoa">American Samoa</mat-option>
+          <mat-option value="Andorra">Andorra</mat-option>
+          <mat-option value="Angola">Angola</mat-option>
+          <mat-option value="Anguilla">Anguilla</mat-option>
+          <mat-option value="Antigua & Barbuda">Antigua & Barbuda</mat-option>
+          <mat-option value="Argentina">Argentina</mat-option>
+          <mat-option value="Armenia">Armenia</mat-option>
+          <mat-option value="Aruba">Aruba</mat-option>
+          <mat-option value="Australia">Australia</mat-option>
+          <mat-option value="Austria">Austria</mat-option>
+          <mat-option value="Azerbaijan">Azerbaijan</mat-option>
+          <mat-option value="Bahamas">Bahamas</mat-option>
+          <mat-option value="Bahrain">Bahrain</mat-option>
+          <mat-option value="Bangladesh">Bangladesh</mat-option>
+          <mat-option value="Barbados">Barbados</mat-option>
+          <mat-option value="Belarus">Belarus</mat-option>
+          <mat-option value="Belgium">Belgium</mat-option>
+          <mat-option value="Belize">Belize</mat-option>
+          <mat-option value="Benin">Benin</mat-option>
+          <mat-option value="Bermuda">Bermuda</mat-option>
+          <mat-option value="Bhutan">Bhutan</mat-option>
+          <mat-option value="Bolivia">Bolivia</mat-option>
+          <mat-option value="Bonaire">Bonaire</mat-option>
+          <mat-option value="Bosnia & Herzegovina">Bosnia & Herzegovina</mat-option>
+          <mat-option value="Botswana">Botswana</mat-option>
+          <mat-option value="Brazil">Brazil</mat-option>
+          <mat-option value="British Indian Ocean Ter">British Indian Ocean Ter</mat-option>
+          <mat-option value="Brunei">Brunei</mat-option>
+          <mat-option value="Bulgaria">Bulgaria</mat-option>
+          <mat-option value="Burkina Faso">Burkina Faso</mat-option>
+          <mat-option value="Burundi">Burundi</mat-option>
+          <mat-option value="Cambodia">Cambodia</mat-option>
+          <mat-option value="Cameroon">Cameroon</mat-option>
+          <mat-option value="Canada">Canada</mat-option>
+          <mat-option value="Canary Islands">Canary Islands</mat-option>
+          <mat-option value="Cape Verde">Cape Verde</mat-option>
+          <mat-option value="Cayman Islands">Cayman Islands</mat-option>
+          <mat-option value="Central African Republic">Central African Republic</mat-option>
+          <mat-option value="Chad">Chad</mat-option>
+          <mat-option value="Channel Islands">Channel Islands</mat-option>
+          <mat-option value="Chile">Chile</mat-option>
+          <mat-option value="China">China</mat-option>
+          <mat-option value="Christmas Island">Christmas Island</mat-option>
+          <mat-option value="Cocos Island">Cocos Island</mat-option>
+          <mat-option value="Colombia">Colombia</mat-option>
+          <mat-option value="Comoros">Comoros</mat-option>
+          <mat-option value="Congo">Congo</mat-option>
+          <mat-option value="Cook Islands">Cook Islands</mat-option>
+          <mat-option value="Costa Rica">Costa Rica</mat-option>
+          <mat-option value="Cote DIvoire">Cote DIvoire</mat-option>
+          <mat-option value="Croatia">Croatia</mat-option>
+          <mat-option value="Cuba">Cuba</mat-option>
+          <mat-option value="Curaco">Curacao</mat-option>
+          <mat-option value="Cyprus">Cyprus</mat-option>
+          <mat-option value="Czech Republic">Czech Republic</mat-option>
+          <mat-option value="Denmark">Denmark</mat-option>
+          <mat-option value="Djibouti">Djibouti</mat-option>
+          <mat-option value="Dominica">Dominica</mat-option>
+          <mat-option value="Dominican Republic">Dominican Republic</mat-option>
+          <mat-option value="East Timor">East Timor</mat-option>
+          <mat-option value="Ecuador">Ecuador</mat-option>
+          <mat-option value="Egypt">Egypt</mat-option>
+          <mat-option value="El Salvador">El Salvador</mat-option>
+          <mat-option value="Equatorial Guinea">Equatorial Guinea</mat-option>
+          <mat-option value="Eritrea">Eritrea</mat-option>
+          <mat-option value="Estonia">Estonia</mat-option>
+          <mat-option value="Ethiopia">Ethiopia</mat-option>
+          <mat-option value="Falkland Islands">Falkland Islands</mat-option>
+          <mat-option value="Faroe Islands">Faroe Islands</mat-option>
+          <mat-option value="Fiji">Fiji</mat-option>
+          <mat-option value="Finland">Finland</mat-option>
+          <mat-option value="France">France</mat-option>
+          <mat-option value="French Guiana">French Guiana</mat-option>
+          <mat-option value="French Polynesia">French Polynesia</mat-option>
+          <mat-option value="French Southern Ter">French Southern Ter</mat-option>
+          <mat-option value="Gabon">Gabon</mat-option>
+          <mat-option value="Gambia">Gambia</mat-option>
+          <mat-option value="Georgia">Georgia</mat-option>
+          <mat-option value="Germany">Germany</mat-option>
+          <mat-option value="Ghana">Ghana</mat-option>
+          <mat-option value="Gibraltar">Gibraltar</mat-option>
+          <mat-option value="Great Britain">Great Britain</mat-option>
+          <mat-option value="Greece">Greece</mat-option>
+          <mat-option value="Greenland">Greenland</mat-option>
+          <mat-option value="Grenada">Grenada</mat-option>
+          <mat-option value="Guadeloupe">Guadeloupe</mat-option>
+          <mat-option value="Guam">Guam</mat-option>
+          <mat-option value="Guatemala">Guatemala</mat-option>
+          <mat-option value="Guinea">Guinea</mat-option>
+          <mat-option value="Guyana">Guyana</mat-option>
+          <mat-option value="Haiti">Haiti</mat-option>
+          <mat-option value="Hawaii">Hawaii</mat-option>
+          <mat-option value="Honduras">Honduras</mat-option>
+          <mat-option value="Hong Kong">Hong Kong</mat-option>
+          <mat-option value="Hungary">Hungary</mat-option>
+          <mat-option value="Iceland">Iceland</mat-option>
+          <mat-option value="Indonesia">Indonesia</mat-option>
+          <mat-option value="India">India</mat-option>
+          <mat-option value="Iran">Iran</mat-option>
+          <mat-option value="Iraq">Iraq</mat-option>
+          <mat-option value="Ireland">Ireland</mat-option>
+          <mat-option value="Isle of Man">Isle of Man</mat-option>
+          <mat-option value="Israel">Israel</mat-option>
+          <mat-option value="Italy">Italy</mat-option>
+          <mat-option value="Jamaica">Jamaica</mat-option>
+          <mat-option value="Japan">Japan</mat-option>
+          <mat-option value="Jordan">Jordan</mat-option>
+          <mat-option value="Kazakhstan">Kazakhstan</mat-option>
+          <mat-option value="Kenya">Kenya</mat-option>
+          <mat-option value="Kiribati">Kiribati</mat-option>
+          <mat-option value="Korea North">Korea North</mat-option>
+          <mat-option value="Korea Sout">Korea South</mat-option>
+          <mat-option value="Kuwait">Kuwait</mat-option>
+          <mat-option value="Kyrgyzstan">Kyrgyzstan</mat-option>
+          <mat-option value="Laos">Laos</mat-option>
+          <mat-option value="Latvia">Latvia</mat-option>
+          <mat-option value="Lebanon">Lebanon</mat-option>
+          <mat-option value="Lesotho">Lesotho</mat-option>
+          <mat-option value="Liberia">Liberia</mat-option>
+          <mat-option value="Libya">Libya</mat-option>
+          <mat-option value="Liechtenstein">Liechtenstein</mat-option>
+          <mat-option value="Lithuania">Lithuania</mat-option>
+          <mat-option value="Luxembourg">Luxembourg</mat-option>
+          <mat-option value="Macau">Macau</mat-option>
+          <mat-option value="Macedonia">Macedonia</mat-option>
+          <mat-option value="Madagascar">Madagascar</mat-option>
+          <mat-option value="Malaysia">Malaysia</mat-option>
+          <mat-option value="Malawi">Malawi</mat-option>
+          <mat-option value="Maldives">Maldives</mat-option>
+          <mat-option value="Mali">Mali</mat-option>
+          <mat-option value="Malta">Malta</mat-option>
+          <mat-option value="Marshall Islands">Marshall Islands</mat-option>
+          <mat-option value="Martinique">Martinique</mat-option>
+          <mat-option value="Mauritania">Mauritania</mat-option>
+          <mat-option value="Mauritius">Mauritius</mat-option>
+          <mat-option value="Mayotte">Mayotte</mat-option>
+          <mat-option value="Mexico">Mexico</mat-option>
+          <mat-option value="Midway Islands">Midway Islands</mat-option>
+          <mat-option value="Moldova">Moldova</mat-option>
+          <mat-option value="Monaco">Monaco</mat-option>
+          <mat-option value="Mongolia">Mongolia</mat-option>
+          <mat-option value="Montserrat">Montserrat</mat-option>
+          <mat-option value="Morocco">Morocco</mat-option>
+          <mat-option value="Mozambique">Mozambique</mat-option>
+          <mat-option value="Myanmar">Myanmar</mat-option>
+          <mat-option value="Nambia">Nambia</mat-option>
+          <mat-option value="Nauru">Nauru</mat-option>
+          <mat-option value="Nepal">Nepal</mat-option>
+          <mat-option value="Netherland Antilles">Netherland Antilles</mat-option>
+          <mat-option value="Netherlands">Netherlands (Holland, Europe)</mat-option>
+          <mat-option value="Nevis">Nevis</mat-option>
+          <mat-option value="New Caledonia">New Caledonia</mat-option>
+          <mat-option value="New Zealand">New Zealand</mat-option>
+          <mat-option value="Nicaragua">Nicaragua</mat-option>
+          <mat-option value="Niger">Niger</mat-option>
+          <mat-option value="Nigeria">Nigeria</mat-option>
+          <mat-option value="Niue">Niue</mat-option>
+          <mat-option value="Norfolk Island">Norfolk Island</mat-option>
+          <mat-option value="Norway">Norway</mat-option>
+          <mat-option value="Oman">Oman</mat-option>
+          <mat-option value="Pakistan">Pakistan</mat-option>
+          <mat-option value="Palau Island">Palau Island</mat-option>
+          <mat-option value="Palestine">Palestine</mat-option>
+          <mat-option value="Panama">Panama</mat-option>
+          <mat-option value="Papua New Guinea">Papua New Guinea</mat-option>
+          <mat-option value="Paraguay">Paraguay</mat-option>
+          <mat-option value="Peru">Peru</mat-option>
+          <mat-option value="Phillipines">Philippines</mat-option>
+          <mat-option value="Pitcairn Island">Pitcairn Island</mat-option>
+          <mat-option value="Poland">Poland</mat-option>
+          <mat-option value="Portugal">Portugal</mat-option>
+          <mat-option value="Puerto Rico">Puerto Rico</mat-option>
+          <mat-option value="Qatar">Qatar</mat-option>
+          <mat-option value="Republic of Montenegro">Republic of Montenegro</mat-option>
+          <mat-option value="Republic of Serbia">Republic of Serbia</mat-option>
+          <mat-option value="Reunion">Reunion</mat-option>
+          <mat-option value="Romania">Romania</mat-option>
+          <mat-option value="Russia">Russia</mat-option>
+          <mat-option value="Rwanda">Rwanda</mat-option>
+          <mat-option value="St Barthelemy">St Barthelemy</mat-option>
+          <mat-option value="St Eustatius">St Eustatius</mat-option>
+          <mat-option value="St Helena">St Helena</mat-option>
+          <mat-option value="St Kitts-Nevis">St Kitts-Nevis</mat-option>
+          <mat-option value="St Lucia">St Lucia</mat-option>
+          <mat-option value="St Maarten">St Maarten</mat-option>
+          <mat-option value="St Pierre & Miquelon">St Pierre & Miquelon</mat-option>
+          <mat-option value="St Vincent & Grenadines">St Vincent & Grenadines</mat-option>
+          <mat-option value="Saipan">Saipan</mat-option>
+          <mat-option value="Samoa">Samoa</mat-option>
+          <mat-option value="Samoa American">Samoa American</mat-option>
+          <mat-option value="San Marino">San Marino</mat-option>
+          <mat-option value="Sao Tome & Principe">Sao Tome & Principe</mat-option>
+          <mat-option value="Saudi Arabia">Saudi Arabia</mat-option>
+          <mat-option value="Senegal">Senegal</mat-option>
+          <mat-option value="Seychelles">Seychelles</mat-option>
+          <mat-option value="Sierra Leone">Sierra Leone</mat-option>
+          <mat-option value="Singapore">Singapore</mat-option>
+          <mat-option value="Slovakia">Slovakia</mat-option>
+          <mat-option value="Slovenia">Slovenia</mat-option>
+          <mat-option value="Solomon Islands">Solomon Islands</mat-option>
+          <mat-option value="Somalia">Somalia</mat-option>
+          <mat-option value="South Africa">South Africa</mat-option>
+          <mat-option value="Spain">Spain</mat-option>
+          <mat-option value="Sri Lanka">Sri Lanka</mat-option>
+          <mat-option value="Sudan">Sudan</mat-option>
+          <mat-option value="Suriname">Suriname</mat-option>
+          <mat-option value="Swaziland">Swaziland</mat-option>
+          <mat-option value="Sweden">Sweden</mat-option>
+          <mat-option value="Switzerland">Switzerland</mat-option>
+          <mat-option value="Syria">Syria</mat-option>
+          <mat-option value="Tahiti">Tahiti</mat-option>
+          <mat-option value="Taiwan">Taiwan</mat-option>
+          <mat-option value="Tajikistan">Tajikistan</mat-option>
+          <mat-option value="Tanzania">Tanzania</mat-option>
+          <mat-option value="Thailand">Thailand</mat-option>
+          <mat-option value="Togo">Togo</mat-option>
+          <mat-option value="Tokelau">Tokelau</mat-option>
+          <mat-option value="Tonga">Tonga</mat-option>
+          <mat-option value="Trinidad & Tobago">Trinidad & Tobago</mat-option>
+          <mat-option value="Tunisia">Tunisia</mat-option>
+          <mat-option value="Turkey">Turkey</mat-option>
+          <mat-option value="Turkmenistan">Turkmenistan</mat-option>
+          <mat-option value="Turks & Caicos Is">Turks & Caicos Is</mat-option>
+          <mat-option value="Tuvalu">Tuvalu</mat-option>
+          <mat-option value="Uganda">Uganda</mat-option>
+          <mat-option value="United Kingdom">United Kingdom</mat-option>
+          <mat-option value="Ukraine">Ukraine</mat-option>
+          <mat-option value="United Arab Erimates">United Arab Emirates</mat-option>
+          <mat-option value="United States of America">United States of America</mat-option>
+          <mat-option value="Uraguay">Uruguay</mat-option>
+          <mat-option value="Uzbekistan">Uzbekistan</mat-option>
+          <mat-option value="Vanuatu">Vanuatu</mat-option>
+          <mat-option value="Vatican City State">Vatican City State</mat-option>
+          <mat-option value="Venezuela">Venezuela</mat-option>
+          <mat-option value="Vietnam">Vietnam</mat-option>
+          <mat-option value="Virgin Islands (Brit)">Virgin Islands (Brit)</mat-option>
+          <mat-option value="Virgin Islands (USA)">Virgin Islands (USA)</mat-option>
+          <mat-option value="Wake Island">Wake Island</mat-option>
+          <mat-option value="Wallis & Futana Is">Wallis & Futana Is</mat-option>
+          <mat-option value="Yemen">Yemen</mat-option>
+          <mat-option value="Zaire">Zaire</mat-option>
+          <mat-option value="Zambia">Zambia</mat-option>
+          <mat-option value="Zimbabwe">Zimbabwe</mat-option>
+        </mat-select>
         <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
           <div *ngIf="f.country.errors.required">Country is required</div>
         </div>
       </mat-form-field>
 
-      <mat-form-field class="input-full-width" appearance="fill">
+      <mat-form-field class="input-full-width">
         <mat-label for='dob'>Date of Birth</mat-label>
-        <input matInput placeholder="1990-01-01" type="date" formControlName="dob" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.dob.errors }" />
+        <input matInput placeholder="1990-01-01" type="date" formControlName="dob"
+          [ngClass]="{ 'is-invalid': submitted && f.dob.errors }" />
         <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
-            <div *ngIf="f.dob.errors.required">DOB is required</div>
+          <div *ngIf="f.dob.errors.required">DOB is required</div>
         </div>
       </mat-form-field>
 
-      <mat-form-field class="input-full-width" appearance="fill">
+      <mat-form-field class="input-full-width">
         <mat-label for='aboutMe'>About Me</mat-label>
-        <input matInput maxlength="256" placeholder="Ex. I enjoy...." type="text" formControlName="aboutMe" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.aboutMe.errors }" />
+        <input matInput maxlength="256" placeholder="Ex. I enjoy...." type="text" formControlName="aboutMe"
+           [ngClass]="{ 'is-invalid': submitted && f.aboutMe.errors }" />
         <div *ngIf="submitted && f.aboutMe.errors" class="invalid-feedback">
-            <div *ngIf="f.aboutMe.errors.required">About me is required</div>
+          <div *ngIf="f.aboutMe.errors.required">About me is required</div>
         </div>
       </mat-form-field>
       <button mat-raised-button fxFlexFill type="submit" class="mt-5" color="primary">Sign up!</button>
