@@ -10,6 +10,9 @@ import { Comment } from './interfaces/comment';
   providedIn: 'root'
 })
 export class PostService {
+  static getPosts(): any {
+    throw new Error('Method not implemented.');
+  }
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json'})

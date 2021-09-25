@@ -2,38 +2,38 @@
 July 2021 Arlington .NET / Nick Escalona
 
 - Angular single-page application
-    - proper use of Angular abstractions (component, service injection, data binding, & HttpClient)
-    - client-side validation
-    - error handling on requests to APIs
-    - deployed to Azure App Service
-    - supports deep links
+    - proper use of Angular abstractions (component, service injection, data binding, & HttpClient) - done
+    - client-side validation - done
+    - error handling on requests to APIs - done
+    - deployed to Azure App Service - done
+    - supports deep links - done
 - ASP.NET Core REST service
-    - follow standard HTTP uniform interface, except hypermedia
-    - good architecture
-    - deployed to Azure App Service
+    - follow standard HTTP uniform interface, except hypermedia - done
+    - good architecture - yes?
+    - deployed to Azure App Service - done
     - Entity Framework Core
-        - DB should be on the cloud
-        - all DB/network access should be async
-    - server-side validation
-    - support filtering or pagination on at least one resource
-    - logging
-    - implement hypermedia, or, implement an API Description Language, e.g. using Swashbuckle / Swagger
+        - DB should be on the cloud - done
+        - all DB/network access should be async - done
+    - server-side validation - yes
+    - support filtering or pagination on at least one resource - done
+    - logging - backend
+    - implement hypermedia, or, implement an API Description Language, e.g. using Swashbuckle / Swagger - done
     - (optional: implement a custom filter, health check, or middleware, e.g. exception-handling middleware)
 - Azure Pipelines
-    - CI pipelines
-        - Unit tests
-        - SonarCloud
-            - Code coverage at least 50% for API, at least 30% for Angular app
+    - CI pipelines - done
+        - Unit tests - in progress
+        - SonarCloud - in progress
+            - Code coverage at least 50% for API, at least 30% for Angular app 
             - Reliability/Security/Maintainability at A
     - (optional: deploy in release definition or separate job instead of in build job, and use health checks)
-- authentication and authorization with e.g. Auth0 or Okta
+- authentication and authorization with e.g. Auth0 or Okta - done
 - (optional: calls an external API, or integrates with some other service)
 - Scrum processes
-    - Project board to track user stories across team. (no requirements on how detailed)
-    - Standup at least two or three times a week
-- any other tech you want within reason
-- the data model (how many tables, what kind of complex relationship like N to N) must be at least as complicated as project 1.
-- the user interaction model (what are the user stories, what inputs/interactions can the user make) must be at least as complicated as project 1.
-- a project proposal
-    - MVP minimum viable product
+    - Project board to track user stories across team. (no requirements on how detailed) - done
+    - Standup at least two or three times a week - done
+- any other tech you want within reason - JWT
+- the data model (how many tables, what kind of complex relationship like N to N) must be at least as complicated as project 1. - done ER Diagram
+- the user interaction model (what are the user stories, what inputs/interactions can the user make) must be at least as complicated as project 1. - yes done
+- a project proposal - done
+    - MVP minimum viable product - done 
     - potentially stretch goals, extra features

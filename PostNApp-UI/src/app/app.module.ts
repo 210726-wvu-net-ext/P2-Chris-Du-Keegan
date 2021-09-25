@@ -35,6 +35,8 @@ import { AddCommentComponent } from './add-comment/add-comment.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { ManageFriendComponent } from './manage-friend/manage-friend.component';
 import { FilterPipe } from './search/filter/filter.pipe';
+import { DatePipe } from '@angular/common';
+import {MatSelectModule} from '@angular/material/select';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -86,10 +88,11 @@ export function tokenGetter() {
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatSelectModule
   ],
-  
-  providers: [],
+
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

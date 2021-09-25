@@ -3,8 +3,7 @@ import { Post } from '../interfaces/post';
 import { AuthService } from '../auth.service';
 import { PostService } from '../post.service';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-
+import { DatePipe, Location } from '@angular/common';
 
 
 
@@ -16,23 +15,25 @@ import { Location } from '@angular/common';
 export class PostsComponent implements OnInit {
   panelOpenState = false;
   addCommentOpenState = false;
-  
+
   @Input() post?: Post;
+
 
   commentCount = this.post?.comments.length;
 
   constructor(public authService: AuthService, private postService: PostService,
     private route: ActivatedRoute,
-    private location: Location) { }
+    private location: Location,) { }
 
   ngOnInit(): void {
+    //this.post?.created = new DatePipe('en-US').transform(this.post?.created, 'YYYY-MM-dd');
   }
 
   deletePost():void {
     const id = Number(this.post?.id);
 
     const postObserver ={
-      next: (x: any) => 
+      next: (x: any) =>
       {
         alert('Post deleted!');
       },
@@ -47,5 +48,5 @@ export class PostsComponent implements OnInit {
   reloadCurrentPage() {
     window.location.reload();
    }
- 
+
 }

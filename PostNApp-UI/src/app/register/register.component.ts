@@ -12,7 +12,7 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  
+
     errorMsg: string | undefined;
     form: FormGroup = new FormGroup({
 
@@ -27,11 +27,11 @@ export class RegisterComponent implements OnInit {
       dob: new FormControl(''),
       phoneNumber: new FormControl('')
     });
-    
+
     loading = false;
     submitted = false;
-  
-  
+
+
     users: User[] = [];
   constructor(
     private formBuilder: FormBuilder,
@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   ngOnInit(){
-      
+
       this.form = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -65,7 +65,7 @@ export class RegisterComponent implements OnInit {
       if (this.form.invalid) {
           return;
       }
-      
+
       this.loading = true;
       //this.id = this.route.snapshot.params['id'];
       this.userService.addUser(this.form.value)
@@ -75,7 +75,7 @@ export class RegisterComponent implements OnInit {
             this.router.navigate(['../login'], {relativeTo: this.route});
             alert("Register successfully!");
           },
-          error => { 
+          error => {
             this.loading = false;
             alert(error);
           }
