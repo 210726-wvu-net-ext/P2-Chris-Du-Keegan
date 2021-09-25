@@ -49,10 +49,10 @@ namespace PostN.WebApi
                         ValidateLifetime = true, // the token hasn't expired
                         ValidateIssuerSigningKey = true, // the signing key is valid and trusted by the server
 
-                        /*ValidIssuer = "https://localhost:44365",
-                        ValidAudience = "https://localhost:4200",*/
-                        ValidIssuer = "https://postn.azurewebsites.net",
-                        ValidAudience = "https://postnapp-ui.azurewebsites.net",
+                        ValidIssuer = "https://localhost:44365",
+                        ValidAudience = "https://localhost:4200",
+                        /*ValidIssuer = "https://postn.azurewebsites.net",
+                        ValidAudience = "https://postnapp-ui.azurewebsites.net",*/
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("secretSupersupes#345"))
                     };
                 });
