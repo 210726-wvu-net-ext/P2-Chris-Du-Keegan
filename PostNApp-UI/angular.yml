@@ -1,0 +1,60 @@
+trigger:
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - PostNApp-UI
+
+pr:
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - PostNApp-UI
+
+variables:
+  appDir: PostNApp-UI
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: NodeTool@0
+  displayName: node 14
+  inputs:
+    versionSpec: '14.x'
+
+- script: npm ci
+  displayName: npm install
+  workingDirectory: $(appDir)
+
+- script: npx ng build
+  displayName: ng build
+  workingDirectory: $(appDir)
+
+- script: npx ng test --browsers ChromeHeadless --watch false --code-coverage || true
+  displayName: ng test
+  workingDirectory: $(appDir)
+
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'SonarCloudP2'
+    organization: '210726-wvu-net-ext'
+    scannerMode: 'CLI'
+    configMode: 'manual'
+    cliProjectKey: 'P2-PostN-Angular'
+    cliProjectName: 'P2-PostN-Angular'
+    cliSources: '$(appDir)/src'
+    extraProperties: |
+      sonar.javascript.lcov.reportPaths=$(appDir)/coverage/$(appDir)/lcov.info
+      sonar.coverage.exclusions=**/*.spec.ts
+
+- task: SonarCloudAnalyze@1
+  displayName: sonar run analysis
+
+- task: SonarCloudPublish@1
+  displayName: sonar publish analysis result
+  inputs:
+    pollingTimeoutSec: '300'

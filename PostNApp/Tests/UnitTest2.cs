@@ -20,7 +20,7 @@ namespace Tests
 
         public UnitTest2()
         {
-            options = new DbContextOptionsBuilder<CMKWDTP2Context>().UseSqlite("Filename=Test.db").Options;
+            options = new DbContextOptionsBuilder<CMKWDTP2Context>().UseSqlite("Filename=Test2.db").Options;
             Seed();
         }
         [Fact]
@@ -31,7 +31,7 @@ namespace Tests
                 IUserRepo _repo = new UserRepo(testcontext1);
         
                 bool result = _repo.UniqueUsername("dTran");
-                Assert.True(result, "expect to be false");
+                Assert.True(result, "expect to be true");
             }
         
         }
@@ -90,7 +90,7 @@ namespace Tests
                     {
                         Id = 3,
                         FirstName = "Du",
-                        LastName = "Traun",
+                        LastName = "Tran",
                         Email = "dTran@gmail.com",
                         Username = "dTran",
                         Password = "password",
