@@ -44,18 +44,6 @@ steps:
     organization: '210726-wvu-net-ext'
     scannerMode: 'CLI'
     configMode: 'manual'
-    cliProjectKey: '210726-wvu-net-ext_nick-project2_email-app-ui'
-    cliSources: '$(appDir)/src'
-    extraProperties: |
-      sonar.javascript.lcov.reportPaths=$(appDir)/coverage/$(appDir)/lcov.info
-      sonar.coverage.exclusions=**/*.spec.ts
-      
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'SonarCloudP2'
-    organization: '210726-wvu-net-ext'
-    scannerMode: 'CLI'
-    configMode: 'manual'
     cliProjectKey: 'P2-PostN-Backend'
     cliProjectName: 'P2-PostN-Backend'
     cliSources: '$(appDir)/src'
