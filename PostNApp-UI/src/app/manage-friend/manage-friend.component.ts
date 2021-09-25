@@ -21,9 +21,9 @@ export class ManageFriendComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkFollower();
-    this.route.params.subscribe(routeParams => {
-      this.checkFollower();
-    });
+    // this.route.params.subscribe(routeParams => {
+    //   this.checkFollower();
+    // });
   }
 
   checkFollower() {
