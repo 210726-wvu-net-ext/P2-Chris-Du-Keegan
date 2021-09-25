@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 
 
 import { UserCardComponent } from './user-card.component';
+import { AuthService } from '../auth.service';
 
 describe('UserCardComponent', () => {
   let component: UserCardComponent;
@@ -21,8 +22,8 @@ describe('UserCardComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ UserCardComponent ],
       providers: [
-        {provide: UserService, ActivatedRoute, useClass: fakeUserService},
-        Router, 
+        {provide: UserService, useClass: fakeUserService}, 
+        {provide: AuthService, useClass: fakeAuth}
       ],
       imports: [HttpClientModule]
     })
@@ -40,7 +41,8 @@ describe('UserCardComponent', () => {
   });
 });
 class fakeUserService{
-  getUsers(): Observable<User[]>{
-    return of([]);
-  }
+
+}
+class fakeAuth{
+
 }

@@ -12,7 +12,7 @@ describe('SearchComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ SearchComponent ], 
-      providers: [HttpClient, HttpHandler, Router]
+      providers: [HttpClient, HttpHandler, Router, Function()]
     })
     .compileComponents();
   });
