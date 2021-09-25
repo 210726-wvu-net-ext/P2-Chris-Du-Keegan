@@ -1,5 +1,5 @@
 trigger:
-- Develop
+- main
 
 pr:
   branches:
@@ -14,7 +14,6 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   postNAppDirectory: './PostNApp'
-  postNAppUIDirectory: './PostNApp-UI'
 
 stages:
 - stage: Build
