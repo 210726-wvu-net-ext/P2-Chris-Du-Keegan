@@ -35,6 +35,8 @@ stages:
         scannerMode: 'MSBuild'
         projectKey: 'P2-PostN-Backend'
         projectName: 'P2-PostN-Backend'
+        extraProperties: |
+          sonar.cs.opencover.reportsPaths=$(Agent.TempDirectory)/*/coverage.opencover.xml
     - task: VSBuild@1
       inputs:
         solution: '$(solution)'
