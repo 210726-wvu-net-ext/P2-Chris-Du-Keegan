@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Entity = PostN.DataAccess.Entities;
 
 using Xunit;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Tests
 {
@@ -20,7 +21,7 @@ namespace Tests
 
         public RepoTest()
         {
-            options = new DbContextOptionsBuilder<CMKWDTP2Context>().UseSqlite("Filename=Test0.db").Options;
+            options = new DbContextOptionsBuilder<CMKWDTP2Context>().UseSqlite("Filename=Test2.db").Options;
             Seed();
         }
        
@@ -74,10 +75,30 @@ namespace Tests
             }
         }
 
+        [Fact]
+        public async void LoginShouldReturnUser()
+        {
+            //Given
+            using (var testcontext = new CMKWDTP2Context(options))
+            {
+                IUserRepo _repo = new UserRepo(testcontext);
+
+                //Act
+                var testUserCred = new PostN.Domain.User { Username = "kwedwick", Password = "password" };
+                var loggedInUser = await _repo.UserLoginAsync(testUserCred);
+
+
+                Assert.NotNull(loggedInUser);
+                Assert.Equal("kwedwick", loggedInUser.Username);
+                Assert.Equal(1, loggedInUser.Id);
+                Assert.Null(loggedInUser.Password);
+            }
+        }
+
 
         private void Seed()
         {
-            using (var context = new Entity.CMKWDTP2Context(options))
+            using (var context = new CMKWDTP2Context(options))
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
@@ -95,7 +116,7 @@ namespace Tests
                         Country = "USA",
                         Role = "Administrator",
                         PhoneNumber = "608-479-1147",
-                        DoB = System.DateTime.Today
+                        DoB = DateTime.Today
                     }
                     ,
                     new Entity.User
@@ -111,7 +132,7 @@ namespace Tests
                         Country = "USA",
                         Role = "Administrator",
                         PhoneNumber = "123-456-1234",
-                        DoB = System.DateTime.Today
+                        DoB = DateTime.Today
                     },
                     new Entity.User
                     {
@@ -126,7 +147,7 @@ namespace Tests
                         Country = "USA",
                         Role = "Administrator",
                         PhoneNumber = "789-123-1111",
-                        DoB = System.DateTime.Today
+                        DoB = DateTime.Today
 
                     },
                     new Entity.User
@@ -142,7 +163,7 @@ namespace Tests
                         Country = "USA",
                         Role = "User",
                         PhoneNumber = "399-555-1928",
-                        DoB = System.DateTime.Today
+                        DoB = DateTime.Today
 
                     }
                 );
