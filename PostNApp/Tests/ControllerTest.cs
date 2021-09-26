@@ -42,7 +42,7 @@ namespace Tests
         
         }*/
 
-        [Fact]
+        /*[Fact]
         public void ProveThatPostControllerIsCalled()
         {
             var logger = new Mock<ILogger<PostController>>();
@@ -57,7 +57,7 @@ namespace Tests
             Assert.Equal(viewResult, result.Result);
         
         }
-
+*/
         [Fact]
         public async Task CreatePost_ReturnsNewPost()
         {
