@@ -20,7 +20,7 @@ namespace Tests
 
         public UnitTest2()
         {
-            options = new DbContextOptionsBuilder<CMKWDTP2Context>().UseSqlite("Filename=Test2.db").Options;
+            options = new DbContextOptionsBuilder<CMKWDTP2Context>().UseSqlite("Filename=Test3.db").Options;
             Seed();
         }
         [Fact]

@@ -16,15 +16,15 @@ using PostN.WebApi.Models;
 
 namespace Tests
 {
-    public class ControllerTest
+    public class PostControllerTest
     {
         private readonly DbContextOptions<CMKWDTP2Context> options;
 
-        public ControllerTest()
+        public PostControllerTest()
         {
-            options = new DbContextOptionsBuilder<CMKWDTP2Context>().UseSqlite("Filename=Test4.db").Options;
+            options = new DbContextOptionsBuilder<CMKWDTP2Context>().UseSqlite("Filename=Test1.db").Options;
             Seed();
-        
+
         }
         /*[Fact]
         public void ProveThatUserControllerIsCalled()
@@ -59,7 +59,7 @@ namespace Tests
         }
 */
         [Fact]
-        public async Task CreatePost_ReturnsNewPost()
+        public async void CreatePost_ReturnsNewPost()
         {
             // Arrange
             var logger = new Mock<ILogger<PostController>>();
@@ -78,17 +78,25 @@ namespace Tests
             var controller = new PostController(mockRepo.Object, logger.Object);
             var model = new CreatedPost { UserId = post.UserId, Image = post.Image, Title = post.Title, Body = post.Body, Username = post.Username };
 
+            /*// Act
+            var result = await controller.Post(model);
+            var jsonResult = (OkObjectResult)result.Result;
+
+
+            // Assert
+            //int Id = result.Id;
+            Assert.Equal(post, jsonResult.Value);*/
             // Act
             Task<ActionResult<Post>> result = controller.Post(model);
-            
+
 
             // Assert
             //int Id = result.Id;
             Assert.Equal(result.Id, post.Id);
         }
 
-       /* [Fact]
-        public async Task GetAllProductsAsync_ShouldReturnAllProducts()
+        [Fact]
+        public async void GetAllProductsAsync_ShouldReturnAllProducts()
         {
             var logger = new Mock<ILogger<PostController>>();
             var mockRepo = new Mock<IPostRepo>();
@@ -100,39 +108,12 @@ namespace Tests
                 var controller = new PostController(mockRepo.Object, logger.Object);
 
 
-                Task<ActionResult<Post>> result = controller.Get();
+                var result = await controller.Get();
+                var jsonResult = (ObjectResult)result.Result;
 
-                Assert.Equal(testPost.Result, (IEnumerable<Post>)result);
-
-
+                Assert.Equal(testPost.Result, (IEnumerable<Post>)jsonResult.Value);
             }
-            
-        }*/
-
-        /*[Fact]
-        public async Task GetAllProductsAsync_ShouldReturnAllProducts2()
-        {
-            // arrange
-            var logger = new Mock<ILogger<PostController>>();
-            var mockRepo = new Mock<IPostRepo>();
-            using (var testcontext = new CMKWDTP2Context(options))
-            {
-                IPostRepo _repo = new PostRepo(testcontext);
-                var controller = new PostController(mockRepo.Object, logger.Object);
-                var testPost = _repo.GetAllPosts();
-
-                // act
-                Task<ActionResult<Post>> result = controller.Get();
-                //var okResult = Assert.IsType<Task<Post>>(result);
-
-                // assert
-                Assert.NotNull(result);
-                Assert.Equal(testPost.Result, (IEnumerable<Post>)result.Result.Result);
-
-            }
-                
-
-        }*/
+        }
 
         /* [Fact]
          public void ProveThatPostControllerIsCalled()
@@ -336,6 +317,6 @@ namespace Tests
     }
 
 
-        
+
 }
 
