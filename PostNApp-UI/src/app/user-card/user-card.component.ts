@@ -12,7 +12,7 @@ export class UserCardComponent implements OnInit {
 
   @Input() user?: User;
   
-  constructor(private userService: UserService, private route: ActivatedRoute, private authServiceService: AuthService) { }
+  constructor(private userService: UserService, private authServiceService: AuthService) { }
 
   ngOnInit(): void {
     //this.getUser();
