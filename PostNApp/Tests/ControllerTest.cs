@@ -87,7 +87,7 @@ namespace Tests
             Assert.Equal(result.Id, post.Id);
         }
 
-        [Fact]
+        /*[Fact]
         public async Task GetAllProductsAsync_ShouldReturnAllProducts()
         {
             var logger = new Mock<ILogger<PostController>>();
@@ -107,7 +107,7 @@ namespace Tests
 
             }
             
-        }
+        }*/
 
         /*[Fact]
         public async Task GetAllProductsAsync_ShouldReturnAllProducts2()
