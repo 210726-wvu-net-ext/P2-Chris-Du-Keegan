@@ -10,7 +10,6 @@ Deployed Website [here](https://postnapp-ui.azurewebsites.net/login)
 ## Table of Contents 
 * [Installation](#Installation) 
 * [Technologies](#Technologies)
-* [ER Diagram](#ER Diagram)
 * [License](#License) 
 * [Test](#Test) 
 
