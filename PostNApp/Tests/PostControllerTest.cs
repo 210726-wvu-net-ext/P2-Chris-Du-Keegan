@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Entity = PostN.DataAccess.Entities;
 using System.Collections.Generic;
 using Post = PostN.Domain.Post;
+using Comment = PostN.Domain.Comment;
 using PostN.WebApi.Models;
 
 namespace Tests
@@ -81,8 +82,6 @@ namespace Tests
             /*// Act
             var result = await controller.Post(model);
             var jsonResult = (OkObjectResult)result.Result;
-
-
             // Assert
             //int Id = result.Id;
             Assert.Equal(post, jsonResult.Value);*/
@@ -94,6 +93,69 @@ namespace Tests
             //int Id = result.Id;
             Assert.Equal(result.Id, post.Id);
         }
+        /*[Fact]
+        public async void CreatePost_ReturnsNewPost2()
+        {
+            // Arrange
+            Seed();
+            var post = new Post
+            {
+                UserId = 1,
+                Image = null,
+                Created = DateTime.Now,
+                Title = "Mock Title",
+                Body = "Mock Body",
+                Username = "kwedwick"
+            };
+            var logger = new Mock<ILogger<PostController>>();
+            var mockRepo = new Mock<IPostRepo>();
+            using (var testcontext = new CMKWDTP2Context(options))
+            {
+                IPostRepo _repo = new PostRepo(testcontext);
+                var testPost = _repo.CreatePost(post);
+                mockRepo.Setup(repo => repo.CreatePost(post)).ReturnsAsync(post);
+                var controller = new PostController(mockRepo.Object, logger.Object);
+                var model = new CreatedPost { UserId = post.UserId, Image = post.Image, Title = post.Title, Body = post.Body, Username = post.Username };
+
+
+                var result = await controller.Post(model);
+                var jsonResult = (ObjectResult)result.Result;
+
+                Assert.Equal(testPost.Result, result);
+            }
+        }*/
+        /*[Fact]
+        public async void CreateComment_ReturnsNewComment()
+        {
+            // Arrange
+            var comment = new Comment
+            {
+
+                UserId = 2,
+                Username = "cmesidor",
+                PostId = 3,
+                Created = DateTime.Now,
+                CommentBody = "new created comment"
+            };
+            var logger = new Mock<ILogger<PostController>>();
+            var mockRepo = new Mock<IPostRepo>();
+            using (var testcontext = new CMKWDTP2Context(options))
+            {
+                IPostRepo _repo = new PostRepo(testcontext);
+                var testComment = _repo.CreateCommentByPostId(3, comment);
+                mockRepo.Setup(repo => repo.CreateCommentByPostId(3, comment)).Returns(testComment);
+                var controller = new PostController(mockRepo.Object, logger.Object);
+                var model = new CreatedComment { UserId = comment.UserId, PostId = comment.PostId, Username = comment.Username, CommentBody = comment.CommentBody };
+
+
+                var result = await controller.Post(3, model);
+                var jsonResult = (ObjectResult)result.Result;
+
+                Assert.Equal(testComment.Result, jsonResult.Value);
+            }
+        }*/
+
+
 
         [Fact]
         public async void GetAllProductsAsync_ShouldReturnAllProducts()
@@ -135,7 +197,104 @@ namespace Tests
                  //int i = repoResult.Result.Count;
                  Assert.Equal(repoResult.Result.Count, result);
 
-             }*/
+          }*/
+
+        [Fact]
+        public async void GetPostByID_ShouldReturnPostById()
+        {
+
+            var logger = new Mock<ILogger<PostController>>();
+            var mockRepo = new Mock<IPostRepo>();
+            using (var testcontext = new CMKWDTP2Context(options))
+            {
+                IPostRepo _repo = new PostRepo(testcontext);
+                var testPost = _repo.GetPostById(1);
+                mockRepo.Setup(repo => repo.GetPostById(1)).Returns(testPost);
+                var controller = new PostController(mockRepo.Object, logger.Object);
+
+
+                var result = await controller.Get(1);
+                var jsonResult = (ObjectResult)result.Result;
+
+                Assert.Equal(testPost.Result, jsonResult.Value);
+            }
+        }
+
+        /*[Fact]
+        public async void UpdatePost_ShouldUpdatePost()
+        {
+            // Arrange
+            var logger = new Mock<ILogger<PostController>>();
+            var mockRepo = new Mock<IPostRepo>();
+            using (var testcontext = new CMKWDTP2Context(options))
+            {
+                Post p = new Post()
+                {
+                    Title = "Updatd Title",
+                    Body = "Updated Body",
+                    Image = null
+                };
+
+                IPostRepo _repo = new PostRepo(testcontext);
+                var updatedRepoPost = _repo.UpdatePostById(3, p);
+                mockRepo.Setup(repo => repo.UpdatePostById(3, p)).Returns(updatedRepoPost);
+                var controller = new PostController(mockRepo.Object, logger.Object);
+
+                // Act
+                var result = await controller.Put(3, p);
+                var jsonResult = (OkObjectResult)result.Result;
+
+                // Assert
+                var updatedPost = Assert.IsType<Post>(jsonResult);
+                Assert.Equal(3, updatedPost.Id);
+                Assert.Equal("Updatd Title", updatedPost.Title);
+                Assert.Equal("Updated Body", updatedPost.Body);
+            }
+        }*/
+
+        [Fact]
+        public async void GetPostByID_ShouldReturnNotFound()
+        {
+            // Arrange
+            int ID = 5;
+            var logger = new Mock<ILogger<PostController>>();
+            var mockRepo = new Mock<IPostRepo>();
+            using (var testcontext = new CMKWDTP2Context(options))
+            {
+                IPostRepo _repo = new PostRepo(testcontext);
+                var testPost = _repo.GetPostById(ID);
+                mockRepo.Setup(repo => repo.GetPostById(ID));
+                var controller = new PostController(mockRepo.Object, logger.Object);
+
+                // Act
+                var result = await controller.Get(5);
+
+                // Assert
+                var actionResult = Assert.IsType<ActionResult<Post>>(result);
+                Assert.IsType<NotFoundResult>(actionResult.Result);
+            }
+        }
+
+        [Fact]
+        public async void DeletePostByID_ShouldDeletePostById()
+        {
+
+            var logger = new Mock<ILogger<PostController>>();
+            var mockRepo = new Mock<IPostRepo>();
+            using (var testcontext = new CMKWDTP2Context(options))
+            {
+                IPostRepo _repo = new PostRepo(testcontext);
+                var testPost = _repo.DeletePostByIdAsync(1);
+                mockRepo.Setup(repo => repo.DeletePostByIdAsync(1)).ReturnsAsync(true);
+                var controller = new PostController(mockRepo.Object, logger.Object);
+
+
+                var result = await controller.Delete(1);
+                var jsonResult = (NoContentResult)result;
+
+                Assert.Equal(204, jsonResult.StatusCode);
+            }
+        }
 
         private void Seed()
         {
@@ -217,7 +376,8 @@ namespace Tests
                         UserId = 1,
                         Created = DateTime.Now,
                         Title = "Keegan first title",
-                        Body = "This is Keegan''s post body!"
+                        Body = "This is Keegan''s post body!",
+                        Image = null,
                     },
                     new Entity.Post
                     {
@@ -225,7 +385,8 @@ namespace Tests
                         UserId = 2,
                         Created = DateTime.Now,
                         Title = "Chris first title",
-                        Body = "This is Chris''s post body!"
+                        Body = "This is Chris''s post body!",
+                        Image = null,
                     },
                     new Entity.Post
                     {
@@ -233,7 +394,8 @@ namespace Tests
                         UserId = 3,
                         Created = DateTime.Now,
                         Title = "Du first title",
-                        Body = "This is Du''s post body!"
+                        Body = "This is Du''s post body!",
+                        Image = null,
                     },
                     new Entity.Post
                     {
@@ -241,7 +403,8 @@ namespace Tests
                         UserId = 4,
                         Created = DateTime.Now,
                         Title = "Elizabeth first title",
-                        Body = "This is Elizabeth''s post body!"
+                        Body = "This is Elizabeth''s post body!",
+                        Image = null,
                     }
                 ); ;
 

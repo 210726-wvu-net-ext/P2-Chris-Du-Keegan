@@ -160,7 +160,7 @@ namespace PostN.DataAccess
             } catch (Exception e)
             {
                 Console.WriteLine(e);
-                return Task.FromResult(new Domain.Post());
+                return null;
             }
             
 
@@ -204,8 +204,7 @@ namespace PostN.DataAccess
 
                 return updatedPost;
             }
-
-            return new Domain.Post();
+            return null;
         }
     }
 }
