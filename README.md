@@ -10,6 +10,7 @@ Deployed Website [here](https://postnapp-ui.azurewebsites.net/login)
 ## Table of Contents 
 * [Installation](#Installation) 
 * [Technologies](#Technologies)
+* [ER Diagram](#ER Diagram)
 * [License](#License) 
 * [Test](#Test) 
 
@@ -23,13 +24,14 @@ You'll need .NET5, Node.JS, and Entity Framework on a local SQL database. Please
 
 - C#
 - Asp.Net Core 5
+- Entity Framework
 - Angular
-- Azure DB, Webservies, Dev Ops
+- Azure DB, Web servies, Dev Ops
 - Json Web Token
-- Bootstrap
+- Bootstrap / Angular Material UI
 
 ## ER Diagram
-![P1 Tables](./assets/P2-ER-Diagram.png)
+![P2 Tables](./assets/P2-ER-Diagram.png)
 
 ![GitHub license](https://img.shields.io/badge/license-mit-blue.svg)
 
