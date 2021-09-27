@@ -46,7 +46,6 @@ This application uses Unix Testing for the backend. Simply navigate to the Tests
 
 ## Questions
 The author of this project is Keegan Wedwick, Du Tran, and Chris  You can reach us via [email](mailto:kwedwick@gmail.com).
-To see more projects from these authors, visit their GitHub: [Chris](https://github.com/chrism005), [Du](https://github.com/@dudutran
-dudutran), [Keegan](https://github.com/kwedwick),
+To see more projects from these authors, visit their GitHub: [Chris](https://github.com/chrism005), [Du](https://github.com/dudutran), [Keegan](https://github.com/kwedwick),
     
    
