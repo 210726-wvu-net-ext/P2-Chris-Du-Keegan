@@ -16,9 +16,9 @@ export class UserService {
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
-  
+
   private usersUrl = `${baseUrl}users`;
- 
+
   constructor(
     private http: HttpClient,
     private router: Router
@@ -41,7 +41,7 @@ export class UserService {
               //tap(_ => this.log(`fetched user id=${id}`)),
               catchError(this.handleError<User>(`getUser id={id}`))
             );
-    
+
   }
 
   /** POST: add a new user to the server */
@@ -50,9 +50,9 @@ export class UserService {
       //tap((newUser: User) => this.log(`added hero w/ id=${newUser.id}`)),
       catchError(this.handleError1));
   }
-  
+
   handleError1(error: HttpErrorResponse){
-    
+
    return throwError(error.error);
   }
 
@@ -66,14 +66,14 @@ export class UserService {
   }
 
   /** DELETE: delete the user from the server */
-deleteUser(id: number): Observable<User> {
-  const url = `${this.usersUrl}/${id}`;
+  deleteUser(id: number): Observable<User> {
+    const url = `${this.usersUrl}/${id}`;
 
-  return this.http.delete<User>(url, this.httpOptions).pipe(
-    //tap(_ => this.log(`deleted user id=${id}`)),
-    catchError(this.handleError<User>('deleteUser'))
-  );
-}
+    return this.http.delete<User>(url, this.httpOptions).pipe(
+      //tap(_ => this.log(`deleted user id=${id}`)),
+      catchError(this.handleError<User>('deleteUser'))
+    );
+  }
 
     /**
    * Handle Http operation that failed.
@@ -96,6 +96,6 @@ deleteUser(id: number): Observable<User> {
     };
   }
 
-  
+
 }
 

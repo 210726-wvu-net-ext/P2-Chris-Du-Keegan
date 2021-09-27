@@ -81,7 +81,7 @@ namespace PostN.WebApi
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowNgServe", policy =>
-                    policy.WithOrigins("http://localhost:4200", "https://postn-ui.azurewebsites.net", "https://postnapp-ui.azurewebsites.net")
+                    policy.WithOrigins("http://localhost:4200", "https://postnapp-ui.azurewebsites.net", "https://postn-ui.azurewebsites.net")
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials());

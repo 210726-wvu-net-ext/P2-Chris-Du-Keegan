@@ -33,7 +33,7 @@ export class UserDetailComponent implements OnInit {
       .subscribe(user => this.user = user);
   }
 
- 
+
   save(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     if (this.user && id) {
@@ -44,10 +44,6 @@ export class UserDetailComponent implements OnInit {
 
   delete(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-   
-    //this.user = this.user.filter(u => u !== user);
     this.userService.deleteUser(id).subscribe(() => this.goBack());
   }
-
-  
 }
